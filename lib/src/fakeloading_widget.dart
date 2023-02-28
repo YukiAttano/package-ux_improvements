@@ -38,6 +38,7 @@ class _FakeloadingWidgetState extends State<FakeloadingWidget> {
     return Visibility(
       maintainState: widget.maintainState,
       maintainSize: widget.maintainState,
+      maintainAnimation: widget.maintainState,
       replacement: widget.replacement,
       visible: !_isLoading && _isLoading == widget.loading,
       //only show child if loading animation has ended and widget.loading is also false
