@@ -58,7 +58,7 @@ class _ImplicitAnimatedIconState extends State<ImplicitAnimatedIcon> with Ticker
     _animationController = AnimationController(
       duration: widget.duration,
       vsync: this,
-      value: widget.isStarted ? 0 : 1,
+      value: widget.isStarted ? 1 : 0,
     );
   }
 
