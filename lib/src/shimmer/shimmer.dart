@@ -1,122 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:ux_improvements/src/shimmer/styles/shimmer_style.dart';
+import 'shimmer_area.dart';
 
-
+/// A synchronized shimmer child on the screen.
+/// Needs a [ShimmerArea] to be placed in the tree
 class Shimmer extends StatefulWidget {
-  static ShimmerState? of(BuildContext context) {
-    return context.findAncestorStateOfType<ShimmerState>();
-  }
-
-  final LinearGradient linearGradient;
   final Widget child;
 
-  const Shimmer({
-    super.key,
-    this.linearGradient = silverShimmerGradient,
-    Widget? child,
-  }) : child = child ?? const SizedBox.shrink();
+  const Shimmer({super.key, required this.child});
 
-  Shimmer.fromColors({
-    Key? key,
-    required Color backgroundColor,
-    required Color shimmerColor,
-    Widget? child,
-  }) : this(
-    key: key,
-    child: child,
-    linearGradient: LinearGradient(
-      colors: [backgroundColor, shimmerColor, backgroundColor],
-      stops: silverShimmerGradient.stops,
-      begin: silverShimmerGradient.begin,
-      end: silverShimmerGradient.end,
-      tileMode: silverShimmerGradient.tileMode,
-    ),
-  );
+  @override
+  State<Shimmer> createState() => _ShimmerState();
+}
 
-  factory Shimmer.fromTheme({
-    Key? key,
-    ShimmerStyle? style,
-    required BuildContext context,
-    Widget? child,
-  }) {
-    ShimmerStyle defaultStyle = ShimmerStyle.defaultStyle(context);
-    defaultStyle = defaultStyle.merge(Theme.of(context).extension<ShimmerStyle>());
-    defaultStyle = defaultStyle.merge(style);
+class _ShimmerState extends State<Shimmer> {
 
-    return Shimmer.fromColors(
-      key: key,
-      backgroundColor: defaultStyle.backgroundColor!,
-      shimmerColor: defaultStyle.shimmerColor!,
-      child: child,
+  Listenable? _shimmerChanges;
+
+  @override
+  Widget build(BuildContext context) {
+    ShimmerAreaState shimmer = ShimmerArea.of(context)!;
+    if (!shimmer.isSized) {
+      // The ancestor Shimmer widget isn’t laid
+      // out yet. Return an empty box.
+      return const SizedBox();
+    }
+    Size shimmerSize = shimmer.size;
+    Gradient gradient = shimmer.gradient;
+    Offset offsetWithinShimmer = shimmer.getDescendantOffset(
+      descendant: context.findRenderObject()! as RenderBox,
+    );
+
+    return ShaderMask(
+      blendMode: BlendMode.srcATop,
+      shaderCallback: (bounds) {
+        return gradient.createShader(
+          Rect.fromLTWH(
+            -offsetWithinShimmer.dx,
+            -offsetWithinShimmer.dy,
+            shimmerSize.width,
+            shimmerSize.height,
+          ),
+        );
+      },
+      child: widget.child,
     );
   }
 
-  static const silverShimmerGradient = LinearGradient(
-    colors: [Color(0xFFEBEBF4), Color(0xFFF4F4F4), Color(0xFFEBEBF4)],
-    stops: [0.1, 0.3, 0.4],
-    begin: Alignment(-1, -0.3),
-    end: Alignment(1, 0.3),
-    // ignore: avoid_redundant_argument_types
-    tileMode: TileMode.clamp,
-  );
-
   @override
-  ShimmerState createState() => ShimmerState();
-}
-
-class ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
-  late final AnimationController _shimmerController;
-
-  Listenable get shimmerChanges => _shimmerController;
-
-  LinearGradient get gradient => LinearGradient(
-    colors: widget.linearGradient.colors,
-    stops: widget.linearGradient.stops,
-    begin: widget.linearGradient.begin,
-    end: widget.linearGradient.end,
-    transform: _SlidingGradientTransform(slidePercent: _shimmerController.value),
-  );
-
-  bool get isSized => (context.findRenderObject() as RenderBox?)?.hasSize ?? false;
-
-  Size get size => (context.findRenderObject()! as RenderBox).size;
-
-  Offset getDescendantOffset({
-    required RenderBox descendant,
-    Offset offset = Offset.zero,
-  }) {
-    RenderBox shimmerBox = context.findRenderObject()! as RenderBox;
-    return descendant.localToGlobal(offset, ancestor: shimmerBox);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    _shimmerController = AnimationController.unbounded(vsync: this)..repeat(min: -0.5, max: 1.5, period: const Duration(milliseconds: 1000));
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_shimmerChanges != null) {
+      _shimmerChanges!.removeListener(_onShimmerChange);
+    }
+    _shimmerChanges = ShimmerArea.of(context)?.shimmerChanges;
+    if (_shimmerChanges != null) {
+      _shimmerChanges!.addListener(_onShimmerChange);
+    }
   }
 
   @override
   void dispose() {
-    _shimmerController.dispose();
+    _shimmerChanges?.removeListener(_onShimmerChange);
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return widget.child;
+  void _onShimmerChange() {
+    setState(() {
+      // update the shimmer painting.
+    });
   }
+
 }
 
-class _SlidingGradientTransform extends GradientTransform {
-  const _SlidingGradientTransform({
-    required this.slidePercent,
-  });
-
-  final double slidePercent;
-
-  @override
-  Matrix4? transform(Rect bounds, {TextDirection? textDirection}) {
-    return Matrix4.translationValues(bounds.width * slidePercent, 0, 0);
-  }
-}
