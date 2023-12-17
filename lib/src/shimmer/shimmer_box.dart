@@ -18,8 +18,4 @@ class ShimmerBox extends StatelessWidget {
       ),
     );
   }
-
-
-
 }
-
