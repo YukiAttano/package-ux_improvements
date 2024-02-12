@@ -6,4 +6,5 @@ export 'src/shimmer/shimmer_area.dart';
 export 'src/shimmer/shimmer.dart';
 export 'src/shimmer/shimmer_box.dart';
 export 'src/shimmer/styles/shimmer_style.dart';
+export 'src/preloaded_image.dart';
 export 'src/implicit_animated_icon.dart';
