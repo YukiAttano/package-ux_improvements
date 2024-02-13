@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 /// Preloads the image file to size the layout according to the image and available space.
@@ -18,6 +16,8 @@ class PreloadedImage extends StatefulWidget {
 
   final BoxFit boxFit;
 
+  final Widget loading;
+
   final void Function()? onPressed;
 
   const PreloadedImage({
@@ -27,10 +27,14 @@ class PreloadedImage extends StatefulWidget {
     this.borderRadius,
     BoxDecoration? decoration,
     BoxFit? boxFit,
+    loading,
     this.onPressed,
   })  : configuration = configuration ?? ImageConfiguration.empty,
         decoration = decoration ?? const BoxDecoration(),
-        boxFit = boxFit ?? BoxFit.contain;
+        boxFit = boxFit ?? BoxFit.contain,
+        loading = _loading;
+
+  static const _loading = Center(child: CircularProgressIndicator());
 
   @override
   State<PreloadedImage> createState() => _PreloadedImageState();
@@ -88,6 +92,6 @@ class _PreloadedImageState extends State<PreloadedImage> {
       );
     }
 
-    return const Center(child: CircularProgressIndicator());
+    return widget.loading;
   }
 }
