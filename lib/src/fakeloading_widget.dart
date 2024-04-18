@@ -3,14 +3,49 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class FakeloadingWidget extends StatefulWidget {
+  static const Widget _defaultReplacement = CircularProgressIndicator();
+
   final bool loading;
   final Duration duration;
   final Widget replacement;
   final Widget child;
   final bool maintainState;
 
-  const FakeloadingWidget({Key? key, required this.loading, this.duration = const Duration(milliseconds: 500), this.replacement = const CircularProgressIndicator(), required this.child, this.maintainState = false})
-      : super(key: key);
+  /// This is useful to prevent flashing loading indicator that are the result of fast Futures.
+  ///
+  /// Shows [replacement] for a given time [duration] if [loading] was set to true.
+  /// This will show a replacement Widget for [child] if [loading] is set to true, most probably a loading indicator.
+  /// if [loading] is set to false while the timer did not run for [duration], the [replacement] is still shown.
+  ///
+  /// If [loading] switches between true and false multiple times, while the first triggered [duration] was not finished, the timer does not reset.
+  /// The user experiences one constant loading indicator.
+  const FakeloadingWidget({Key? key, required this.loading, Duration? duration, Widget? replacement, required this.child, bool? maintainState})
+      : duration = duration ?? const Duration(milliseconds: 500),
+        replacement = replacement ?? _defaultReplacement,
+        maintainState = maintainState ?? false,
+        super(key: key);
+
+  /// preserves the space for [replacement] to avoid popping indicator.
+  ///
+  /// If all you need is a loading indicator with a minimum duration for better UX that has no [child], use this constructor
+  /// to preserve the space the indicator needs.
+  FakeloadingWidget.reserve({
+    Key? key,
+    required bool loading,
+    Duration? duration,
+    Widget? replacement,
+    bool? maintainState,
+  }) : this(
+          key: key,
+          loading: loading,
+          duration: duration,
+          maintainState: maintainState,
+          replacement: replacement,
+          child: Visibility.maintain(
+            visible: false,
+            child: replacement ?? _defaultReplacement,
+          ),
+        );
 
   @override
   State<FakeloadingWidget> createState() => _FakeloadingWidgetState();
@@ -53,7 +88,7 @@ class _FakeloadingWidgetState extends State<FakeloadingWidget> {
       _isLoading = startLoading;
       Future.delayed(
         widget.duration,
-            () {
+        () {
           if (mounted) {
             setState(() {
               _isLoading = false;

@@ -27,7 +27,7 @@ class PreloadedImage extends StatefulWidget {
     this.borderRadius,
     BoxDecoration? decoration,
     BoxFit? boxFit,
-    loading,
+    Widget? loading,
     this.onPressed,
   })  : configuration = configuration ?? ImageConfiguration.empty,
         decoration = decoration ?? const BoxDecoration(),
