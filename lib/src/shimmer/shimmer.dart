@@ -26,9 +26,10 @@ class _ShimmerState extends State<Shimmer> {
     }
     Size shimmerSize = shimmer.size;
     Gradient gradient = shimmer.gradient;
-    Offset offsetWithinShimmer = shimmer.getDescendantOffset(
-      descendant: context.findRenderObject()! as RenderBox,
-    );
+
+    RenderBox? shimmerBox = context.findRenderObject() as RenderBox?;
+
+    Offset offsetWithinShimmer = shimmerBox != null ? shimmer.getDescendantOffset(descendant: shimmerBox) : Offset.zero;
 
     return ShaderMask(
       blendMode: BlendMode.srcATop,
@@ -52,7 +53,9 @@ class _ShimmerState extends State<Shimmer> {
     if (_shimmerChanges != null) {
       _shimmerChanges!.removeListener(_onShimmerChange);
     }
-    _shimmerChanges = ShimmerArea.of(context)?.shimmerChanges;
+    _shimmerChanges = ShimmerArea
+        .of(context)
+        ?.shimmerChanges;
     if (_shimmerChanges != null) {
       _shimmerChanges!.addListener(_onShimmerChange);
     }
