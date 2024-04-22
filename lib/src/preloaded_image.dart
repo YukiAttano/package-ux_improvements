@@ -32,7 +32,7 @@ class PreloadedImage extends StatefulWidget {
   })  : configuration = configuration ?? ImageConfiguration.empty,
         decoration = decoration ?? const BoxDecoration(),
         boxFit = boxFit ?? BoxFit.contain,
-        loading = _loading;
+        loading = loading ?? _loading;
 
   static const _loading = Center(child: CircularProgressIndicator());
 
