@@ -1,6 +1,4 @@
-
-class ScreenshotBoundaryException implements Exception{
-
+abstract class ScreenshotBoundaryException implements Exception {
   final String message;
 
   const ScreenshotBoundaryException(this.message);
@@ -11,5 +9,6 @@ class ScreenshotBoundaryNoWidgetException extends ScreenshotBoundaryException {
 }
 
 class ScreenshotBoundaryNoImageException extends ScreenshotBoundaryException {
-  const ScreenshotBoundaryNoImageException() : super("No image could be generated. If the Screenshot Boundary wraps Widget with animations (e.g. Splash animations) trigger this function after all animations are done");
+  const ScreenshotBoundaryNoImageException()
+      : super("No image could be generated. If the Screenshot Boundary wraps Widget with animations (e.g. Splash animations) trigger this function after all animations are done");
 }

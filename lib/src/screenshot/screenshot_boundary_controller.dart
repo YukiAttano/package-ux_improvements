@@ -5,12 +5,21 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ux_improvements/src/screenshot/screenshot_boundary_exception.dart';
 
+class ScreenshotImage {
+  final int width;
+  final int height;
+  final ByteData data;
+
+  const ScreenshotImage({required this.width, required this.height, required this.data});
+}
+
+
 class ScreenshotBoundaryController {
   final GlobalKey key;
 
   ScreenshotBoundaryController() : key = GlobalKey();
 
-  Future<Uint8List> takeScreenshot({double pixelRatio = 1, ui.ImageByteFormat format = ui.ImageByteFormat.png}) async {
+  Future<ScreenshotImage> takeScreenshot({double pixelRatio = 1, ui.ImageByteFormat format = ui.ImageByteFormat.png}) async {
     RenderObject? o = key.currentContext?.findRenderObject();
 
     if (o is! RenderRepaintBoundary) throw const ScreenshotBoundaryNoWidgetException();
@@ -19,10 +28,8 @@ class ScreenshotBoundaryController {
 
     ByteData? data = await image.toByteData(format: format);
 
-    Uint8List? bytes = data?.buffer.asUint8List();
+    if (data == null) throw const ScreenshotBoundaryNoImageException();
 
-    if (bytes == null) throw const ScreenshotBoundaryNoImageException();
-
-    return bytes;
+    return ScreenshotImage(width: image.width, height: image.height, data: data);
   }
 }
