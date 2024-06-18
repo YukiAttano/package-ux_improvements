@@ -9,6 +9,7 @@ class ScreenshotImage {
   final int width;
   final int height;
   final ByteData data;
+  Size get size => Size(width.toDouble(), height.toDouble());
   double get aspectRatio => width / height;
 
   const ScreenshotImage({required this.width, required this.height, required this.data});
