@@ -5,15 +5,17 @@ import 'shimmer_area.dart';
 /// Needs a [ShimmerArea] to be placed in the tree
 class Shimmer extends StatefulWidget {
   final Widget child;
+  // colorBurn, softLight and darken look ultra sexy with a color around 0.4 opacity.
+  // But changing the used ShimmerArea gradient would allow the same effect
+  final BlendMode blendMode;
 
-  const Shimmer({super.key, required this.child});
+  const Shimmer({super.key, required this.child, this.blendMode = BlendMode.srcATop});
 
   @override
   State<Shimmer> createState() => _ShimmerState();
 }
 
 class _ShimmerState extends State<Shimmer> {
-
   Listenable? _shimmerChanges;
 
   @override
@@ -32,7 +34,7 @@ class _ShimmerState extends State<Shimmer> {
     Offset offsetWithinShimmer = shimmerBox != null ? shimmer.getDescendantOffset(descendant: shimmerBox) : Offset.zero;
 
     return ShaderMask(
-      blendMode: BlendMode.srcATop,
+      blendMode: widget.blendMode,
       shaderCallback: (bounds) {
         return gradient.createShader(
           Rect.fromLTWH(
@@ -53,9 +55,7 @@ class _ShimmerState extends State<Shimmer> {
     if (_shimmerChanges != null) {
       _shimmerChanges!.removeListener(_onShimmerChange);
     }
-    _shimmerChanges = ShimmerArea
-        .of(context)
-        ?.shimmerChanges;
+    _shimmerChanges = ShimmerArea.of(context)?.shimmerChanges;
     if (_shimmerChanges != null) {
       _shimmerChanges!.addListener(_onShimmerChange);
     }
@@ -72,6 +72,4 @@ class _ShimmerState extends State<Shimmer> {
       // update the shimmer painting.
     });
   }
-
 }
-
