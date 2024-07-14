@@ -11,4 +11,5 @@ export 'src/implicit_animated_icon.dart';
 export 'src/screenshot/screenshot_boundary.dart';
 export 'src/screenshot/screenshot_boundary_controller.dart';
 export 'src/screenshot/screenshot_boundary_exception.dart';
-export 'src/window_size_class.dart';
+export 'src/window_size.dart';
+export 'src/window_size_builder.dart';

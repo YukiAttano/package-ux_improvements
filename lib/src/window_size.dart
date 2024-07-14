@@ -42,21 +42,21 @@ enum WindowSize {
   }
 }
 
-extension WindowSizeSizeExtension on Size {
+extension SizeWindowSizeExtension on Size {
   WindowSize get widthWindowSize => WindowSize.ofWidth(width);
-  WindowSize get heightWindowSize => WindowSize.ofWidth(height);
+  WindowSize get heightWindowSize => WindowSize.ofHeight(height);
   (WindowSize, WindowSize) get windowSizes => WindowSize.ofSize(this);
 }
 
 extension DisplayWindowSizeExtension on Display {
-  WindowSize get widthWindowSize => WindowSize.ofWidth(size.width);
-  WindowSize get heightWindowSize => WindowSize.ofWidth(size.height);
-  (WindowSize, WindowSize) get windowSizes => WindowSize.ofSize(size);
+  WindowSize get widthWindowSize => WindowSize.ofWidth(size.width / devicePixelRatio);
+  WindowSize get heightWindowSize => WindowSize.ofHeight(size.height / devicePixelRatio);
+  (WindowSize, WindowSize) get windowSizes => WindowSize.ofSize(size / devicePixelRatio);
 }
 
 extension MediaQueryDataWindowSizeExtension on MediaQueryData {
   WindowSize get widthWindowSize => WindowSize.ofWidth(size.width);
-  WindowSize get heightWindowSize => WindowSize.ofWidth(size.height);
+  WindowSize get heightWindowSize => WindowSize.ofHeight(size.height);
   (WindowSize, WindowSize) get windowSizes => WindowSize.ofSize(size);
 }
 
