@@ -18,6 +18,8 @@ know whether this package might be useful for them.
 
 - FakeloadingWidget
 - SmoothFutureBuilder
+- Shimmer
+- ScreenshotBoundary
 
 ## Getting started
 

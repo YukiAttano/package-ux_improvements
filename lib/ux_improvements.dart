@@ -1,6 +1,6 @@
 library ux_improvements;
 
-export 'src/fakeloading_widget.dart';
+export 'src/fakeloading/fakeloading_widget.dart';
 export 'src/smooth_future_builder.dart';
 export 'src/shimmer/shimmer_area.dart';
 export 'src/shimmer/shimmer.dart';

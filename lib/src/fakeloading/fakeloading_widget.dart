@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../ux_improvements.dart';
+import '../../ux_improvements.dart';
+
+part 'fakeloading_widget_stack.dart';
 
 class FakeloadingWidget extends StatefulWidget {
   static const Widget _defaultReplacement = CircularProgressIndicator();
@@ -51,7 +53,7 @@ class FakeloadingWidget extends StatefulWidget {
 
   /// Allows shimmering above the [child]
   ///
-  /// Relative expensive, as the Shimmer effect is generated in background and just gets discarded
+  /// Relative expensive, as the Shimmer effect is generated in background and just gets discarded.
   FakeloadingWidget.shimmer({
     Key? key,
     required bool loading,
@@ -75,6 +77,15 @@ class FakeloadingWidget extends StatefulWidget {
             child: child,
           ),
         );
+
+  factory FakeloadingWidget.stack({
+    Key? key,
+    required bool loading,
+    Duration? duration,
+    bool? maintainState,
+    Widget? replacement,
+    required Widget child,
+  }) = _FakeloadingWidget.stack;
 
   @override
   State<FakeloadingWidget> createState() => _FakeloadingWidgetState();
