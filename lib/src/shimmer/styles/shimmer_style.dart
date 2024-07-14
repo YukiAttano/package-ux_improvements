@@ -11,7 +11,7 @@ class ShimmerStyle extends ThemeExtension<ShimmerStyle> {
 
     return ShimmerStyle(
       backgroundColor: theme.colorScheme.surface,
-      shimmerColor: theme.colorScheme.secondaryContainer,
+      shimmerColor: theme.colorScheme.primaryContainer,
     );
   }
 
