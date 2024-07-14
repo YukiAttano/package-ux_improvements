@@ -112,11 +112,12 @@ class ShimmerAreaState extends State<ShimmerArea> with SingleTickerProviderState
 }
 
 class _SlidingGradientTransform extends GradientTransform {
+  final double slidePercent;
+
   const _SlidingGradientTransform({
     required this.slidePercent,
   });
 
-  final double slidePercent;
 
   @override
   Matrix4? transform(Rect bounds, {TextDirection? textDirection}) {

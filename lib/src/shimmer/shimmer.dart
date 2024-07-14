@@ -24,7 +24,7 @@ class _ShimmerState extends State<Shimmer> {
     if (!shimmer.isSized) {
       // The ancestor Shimmer widget isn’t laid
       // out yet. Return an empty box.
-      return const SizedBox();
+      return const SizedBox.shrink();
     }
     Size shimmerSize = shimmer.size;
     Gradient gradient = shimmer.gradient;

@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../ux_improvements.dart';
+
 class FakeloadingWidget extends StatefulWidget {
   static const Widget _defaultReplacement = CircularProgressIndicator();
 
@@ -25,7 +27,7 @@ class FakeloadingWidget extends StatefulWidget {
         maintainState = maintainState ?? false,
         super(key: key);
 
-  /// preserves the space for [replacement] to avoid popping indicator.
+  /// preserves the space for [replacement].
   ///
   /// If all you need is a loading indicator with a minimum duration for better UX that has no [child], use this constructor
   /// to preserve the space the indicator needs.
@@ -44,6 +46,33 @@ class FakeloadingWidget extends StatefulWidget {
           child: Visibility.maintain(
             visible: false,
             child: replacement ?? _defaultReplacement,
+          ),
+        );
+
+  /// Allows shimmering above the [child]
+  ///
+  /// Relative expensive, as the Shimmer effect is generated in background and just gets discarded
+  FakeloadingWidget.shimmer({
+    Key? key,
+    required bool loading,
+    Duration? duration,
+    bool? maintainState,
+    BlendMode blendMode = BlendMode.src,
+    required Widget child,
+  }) : this(
+          key: key,
+          loading: loading,
+          duration: duration,
+          maintainState: maintainState,
+          replacement: Shimmer(
+            key: const Key("Shimmer child"),
+            blendMode: blendMode,
+            child: child,
+          ),
+          child: Shimmer(
+            key: const Key("Shimmer child"),
+            blendMode: BlendMode.dst,
+            child: child,
           ),
         );
 
@@ -86,16 +115,13 @@ class _FakeloadingWidgetState extends State<FakeloadingWidget> {
 
     if (startLoading) {
       _isLoading = startLoading;
-      Future.delayed(
-        widget.duration,
-        () {
-          if (mounted) {
-            setState(() {
-              _isLoading = false;
-            });
-          }
-        },
-      );
+      Future.delayed(widget.duration, () {
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
+      });
     }
   }
 }
