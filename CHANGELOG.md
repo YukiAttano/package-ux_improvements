@@ -1,4 +1,4 @@
-## 1.0.0
+## 0.9.0
 
 * Add FakeloadingWidget (introduces a delay for non-async operations in the UI)
 * Add SmoothloadingFuture (introduces a delay for async operations in the UI)

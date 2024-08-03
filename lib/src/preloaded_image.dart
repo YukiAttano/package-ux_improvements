@@ -73,7 +73,7 @@ class PreloadedImage extends StatefulWidget {
 }
 
 class _PreloadedImageState extends State<PreloadedImage> {
-  ImageStream? _stream;
+  //ImageStream? _stream;
 
   Size? _size;
 
@@ -112,7 +112,7 @@ class _PreloadedImageState extends State<PreloadedImage> {
       }),
     );
 
-    _stream = stream;
+    //_stream = stream;
   }
 
   void _buildChild() {
