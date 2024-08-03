@@ -2,7 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:ux_improvements/src/shimmer/styles/shimmer_style.dart';
 
 /// Controls a shimmer animation on the screen
+///
 /// Use a [Shimmer] Widget to display the effect or a [ShimmerBox] for a non-synchronized shimmer
+///
+/// Note: accessing the [ShimmerArea] inside a [TabBarView] can cause exceptions.
+/// The thrown exception is caused by Flutter and seems to be caused by the swipe animation (Flutter does not correctly find the [Shimmer] inside the [ShimmerArea])
+/// Example (Don't do):
+/// ```dart
+/// ShimmerArea(
+///   child: TabBarView(
+///     controller: _controller,
+///     children: [
+///       Page1(),
+///       Page2(),
+///     ]
+///   ),
+/// ),
+/// ```
+///
+/// Instead introduce a [ShimmerArea] per Page.
+/// That way, the Shimmer effect is correctly animated with the swip animation of the TabBarView and does not cause exceptions
+///
+/// Example (Do this):
+/// ```dart
+/// TabBarView(
+///   controller: _controller,
+///   children: [
+///     ShimmerArea(
+///       Page1(),
+///     ),
+///     ShimmerArea(
+///       Page2(),
+///     )
+///   ]
+/// ),
+/// ```
 class ShimmerArea extends StatefulWidget {
   static ShimmerAreaState? of(BuildContext context) {
     return context.findAncestorStateOfType<ShimmerAreaState>();

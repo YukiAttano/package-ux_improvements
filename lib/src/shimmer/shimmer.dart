@@ -5,8 +5,8 @@ import 'shimmer_area.dart';
 /// Needs a [ShimmerArea] as an ancestor to be placed in the tree
 class Shimmer extends StatefulWidget {
   final Widget child;
-  // colorBurn, softLight and darken look ultra sexy with a color around 0.4 opacity.
-  // But changing the used ShimmerArea gradient would allow the same effect
+  // colorBurn, softLight and darken look ultra sexy with a ColoredBox and color around 0.4 opacity.
+  // But changing the used ShimmerArea gradient would allow the same effect without using a ColoredBox.
   final BlendMode blendMode;
 
   const Shimmer({super.key, required this.child, this.blendMode = BlendMode.srcATop});

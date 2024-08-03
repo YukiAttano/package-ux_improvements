@@ -21,6 +21,9 @@ class ScreenshotBoundaryController {
 
   ScreenshotBoundaryController() : key = GlobalKey();
 
+  /// takes a [ScreenshotImage] of the widgets inside the ancestor [ScreenshotBoundary]
+  ///
+  /// increase [pixelRatio] if your image looks pixelated
   Future<ScreenshotImage> takeScreenshot({double pixelRatio = 1, ui.ImageByteFormat format = ui.ImageByteFormat.png}) async {
     RenderObject? o = key.currentContext?.findRenderObject();
 

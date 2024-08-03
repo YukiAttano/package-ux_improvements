@@ -87,6 +87,19 @@ class _PreloadedImageState extends State<PreloadedImage> {
     _requestImage();
   }
 
+  @override
+  void didUpdateWidget(covariant PreloadedImage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.decoration.image != widget.decoration.image) {
+      _requestImage();
+    }
+
+    if (oldWidget.builder != widget.builder || oldWidget.configuration != widget.configuration || oldWidget.decoration != widget.decoration || oldWidget.boxFit != widget.boxFit || oldWidget.borderRadius != widget.borderRadius) {
+      _buildChild();
+    }
+  }
+
   void _requestImage() {
     ImageStream stream = widget.image.image.resolve(widget.configuration);
 
@@ -103,7 +116,7 @@ class _PreloadedImageState extends State<PreloadedImage> {
   }
 
   void _buildChild() {
-    _child = widget.builder(_size == null ? null : _loadedImageChild);
+    _child = widget.builder(_size == null ? null : _buildLoadedImageChild());
   }
 
   @override
@@ -114,28 +127,30 @@ class _PreloadedImageState extends State<PreloadedImage> {
   /// the loaded image as a widget.
   ///
   /// must only be accessed, if [_size] is not null.
-  late final Widget _loadedImageChild = LayoutBuilder(
-    builder: (context, constraints) {
-      final sizes = applyBoxFit(widget.boxFit, _size!, constraints.biggest);
+  Widget _buildLoadedImageChild() {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final sizes = applyBoxFit(widget.boxFit, _size!, constraints.biggest);
 
-      return InkWell(
-        borderRadius: widget.borderRadius,
-        onTap: widget.onPressed,
-        child: Ink(
-          width: sizes.destination.width,
-          height: sizes.destination.height,
-          decoration: BoxDecoration(
-            color: widget.decoration.color,
-            gradient: widget.decoration.gradient,
-            shape: widget.decoration.shape,
-            border: widget.decoration.border,
-            boxShadow: widget.decoration.boxShadow,
-            backgroundBlendMode: widget.decoration.backgroundBlendMode,
-            borderRadius: widget.borderRadius,
-            image: widget.image,
+        return InkWell(
+          borderRadius: widget.borderRadius,
+          onTap: widget.onPressed,
+          child: Ink(
+            width: sizes.destination.width,
+            height: sizes.destination.height,
+            decoration: BoxDecoration(
+              color: widget.decoration.color,
+              gradient: widget.decoration.gradient,
+              shape: widget.decoration.shape,
+              border: widget.decoration.border,
+              boxShadow: widget.decoration.boxShadow,
+              backgroundBlendMode: widget.decoration.backgroundBlendMode,
+              borderRadius: widget.borderRadius,
+              image: widget.image,
+            ),
           ),
-        ),
-      );
-    },
-  );
+        );
+      },
+    );
+  }
 }
