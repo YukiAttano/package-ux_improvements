@@ -24,7 +24,7 @@ class ScreenshotBoundaryController {
   Future<ScreenshotImage> takeScreenshot({double pixelRatio = 1, ui.ImageByteFormat format = ui.ImageByteFormat.png}) async {
     RenderObject? o = key.currentContext?.findRenderObject();
 
-    if (o is! RenderRepaintBoundary) throw const ScreenshotBoundaryNoWidgetException();
+    if (o is! RenderRepaintBoundary) throw const ScreenshotBoundaryNoAncestorException();
 
     ui.Image image = o.toImageSync(pixelRatio: pixelRatio);
 

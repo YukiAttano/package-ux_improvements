@@ -2,11 +2,13 @@ part of 'fakeloading_widget.dart';
 
 class _FakeloadingWidget extends FakeloadingWidget {
 
+  /// {@template ux_improvements.fakeloading.fakeloading_widget_stack}
   /// holds [replacement] and [child] loaded at the same time
   ///
-  /// Useful, if the [loading] should react to [child] callbacks and [child] has no Controller class.
+  /// Useful, if [loading] should react to callbacks from [child] and [child] has no Controller class to separate its logic.
   ///
   /// This is relatively expensive, as both widgets stay loaded in an [Offstage]
+  /// {@endtemplate}
   _FakeloadingWidget.stack({
     Key? key,
     required bool loading,

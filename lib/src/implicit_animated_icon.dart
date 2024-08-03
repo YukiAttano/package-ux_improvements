@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// [AnimatedIcon] but simpler to use as it handles the Animation logic internally
 class ImplicitAnimatedIcon extends StatefulWidget {
   final AnimatedIconData icon;
   final bool isStarted;

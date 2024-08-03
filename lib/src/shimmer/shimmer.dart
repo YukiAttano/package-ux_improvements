@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'shimmer_area.dart';
 
 /// A synchronized shimmer child on the screen.
-/// Needs a [ShimmerArea] to be placed in the tree
+/// Needs a [ShimmerArea] as an ancestor to be placed in the tree
 class Shimmer extends StatefulWidget {
   final Widget child;
   // colorBurn, softLight and darken look ultra sexy with a color around 0.4 opacity.

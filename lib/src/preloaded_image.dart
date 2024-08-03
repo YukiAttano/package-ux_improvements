@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 /// Preloads the image file to size the layout according to the image and available space.
+///
 /// This allows an ink animation to be exactly on the image and not spreading over it.
 class PreloadedImage extends StatefulWidget {
 
   /// builder used to allow implementations of animations
   ///
   /// if [image] is null, the image is not loaded yet.
-  /// if [image] is not null, it represents the full widget to display the image with all settings.
+  /// if [image] is not null, it represents the full widget to display the image with all defined settings.
   final Widget Function(Widget? image) builder;
 
   /// [DecorationImage.image] is the resolved image.

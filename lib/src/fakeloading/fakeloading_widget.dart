@@ -78,6 +78,8 @@ class FakeloadingWidget extends StatefulWidget {
           ),
         );
 
+
+  /// {@macro ux_improvements.fakeloading.fakeloading_widget_stack}
   factory FakeloadingWidget.stack({
     Key? key,
     required bool loading,
