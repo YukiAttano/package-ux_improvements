@@ -12,4 +12,10 @@
 
 ### Changed ###
 
-**Breaking:** updated to responsive_ux 0.2.0 
+**Breaking:** updated to responsive_ux 0.2.0
+
+## 0.10.1
+
+### Changed ###
+
+* Add optional Duration value to ShimmerArea and ShimmerBox

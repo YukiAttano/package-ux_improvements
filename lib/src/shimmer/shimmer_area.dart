@@ -38,28 +38,27 @@ import 'package:ux_improvements/src/shimmer/styles/shimmer_style.dart';
 /// ),
 /// ```
 class ShimmerArea extends StatefulWidget {
-  static ShimmerAreaState? of(BuildContext context) {
-    return context.findAncestorStateOfType<ShimmerAreaState>();
-  }
-
   final LinearGradient gradient;
+  final Duration? duration;
   final Widget child;
 
   const ShimmerArea({
     super.key,
     LinearGradient? gradient,
+    Duration? duration,
     Widget? child,
   })  : gradient = gradient ?? silverShimmerGradient,
+        duration = duration ?? const Duration(milliseconds: 1000),
         child = child ?? const SizedBox.shrink();
 
   ShimmerArea.fromColors({
     Key? key,
     required Color backgroundColor,
     required Color shimmerColor,
+    Duration? duration,
     Widget? child,
   }) : this(
           key: key,
-          child: child,
           gradient: LinearGradient(
             colors: [backgroundColor, shimmerColor, backgroundColor],
             stops: silverShimmerGradient.stops,
@@ -67,11 +66,14 @@ class ShimmerArea extends StatefulWidget {
             end: silverShimmerGradient.end,
             tileMode: silverShimmerGradient.tileMode,
           ),
+          duration: duration,
+          child: child,
         );
 
   factory ShimmerArea.fromTheme({
     Key? key,
     ShimmerStyle? style,
+    Duration? duration,
     required BuildContext context,
     Widget? child,
   }) {
@@ -82,6 +84,7 @@ class ShimmerArea extends StatefulWidget {
     return ShimmerArea.fromColors(
       key: key,
       backgroundColor: defaultStyle.backgroundColor!,
+      duration: duration,
       shimmerColor: defaultStyle.shimmerColor!,
       child: child,
     );
@@ -98,12 +101,16 @@ class ShimmerArea extends StatefulWidget {
 
   @override
   ShimmerAreaState createState() => ShimmerAreaState();
+
+  static ShimmerAreaState? of(BuildContext context) {
+    return context.findAncestorStateOfType<ShimmerAreaState>();
+  }
 }
 
-class ShimmerAreaState extends State<ShimmerArea> with SingleTickerProviderStateMixin {
-  late final AnimationController _shimmerController;
+class ShimmerAreaState extends State<ShimmerArea> with TickerProviderStateMixin {
+  late AnimationController _shimmerController;
 
-  Listenable get shimmerChanges => _shimmerController;
+  late ValueNotifier<Animation<double>> shimmerChanges = ValueNotifier(_shimmerController.view);
 
   LinearGradient get gradient => LinearGradient(
         colors: widget.gradient.colors,
@@ -129,19 +136,36 @@ class ShimmerAreaState extends State<ShimmerArea> with SingleTickerProviderState
   void initState() {
     super.initState();
 
-    _shimmerController = AnimationController.unbounded(vsync: this)
-      ..repeat(min: -0.5, max: 1.5, period: const Duration(milliseconds: 1000));
+    _initController();
   }
 
   @override
-  void dispose() {
-    _shimmerController.dispose();
-    super.dispose();
+  void didUpdateWidget(covariant ShimmerArea oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.duration != widget.duration) {
+      _shimmerController.dispose();
+      _initController();
+    }
+  }
+
+  void _initController() {
+    _shimmerController = AnimationController.unbounded(vsync: this)
+      ..repeat(min: -0.5, max: 1.5, period: widget.duration);
+
+    shimmerChanges.value = _shimmerController.view;
   }
 
   @override
   Widget build(BuildContext context) {
     return widget.child;
+  }
+
+  @override
+  void dispose() {
+    shimmerChanges.dispose();
+    _shimmerController.dispose();
+    super.dispose();
   }
 }
 
@@ -151,7 +175,6 @@ class _SlidingGradientTransform extends GradientTransform {
   const _SlidingGradientTransform({
     required this.slidePercent,
   });
-
 
   @override
   Matrix4? transform(Rect bounds, {TextDirection? textDirection}) {

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+
 import 'shimmer_area.dart';
 
 /// A synchronized shimmer child on the screen.
 /// Needs a [ShimmerArea] as an ancestor to be placed in the tree
 class Shimmer extends StatefulWidget {
-  final Widget child;
   // colorBurn, softLight and darken look ultra sexy with a ColoredBox and color around 0.4 opacity.
   // But changing the used ShimmerArea gradient would allow the same effect without using a ColoredBox.
   final BlendMode blendMode;
+  final Widget child;
 
-  const Shimmer({super.key, required this.child, this.blendMode = BlendMode.srcATop});
+  const Shimmer({super.key, this.blendMode = BlendMode.srcATop, required this.child});
 
   @override
   State<Shimmer> createState() => _ShimmerState();
@@ -17,6 +18,25 @@ class Shimmer extends StatefulWidget {
 
 class _ShimmerState extends State<Shimmer> {
   Listenable? _shimmerChanges;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _initListener();
+
+    ShimmerArea.of(context)?.shimmerChanges.addListener(_initListener);
+  }
+
+  void _initListener() {
+    if (_shimmerChanges != null) {
+      _shimmerChanges!.removeListener(_onShimmerChange);
+    }
+    _shimmerChanges = ShimmerArea.of(context)?.shimmerChanges.value;
+    if (_shimmerChanges != null) {
+      _shimmerChanges!.addListener(_onShimmerChange);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,18 +67,6 @@ class _ShimmerState extends State<Shimmer> {
       },
       child: widget.child,
     );
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (_shimmerChanges != null) {
-      _shimmerChanges!.removeListener(_onShimmerChange);
-    }
-    _shimmerChanges = ShimmerArea.of(context)?.shimmerChanges;
-    if (_shimmerChanges != null) {
-      _shimmerChanges!.addListener(_onShimmerChange);
-    }
   }
 
   @override
