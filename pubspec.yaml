@@ -1,6 +1,6 @@
 name: ux_improvements
 description: "Widgets to improve UX"
-version: 0.9.0
+version: 0.10.1
 repository: https://github.com/YukiAttano/package-ux_improvements
 
 environment:
@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  responsive_ux: ^0.1.0
+  responsive_ux: ^0.2.0
 
 dev_dependencies:
   flutter_test:

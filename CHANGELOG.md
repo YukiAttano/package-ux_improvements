@@ -7,3 +7,15 @@
 * Add PreloadedImage (allows Ink splashes and BoxDecoration clipped to an not-yet loaded image)
 * Add ImplicitAnimatedIcon (AnimatedIcon without the need to handle the AnimationController)
 * Re-exports responsive_ux
+
+## 0.10.0
+
+### Changed ###
+
+**Breaking:** updated to responsive_ux 0.2.0
+
+## 0.10.1
+
+### Changed ###
+
+* Add optional Duration value to ShimmerArea and ShimmerBox
