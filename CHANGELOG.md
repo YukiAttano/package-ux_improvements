@@ -1,9 +1,10 @@
 
-## 0.10.2
+## 0.11.0
 
 ### Changed ###
 
 * Fixed updating PreloadedImage after it got disposed
+**Breaking:** updated to responsive_ux 0.3.0
 
 ## 0.10.1
 
