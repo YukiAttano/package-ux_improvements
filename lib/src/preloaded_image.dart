@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 ///
 /// This allows an ink animation to be exactly on the image and not spreading over it.
 class PreloadedImage extends StatefulWidget {
-
   /// builder used to allow implementations of animations
   ///
   /// if [image] is null, the image is not loaded yet.
@@ -73,11 +72,20 @@ class PreloadedImage extends StatefulWidget {
 }
 
 class _PreloadedImageState extends State<PreloadedImage> {
-  //ImageStream? _stream;
+  ImageStream? _stream;
 
   Size? _size;
 
   late Widget _child;
+
+  late final ImageStreamListener _listener = ImageStreamListener((image, synchronousCall) {
+    if (context.mounted) {
+      setState(() {
+        _size = Size(image.image.width.toDouble(), image.image.height.toDouble());
+        _buildChild();
+      });
+    }
+  });
 
   @override
   void initState() {
@@ -95,33 +103,30 @@ class _PreloadedImageState extends State<PreloadedImage> {
       _requestImage();
     }
 
-    if (oldWidget.builder != widget.builder || oldWidget.configuration != widget.configuration || oldWidget.decoration != widget.decoration || oldWidget.boxFit != widget.boxFit || oldWidget.borderRadius != widget.borderRadius) {
+    if (oldWidget.builder != widget.builder ||
+        oldWidget.configuration != widget.configuration ||
+        oldWidget.decoration != widget.decoration ||
+        oldWidget.boxFit != widget.boxFit ||
+        oldWidget.borderRadius != widget.borderRadius) {
       _buildChild();
     }
-  }
-
-  void _requestImage() {
-    ImageStream stream = widget.image.image.resolve(widget.configuration);
-
-    stream.addListener(
-      ImageStreamListener((image, synchronousCall) {
-        setState(() {
-          _size = Size(image.image.width.toDouble(), image.image.height.toDouble());
-          _buildChild();
-        });
-      }),
-    );
-
-    //_stream = stream;
-  }
-
-  void _buildChild() {
-    _child = widget.builder(_size == null ? null : _buildLoadedImageChild());
   }
 
   @override
   Widget build(BuildContext context) {
     return _child;
+  }
+
+  void _requestImage() {
+    ImageStream stream = widget.image.image.resolve(widget.configuration);
+
+    stream.addListener(_listener);
+
+    _stream = stream;
+  }
+
+  void _buildChild() {
+    _child = widget.builder(_size == null ? null : _buildLoadedImageChild());
   }
 
   /// the loaded image as a widget.
@@ -152,5 +157,11 @@ class _PreloadedImageState extends State<PreloadedImage> {
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _stream?.removeListener(_listener);
+    super.dispose();
   }
 }
