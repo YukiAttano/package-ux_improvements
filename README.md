@@ -12,7 +12,7 @@ and the Flutter guide for
 -->
 
 This package bundles small Widgets that are generally useful in different Projects.
-It is not meant to bloat this package with everything that "could" be useful.
+Thanks to Dart, bloating this package with a ton of Widgets wouldn't hurt anyone, but is still not the goal of this package.
 
 ## Intro
 
@@ -39,7 +39,7 @@ dart pub add ux_improvements
 
 ## Usage
 
-As this package is mainly developed for my own use, there is no Usage documentation yet.
+As this package is mainly developed for my own use, there is no full usage documentation yet.
 (But will definitely come in the future)
 
 ## Additional information
