@@ -11,5 +11,8 @@ export 'src/implicit_animated_icon.dart';
 export 'src/screenshot/screenshot_boundary.dart';
 export 'src/screenshot/screenshot_boundary_controller.dart';
 export 'src/screenshot/screenshot_boundary_exception.dart';
+export 'src/adaptive_refresh_indicator/adaptive_refresh_indicator.dart';
+export 'src/adaptive_refresh_indicator/cupertino_sliver_refresh_control_configuration.dart';
+export 'src/adaptive_refresh_indicator/refresh_indicator_configuration.dart';
 
 export 'package:responsive_ux/responsive_ux.dart';
