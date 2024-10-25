@@ -4,6 +4,7 @@ import "package:ux_improvements/src/adaptive_refresh_indicator/cupertino_sliver_
 import "package:ux_improvements/src/adaptive_refresh_indicator/refresh_indicator_configuration.dart";
 
 class AdaptiveRefreshIndicator extends StatelessWidget {
+
   final EdgeInsets padding;
   final ScrollPhysics? physics;
   final RefreshCallback onRefresh;
@@ -170,6 +171,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
       onRefresh: onRefresh,
       notificationPredicate: (n) => _enabled && useMaterial && n.depth == 0,
       child: CustomScrollView(
+
         physics: physics,
         slivers: [
           SliverVisibility(
