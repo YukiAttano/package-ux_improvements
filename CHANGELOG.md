@@ -1,10 +1,10 @@
 
-## NEXT
+## 0.11.1
 
 ### Added ###
 
 * Add AdaptiveRefreshIndicator (feels more native then RefreshIndicator.adaptive)
-* 
+
 ## 0.11.0
 
 ### Changed ###
