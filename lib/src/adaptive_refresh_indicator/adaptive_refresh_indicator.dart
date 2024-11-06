@@ -1,15 +1,16 @@
 import "package:flutter/cupertino.dart" hide RefreshCallback;
 import "package:flutter/material.dart";
 import "package:ux_improvements/src/adaptive_refresh_indicator/cupertino_sliver_refresh_control_configuration.dart";
+import "package:ux_improvements/src/adaptive_refresh_indicator/custom_scroll_view_configuration.dart";
 import "package:ux_improvements/src/adaptive_refresh_indicator/refresh_indicator_configuration.dart";
 
 class AdaptiveRefreshIndicator extends StatelessWidget {
-
   final EdgeInsets padding;
   final ScrollPhysics? physics;
   final RefreshCallback onRefresh;
   final RefreshIndicatorConfiguration indicatorConfig;
   final CupertinoSliverRefreshControlConfiguration cupertinoConfig;
+  final CustomScrollViewConfiguration config;
 
   /// set this to true to always use the [RefreshIndicator], false to always use the [CupertinoSliverRefreshControl] and
   /// null to use cupertino only on [TargetPlatform.iOS] and [TargetPlatform.macOS]
@@ -33,12 +34,14 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
     RefreshCallback? onRefresh,
     RefreshIndicatorConfiguration? indicatorConfig,
     CupertinoSliverRefreshControlConfiguration? cupertinoConfig,
+    CustomScrollViewConfiguration? config,
     this.useMaterialIndicator,
     required this.sliver,
   })  : padding = padding ?? EdgeInsets.zero,
         onRefresh = onRefresh ?? _emptyRefreshCallback,
         indicatorConfig = indicatorConfig ?? const RefreshIndicatorConfiguration(),
         cupertinoConfig = cupertinoConfig ?? const CupertinoSliverRefreshControlConfiguration(),
+        config = config ?? const CustomScrollViewConfiguration(),
         _enabled = onRefresh != null;
 
   AdaptiveRefreshIndicator.widget({
@@ -48,6 +51,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
     RefreshCallback? onRefresh,
     RefreshIndicatorConfiguration? indicatorConfig,
     CupertinoSliverRefreshControlConfiguration? cupertinoConfig,
+    CustomScrollViewConfiguration? config,
     bool? useMaterialIndicator,
     required Widget child,
   }) : this(
@@ -57,6 +61,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           onRefresh: onRefresh,
           indicatorConfig: indicatorConfig,
           cupertinoConfig: cupertinoConfig,
+          config: config,
           useMaterialIndicator: useMaterialIndicator,
           sliver: SliverToBoxAdapter(child: child),
         );
@@ -68,6 +73,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
     RefreshCallback? onRefresh,
     RefreshIndicatorConfiguration? indicatorConfig,
     CupertinoSliverRefreshControlConfiguration? cupertinoConfig,
+    CustomScrollViewConfiguration? config,
     bool? useMaterialIndicator,
     required NullableIndexedWidgetBuilder itemBuilder,
     ChildIndexGetter? findChildIndexCallback,
@@ -82,6 +88,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           onRefresh: onRefresh,
           indicatorConfig: indicatorConfig,
           cupertinoConfig: cupertinoConfig,
+          config: config,
           useMaterialIndicator: useMaterialIndicator,
           sliver: SliverList.builder(
             itemCount: itemCount,
@@ -100,6 +107,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
     RefreshCallback? onRefresh,
     RefreshIndicatorConfiguration? indicatorConfig,
     CupertinoSliverRefreshControlConfiguration? cupertinoConfig,
+    CustomScrollViewConfiguration? config,
     bool? useMaterialIndicator,
     required NullableIndexedWidgetBuilder itemBuilder,
     ChildIndexGetter? findChildIndexCallback,
@@ -115,6 +123,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           onRefresh: onRefresh,
           indicatorConfig: indicatorConfig,
           cupertinoConfig: cupertinoConfig,
+          config: config,
           useMaterialIndicator: useMaterialIndicator,
           sliver: SliverList.separated(
             itemCount: itemCount,
@@ -137,6 +146,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
     bool? fillOverscroll,
     RefreshIndicatorConfiguration? indicatorConfig,
     CupertinoSliverRefreshControlConfiguration? cupertinoConfig,
+    CustomScrollViewConfiguration? config,
     bool? useMaterialIndicator,
     required Widget child,
   }) : this(
@@ -146,6 +156,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           onRefresh: onRefresh,
           indicatorConfig: indicatorConfig,
           cupertinoConfig: cupertinoConfig,
+          config: config,
           useMaterialIndicator: useMaterialIndicator,
           sliver: SliverFillRemaining(
             hasScrollBody: hasScrollBody ?? true,
@@ -171,8 +182,22 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
       onRefresh: onRefresh,
       notificationPredicate: (n) => _enabled && useMaterial && n.depth == 0,
       child: CustomScrollView(
-
         physics: physics,
+        controller: config.controller,
+        primary: config.primary,
+        clipBehavior: config.clipBehavior,
+        shrinkWrap: config.shrinkWrap,
+        anchor: config.anchor,
+        cacheExtent: config.cacheExtent,
+        center: config.center,
+        dragStartBehavior: config.dragStartBehavior,
+        hitTestBehavior: config.hitTestBehavior,
+        keyboardDismissBehavior: config.keyboardDismissBehavior,
+        restorationId: config.restorationId,
+        reverse: config.reverse,
+        scrollBehavior: config.scrollBehavior,
+        scrollDirection: config.scrollDirection,
+        semanticChildCount: config.semanticChildCount,
         slivers: [
           SliverVisibility(
             visible: _enabled && !useMaterial,
