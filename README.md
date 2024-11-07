@@ -29,6 +29,7 @@ Instead, improvements like video capture will be laid out in a dedicated library
 - ImplicitAnimatedIcon (use AnimatedIcons without dealing with the AnimationController)
 - PreloadedImage (Ink splashes and decorations clipped to not-yet loaded Image)
 - AdaptiveRefreshIndicator (feels more native then RefreshIndicator.adaptive)
+- SuperimposeBox (similar to Flutters Badge but allows aligning widgets easier together)
 - Re-Exports [responsive_ux](https://pub.dev/packages/responsive_ux) 
 
 ## Getting started

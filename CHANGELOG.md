@@ -1,3 +1,9 @@
+## 0.11.3
+
+### Added ###
+
+* Add SuperimposeBox which is similar to Badge but allows to align the overlay according to its child.
+
 ## 0.11.2
 
 ### Added ###
