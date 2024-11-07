@@ -1,3 +1,8 @@
+## 0.11.2
+
+### Added ###
+
+* Add AdaptiveRefreshIndicator.widgets
 
 ## 0.11.1
 

@@ -1,6 +1,6 @@
 name: ux_improvements
 description: "Widgets to improve UX"
-version: 0.11.1
+version: 0.11.2
 repository: https://github.com/YukiAttano/package-ux_improvements
 
 environment:
