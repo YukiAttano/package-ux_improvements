@@ -12,7 +12,9 @@ and the Flutter guide for
 -->
 
 This package bundles small Widgets that are generally useful in different Projects.
-Thanks to Dart, bloating this package with a ton of Widgets wouldn't hurt anyone, but is still not the goal of this package.
+Bloating this package with a ton of Widgets is not the goal of this package.
+All Widgets in this library are either considered useful (if not mandatory) to be used in any project 
+or allow advantages that are otherwise tedious to re-implement.
 
 ## Intro
 
@@ -30,6 +32,7 @@ Instead, improvements like video capture will be laid out in a dedicated library
 - PreloadedImage (Ink splashes and decorations clipped to not-yet loaded Image)
 - AdaptiveRefreshIndicator (feels more native then RefreshIndicator.adaptive)
 - SuperimposeBox (similar to Flutters Badge but allows aligning widgets easier together)
+- EndlessListView (builds Widgets in both directions)
 - Re-Exports [responsive_ux](https://pub.dev/packages/responsive_ux) 
 
 ## Getting started

@@ -3,6 +3,7 @@
 ### Added ###
 
 * Add SuperimposeBox which is similar to Badge but allows to align the overlay according to its child.
+* Add EndlessListView which builds Widgets in both directions
 
 ## 0.11.2
 
