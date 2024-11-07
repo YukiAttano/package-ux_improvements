@@ -66,6 +66,30 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           sliver: SliverToBoxAdapter(child: child),
         );
 
+  AdaptiveRefreshIndicator.widgets({
+    Key? key,
+    EdgeInsets? padding,
+    ScrollPhysics? physics,
+    RefreshCallback? onRefresh,
+    RefreshIndicatorConfiguration? indicatorConfig,
+    CupertinoSliverRefreshControlConfiguration? cupertinoConfig,
+    CustomScrollViewConfiguration? config,
+    bool? useMaterialIndicator,
+    required List<Widget> children,
+  }) : this(
+          key: key,
+          padding: padding,
+          physics: physics,
+          onRefresh: onRefresh,
+          indicatorConfig: indicatorConfig,
+          cupertinoConfig: cupertinoConfig,
+          config: config,
+          useMaterialIndicator: useMaterialIndicator,
+          sliver: SliverList.list(
+            children: children.map((e) => SliverToBoxAdapter(child: e)).toList(growable: false),
+          ),
+        );
+
   AdaptiveRefreshIndicator.builder({
     Key? key,
     EdgeInsets? padding,
