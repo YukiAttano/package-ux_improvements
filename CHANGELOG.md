@@ -1,3 +1,9 @@
+## 0.11.4
+
+### Fixed ###
+
+* Fix AdaptiveRefreshIndicator.widgets to no more handling its children as slivers 
+
 ## 0.11.3
 
 ### Added ###

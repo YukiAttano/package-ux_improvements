@@ -86,7 +86,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           config: config,
           useMaterialIndicator: useMaterialIndicator,
           sliver: SliverList.list(
-            children: children.map((e) => SliverToBoxAdapter(child: e)).toList(growable: false),
+            children: children,
           ),
         );
 
