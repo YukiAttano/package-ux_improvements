@@ -17,32 +17,34 @@ class _ScreenshotScreenState extends State<ScreenshotScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ElevatedButton(
-          onPressed: _onScreenshot,
-          child: Text("Screenshot"),
-        ),
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Expanded(
-                child: ScreenshotBoundary(
-                  controller: _controller,
-                  child: const FittedBox(
-                    fit: BoxFit.cover,
-                    child: _AnimatedLogo(),
+    return Material(
+      child: Column(
+        children: [
+          ElevatedButton(
+            onPressed: _onScreenshot,
+            child: Text("Screenshot"),
+          ),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  child: ScreenshotBoundary(
+                    controller: _controller,
+                    child: const FittedBox(
+                      fit: BoxFit.cover,
+                      child: _AnimatedLogo(),
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: _Image(data: _image?.data),
-              ),
-            ],
-          ),
-        )
-      ],
+                Expanded(
+                  child: _Image(data: _image?.data),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 

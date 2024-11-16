@@ -33,7 +33,9 @@ class NavShell extends StatelessWidget {
           )
         ],
       ),
-      body: SafeArea(child: child),
+      body: SafeArea(
+        child: child,
+      ),
     );
   }
 }

@@ -52,24 +52,26 @@ class _Settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: _NumberField(
-            label: "Positive Start",
-            currentNumber: posStart,
-            onChanged: onChangePos,
+    return Material(
+      child: Row(
+        children: [
+          Expanded(
+            child: _NumberField(
+              label: "Positive Start",
+              currentNumber: posStart,
+              onChanged: onChangePos,
+            ),
           ),
-        ),
-        const VerticalDivider(),
-        Expanded(
-          child: _NumberField(
-            label: "Negative Start",
-            currentNumber: negStart,
-            onChanged: onChangeNeg,
+          const VerticalDivider(),
+          Expanded(
+            child: _NumberField(
+              label: "Negative Start",
+              currentNumber: negStart,
+              onChanged: onChangeNeg,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
