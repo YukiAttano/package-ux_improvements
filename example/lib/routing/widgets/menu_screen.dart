@@ -12,6 +12,8 @@ class MenuScreen extends StatelessWidget {
     return ListView(
       children: [
         _MenuEntry(target: NavTarget.ENDLESS_LIST_VIEW),
+        _MenuEntry(target: NavTarget.SCREENSHOT),
+
       ],
     );
   }

@@ -1,4 +1,5 @@
 import 'package:example/features/endless_list_view/endless_list_view_screen.dart';
+import 'package:example/features/screenshot/screenshot_screen.dart';
 import 'package:example/routing/widgets/menu_screen.dart';
 import 'package:example/routing/widgets/nav_shell.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,13 @@ final router = Provider(
               builder: (context, state) {
                 return const EndlessListViewScreen();
               },
-            )
+            ),
+            GoRoute(
+              path: NavTarget.SCREENSHOT.route,
+              builder: (context, state) {
+                return const ScreenshotScreen();
+              },
+            ),
           ],
         ),
       ],
@@ -45,7 +52,9 @@ final router = Provider(
 enum NavTarget {
   MENU("/menu", "Menu", ""),
   ENDLESS_LIST_VIEW("/endless_list_view", "EndlessListView",
-      "Change the positive/negative start values to see how the list behaves.");
+      "Change the positive/negative start values to see how the list behaves."),
+  SCREENSHOT("/screenshot", "ScreenshotBoundary",
+      "Make Screenshots from any defined widget");
 
   const NavTarget(this.route, this.title, this.description);
 
