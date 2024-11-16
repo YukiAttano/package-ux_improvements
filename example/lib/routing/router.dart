@@ -54,7 +54,7 @@ enum NavTarget {
   ENDLESS_LIST_VIEW("/endless_list_view", "EndlessListView",
       "Change the positive/negative start values to see how the list behaves."),
   SCREENSHOT("/screenshot", "ScreenshotBoundary",
-      "Make Screenshots from any defined widget");
+      "You can configure the pixelRatio to increase the sharpness\n(This example only shows integer values, but doubles would also work)");
 
   const NavTarget(this.route, this.title, this.description);
 

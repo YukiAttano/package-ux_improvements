@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:example/shared/widgets/number_field.dart';
 import 'package:flutter/material.dart';
 import 'package:ux_improvements/ux_improvements.dart';
 
@@ -15,14 +16,17 @@ class _ScreenshotScreenState extends State<ScreenshotScreen> {
 
   ScreenshotImage? _image;
 
+  int? _pixelRatio;
+
   @override
   Widget build(BuildContext context) {
     return Material(
       child: Column(
         children: [
-          ElevatedButton(
-            onPressed: _onScreenshot,
-            child: Text("Screenshot"),
+          _Settings(
+            pixelRatio: _pixelRatio,
+            onPixelRatioChanged: _onPixelRatioChanged,
+            onScreenshot: _onScreenshot,
           ),
           Expanded(
             child: Row(
@@ -38,34 +42,75 @@ class _ScreenshotScreenState extends State<ScreenshotScreen> {
                   ),
                 ),
                 Expanded(
-                  child: _Image(data: _image?.data),
+                  child: _Image(
+                    data: _image?.data,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
   }
 
   Future<void> _onScreenshot() async {
-    ScreenshotImage image = await _controller.takeScreenshot(pixelRatio: 5);
+    double ratio = _pixelRatio?.toDouble() ?? 1;
+    if (ratio <= 0) ratio = 0.1;
+    ScreenshotImage image = await _controller.takeScreenshot(pixelRatio: ratio);
 
     if (!mounted) return;
     setState(() => _image = image);
+  }
+
+  void _onPixelRatioChanged(int? number) {
+    setState(() => _pixelRatio = number);
+  }
+}
+
+class _Settings extends StatelessWidget {
+  final int? pixelRatio;
+  final void Function(int? pixelRatio)? onPixelRatioChanged;
+  final void Function()? onScreenshot;
+
+  const _Settings({super.key, this.pixelRatio, this.onPixelRatioChanged, this.onScreenshot});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Flexible(
+          child: NumberField(
+            label: "Pixel Ratio",
+            currentNumber: pixelRatio,
+            onChanged: onPixelRatioChanged,
+          ),
+        ),
+        const VerticalDivider(),
+        ElevatedButton(
+          onPressed: onScreenshot,
+          child: Text("Screenshot"),
+        ),
+      ],
+    );
   }
 }
 
 class _Image extends StatelessWidget {
   final ByteData? data;
+  final BoxFit? fit;
 
-  const _Image({super.key, this.data});
+  const _Image({super.key, this.data, this.fit});
 
   @override
   Widget build(BuildContext context) {
     if (data == null) return const SizedBox();
 
-    return Image.memory(data!.buffer.asUint8List());
+    return Image.memory(
+      data!.buffer.asUint8List(),
+      fit: fit,
+    );
   }
 }
 

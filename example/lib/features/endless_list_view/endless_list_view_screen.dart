@@ -1,3 +1,4 @@
+import 'package:example/shared/widgets/number_field.dart';
 import 'package:flutter/material.dart';
 import 'package:ux_improvements/ux_improvements.dart';
 
@@ -56,7 +57,7 @@ class _Settings extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: _NumberField(
+            child: NumberField(
               label: "Positive Start",
               currentNumber: posStart,
               onChanged: onChangePos,
@@ -64,7 +65,7 @@ class _Settings extends StatelessWidget {
           ),
           const VerticalDivider(),
           Expanded(
-            child: _NumberField(
+            child: NumberField(
               label: "Negative Start",
               currentNumber: negStart,
               onChanged: onChangeNeg,
@@ -76,59 +77,3 @@ class _Settings extends StatelessWidget {
   }
 }
 
-
-class _NumberField extends StatefulWidget {
-  final int? currentNumber;
-  final void Function(int? number)? onChanged;
-  final String? label;
-
-  const _NumberField({super.key, this.currentNumber, this.onChanged, this.label});
-
-  @override
-  State<_NumberField> createState() => _NumberFieldState();
-}
-
-class _NumberFieldState extends State<_NumberField> {
-  final TextEditingController _controller = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    _updateTextField();
-  }
-
-  @override
-  void didUpdateWidget(covariant _NumberField oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    if (oldWidget.currentNumber != widget.currentNumber) {
-      _updateTextField();
-    }
-  }
-
-  void _updateTextField() {
-    _controller.text = widget.currentNumber?.toString() ?? "";
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: _controller,
-      onChanged: widget.onChanged != null ? _onChanged : null,
-      decoration: InputDecoration(labelText: widget.label),
-    );
-  }
-
-  void _onChanged(String value) {
-    if (value.isEmpty && widget.currentNumber != null) {
-      widget.onChanged!(null);
-      return;
-    }
-
-    int? number = int.tryParse(value);
-
-    if (number != null && widget.currentNumber != number) {
-      widget.onChanged!(number);
-    }
-  }
-}
