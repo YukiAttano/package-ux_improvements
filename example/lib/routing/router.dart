@@ -1,4 +1,5 @@
 import 'package:example/features/endless_list_view/endless_list_view_screen.dart';
+import 'package:example/features/preloaded_image/preloaded_image_screen.dart';
 import 'package:example/features/screenshot/screenshot_screen.dart';
 import 'package:example/features/shimmer/shimmer_screen.dart';
 import 'package:example/routing/widgets/menu_screen.dart';
@@ -49,6 +50,12 @@ final router = Provider(
                 return const ShimmerScreen();
               },
             ),
+            GoRoute(
+              path: NavTarget.PRELOADED_IMAGE.route,
+              builder: (context, state) {
+                return const PreloadedImageScreen();
+              },
+            ),
           ],
         ),
       ],
@@ -62,7 +69,9 @@ enum NavTarget {
       "Change the positive/negative start values to see how the list behaves."),
   SCREENSHOT("/screenshot", "ScreenshotBoundary",
       "You can configure the pixelRatio to increase the sharpness\n(This example only shows integer values, but doubles would also work)"),
-  SHIMMER("/shimmer", "Shimmer", "Experiment with the values to achieve the effects you need");
+  SHIMMER("/shimmer", "Shimmer", "Experiment with the values to achieve the effects you need"),
+  PRELOADED_IMAGE("/preloaded_image", "PrelaodedImage", "The PreloadedImage allows to show a loading Widget and size the ink splash animation to its size, compared to a normal Image"),
+  ;
 
   const NavTarget(this.route, this.title, this.description);
 

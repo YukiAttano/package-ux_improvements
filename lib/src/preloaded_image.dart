@@ -21,6 +21,12 @@ class PreloadedImage extends StatefulWidget {
   /// [BoxDecoration.borderRadius] and [BoxDecoration.image] are ignored
   final BoxDecoration decoration;
 
+  /// The fit for the ink widget in its parent.
+  ///
+  /// defaults to [BoxFit.contain] which allows to size the ink animation to its [decoration]
+  ///
+  /// if set to [BoxFit.fill], it will expand the ink animation area but not the [decoration]
+  /// configure [BoxDecoration.fit] to directly control how the image is sized inside its ink container.
   final BoxFit boxFit;
 
   final void Function()? onPressed;
