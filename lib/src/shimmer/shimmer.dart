@@ -10,6 +10,7 @@ class Shimmer extends StatefulWidget {
   final BlendMode blendMode;
   final Widget child;
 
+  /// use [BlendMode.dst] to cancel the effect
   const Shimmer({super.key, this.blendMode = BlendMode.srcATop, required this.child});
 
   @override

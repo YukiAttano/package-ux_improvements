@@ -21,7 +21,7 @@ import 'package:ux_improvements/src/shimmer/styles/shimmer_style.dart';
 /// ```
 ///
 /// Instead introduce a [ShimmerArea] per Page.
-/// That way, the Shimmer effect is correctly animated with the swip animation of the TabBarView and does not cause exceptions
+/// That way, the Shimmer effect is correctly animated with the swipe animation of the TabBarView and does not cause errors
 ///
 /// Example (Do this):
 /// ```dart
@@ -90,8 +90,9 @@ class ShimmerArea extends StatefulWidget {
     );
   }
 
+  static const sliverColors = [Color(0xFFEBEBF4), Color(0xFFF4F4F4), Color(0xFFEBEBF4)];
   static const silverShimmerGradient = LinearGradient(
-    colors: [Color(0xFFEBEBF4), Color(0xFFF4F4F4), Color(0xFFEBEBF4)],
+    colors: sliverColors,
     stops: [0.1, 0.3, 0.4],
     begin: Alignment(-1, -0.3),
     end: Alignment(1, 0.3),
@@ -124,10 +125,7 @@ class ShimmerAreaState extends State<ShimmerArea> with TickerProviderStateMixin 
 
   Size get size => (context.findRenderObject()! as RenderBox).size;
 
-  Offset getDescendantOffset({
-    required RenderBox descendant,
-    Offset offset = Offset.zero,
-  }) {
+  Offset getDescendantOffset({required RenderBox descendant, Offset offset = Offset.zero}) {
     RenderBox shimmerBox = context.findRenderObject()! as RenderBox;
     return descendant.localToGlobal(offset, ancestor: shimmerBox);
   }

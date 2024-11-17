@@ -1,8 +1,5 @@
 import 'package:example/routing/router.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
-import '../../features/endless_list_view/endless_list_view_screen.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
@@ -13,7 +10,7 @@ class MenuScreen extends StatelessWidget {
       children: [
         _MenuEntry(target: NavTarget.ENDLESS_LIST_VIEW),
         _MenuEntry(target: NavTarget.SCREENSHOT),
-
+        _MenuEntry(target: NavTarget.SHIMMER),
       ],
     );
   }

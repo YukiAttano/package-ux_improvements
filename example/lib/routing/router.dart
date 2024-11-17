@@ -1,5 +1,6 @@
 import 'package:example/features/endless_list_view/endless_list_view_screen.dart';
 import 'package:example/features/screenshot/screenshot_screen.dart';
+import 'package:example/features/shimmer/shimmer_screen.dart';
 import 'package:example/routing/widgets/menu_screen.dart';
 import 'package:example/routing/widgets/nav_shell.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,12 @@ final router = Provider(
                 return const ScreenshotScreen();
               },
             ),
+            GoRoute(
+              path: NavTarget.SHIMMER.route,
+              builder: (context, state) {
+                return const ShimmerScreen();
+              },
+            ),
           ],
         ),
       ],
@@ -54,7 +61,8 @@ enum NavTarget {
   ENDLESS_LIST_VIEW("/endless_list_view", "EndlessListView",
       "Change the positive/negative start values to see how the list behaves."),
   SCREENSHOT("/screenshot", "ScreenshotBoundary",
-      "You can configure the pixelRatio to increase the sharpness\n(This example only shows integer values, but doubles would also work)");
+      "You can configure the pixelRatio to increase the sharpness\n(This example only shows integer values, but doubles would also work)"),
+  SHIMMER("/shimmer", "Shimmer", "Experiment with the values to achieve the effects you need");
 
   const NavTarget(this.route, this.title, this.description);
 
