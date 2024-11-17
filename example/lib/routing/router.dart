@@ -1,4 +1,5 @@
 import 'package:example/features/endless_list_view/endless_list_view_screen.dart';
+import 'package:example/features/implicit_animated_icon/implicit_animated_icon_screen.dart';
 import 'package:example/features/preloaded_image/preloaded_image_screen.dart';
 import 'package:example/features/screenshot/screenshot_screen.dart';
 import 'package:example/features/shimmer/shimmer_screen.dart';
@@ -63,6 +64,12 @@ final router = Provider(
                 return const SuperimposeBoxScreen();
               },
             ),
+            GoRoute(
+              path: NavTarget.IMPLICIT_ANIMATED_ICON.route,
+              builder: (context, state) {
+                return const ImplicitAnimatedIconScreen();
+              },
+            ),
           ],
         ),
       ],
@@ -79,6 +86,7 @@ enum NavTarget {
   SHIMMER("/shimmer", "Shimmer", "Experiment with the values to achieve the effects you need"),
   PRELOADED_IMAGE("/preloaded_image", "PrelaodedImage", "The PreloadedImage allows to show a loading Widget and size the ink splash animation to its size, compared to a normal Image"),
   SUPERIMPOSE_BOX("/superimpose_box", "SuperimposeBox", "This Widget allows stacking multiple Widgets on another Widget"),
+  IMPLICIT_ANIMATED_ICON("/implicit_animated_icon", "ImplicitAnimatedIcon", "Allows changing all given parameter also while being animated"),
   ;
 
   const NavTarget(this.route, this.title, this.description);
