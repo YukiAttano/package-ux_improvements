@@ -28,20 +28,32 @@ class _ShimmerScreenState extends State<ShimmerScreen> {
         gradient: _gradient,
         child: Column(
           children: [
-            const Shimmer(
-              child: _Cards(),
-            ),
+            const Shimmer(child: _Cards()),
+            const Shimmer(child: _Cards()),
             Expanded(
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return const ListTile(
-                    title: Shimmer(
-                      child: _Cards(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: DecoratedBox(
+                  position: DecorationPosition.foreground,
+                  decoration: BoxDecoration(
+                    border: Border.all(),
+                  ),
+                  child: ClipRect(
+                    child: Shimmer(
+                      child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          return const ListTile(
+                            title: _Cards(),
+                          );
+                        },
+                      ),
                     ),
-                  );
-                },
+                  ),
+                ),
               ),
             ),
+            const Shimmer(child: _Cards()),
+            const Shimmer(child: _Cards()),
           ],
         ),
       ),
