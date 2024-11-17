@@ -26,7 +26,7 @@ class ImplicitAnimatedIcon extends StatefulWidget {
 }
 
 class _ImplicitAnimatedIconState extends State<ImplicitAnimatedIcon> with SingleTickerProviderStateMixin {
-  late final AnimationController _controller ;
+  late final AnimationController _controller;
 
   @override
   void initState() {
@@ -45,9 +45,8 @@ class _ImplicitAnimatedIconState extends State<ImplicitAnimatedIcon> with Single
 
     bool goesForward = _controller.status == AnimationStatus.forward;
     bool isCompleted = _controller.status == AnimationStatus.completed;
-    bool reachedEnd = _controller.value == _controller.upperBound;
 
-    bool started = goesForward || (isCompleted && reachedEnd);
+    bool started = goesForward || isCompleted;
 
     if (widget.isStarted != started) {
       if (widget.isStarted) {
