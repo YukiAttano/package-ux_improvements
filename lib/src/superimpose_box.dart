@@ -44,6 +44,7 @@ class SuperimposeBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      clipBehavior: Clip.hardEdge,
       children: [
         CompositedTransformTarget(
           link: _link,

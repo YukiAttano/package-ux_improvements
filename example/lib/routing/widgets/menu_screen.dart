@@ -12,6 +12,8 @@ class MenuScreen extends StatelessWidget {
         _MenuEntry(target: NavTarget.SCREENSHOT),
         _MenuEntry(target: NavTarget.SHIMMER),
         _MenuEntry(target: NavTarget.PRELOADED_IMAGE),
+        _MenuEntry(target: NavTarget.SUPERIMPOSE_BOX),
+
       ],
     );
   }

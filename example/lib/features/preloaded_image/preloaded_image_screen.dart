@@ -9,29 +9,31 @@ class PreloadedImageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Flexible(
-          child: InkWell(
-            onTap: () {
-              _showExplanation(context, "Ink animation is over the image, but it is NOT clipped to the image size");
-            },
-            child: Ink.image(
-              image: const NetworkImage(_flutterLogoUrl),
+    return Material(
+      child: Row(
+        children: [
+          Flexible(
+            child: InkWell(
+              onTap: () {
+                _showExplanation(context, "Ink animation is over the image, but it is NOT clipped to the image size");
+              },
+              child: Ink.image(
+                image: const NetworkImage(_flutterLogoUrl),
+              ),
             ),
           ),
-        ),
-        Flexible(
-          child: PreloadedImage(
-            onPressed: () {
-              _showExplanation(context, "Ink animation is over the image, and it IS clipped to the image size");
-            },
-            image: const DecorationImage(
-              image: NetworkImage(_flutterLogoUrl),
+          Flexible(
+            child: PreloadedImage(
+              onPressed: () {
+                _showExplanation(context, "Ink animation is over the image, and it IS clipped to the image size");
+              },
+              image: const DecorationImage(
+                image: NetworkImage(_flutterLogoUrl),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
