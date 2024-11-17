@@ -27,27 +27,30 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
   ///
   /// To use more sliver, consider adding the package:sliver_tools which has a MultiSliver widget that allows adding multiple
   /// slivers as one sliver.
-  const AdaptiveRefreshIndicator({
+  AdaptiveRefreshIndicator({
     super.key,
     EdgeInsets? padding,
-    this.physics,
+    ScrollPhysics? physics,
     RefreshCallback? onRefresh,
     RefreshIndicatorConfiguration? indicatorConfig,
     CupertinoSliverRefreshControlConfiguration? cupertinoConfig,
     CustomScrollViewConfiguration? config,
     this.useMaterialIndicator,
+    bool? adaptPhysics,
     required this.sliver,
   })  : padding = padding ?? EdgeInsets.zero,
         onRefresh = onRefresh ?? _emptyRefreshCallback,
         indicatorConfig = indicatorConfig ?? const RefreshIndicatorConfiguration(),
         cupertinoConfig = cupertinoConfig ?? const CupertinoSliverRefreshControlConfiguration(),
         config = config ?? const CustomScrollViewConfiguration(),
-        _enabled = onRefresh != null;
+        _enabled = onRefresh != null,
+        physics = physics ?? ((adaptPhysics ?? true) ? _getAdoptedPhysics(useMaterialIndicator) : null);
 
   AdaptiveRefreshIndicator.widget({
     Key? key,
     EdgeInsets? padding,
     ScrollPhysics? physics,
+    bool? adoptPhysics,
     RefreshCallback? onRefresh,
     RefreshIndicatorConfiguration? indicatorConfig,
     CupertinoSliverRefreshControlConfiguration? cupertinoConfig,
@@ -58,6 +61,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           key: key,
           padding: padding,
           physics: physics,
+          adaptPhysics: adoptPhysics,
           onRefresh: onRefresh,
           indicatorConfig: indicatorConfig,
           cupertinoConfig: cupertinoConfig,
@@ -70,6 +74,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
     Key? key,
     EdgeInsets? padding,
     ScrollPhysics? physics,
+    bool? adoptPhysics,
     RefreshCallback? onRefresh,
     RefreshIndicatorConfiguration? indicatorConfig,
     CupertinoSliverRefreshControlConfiguration? cupertinoConfig,
@@ -80,6 +85,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           key: key,
           padding: padding,
           physics: physics,
+          adaptPhysics: adoptPhysics,
           onRefresh: onRefresh,
           indicatorConfig: indicatorConfig,
           cupertinoConfig: cupertinoConfig,
@@ -94,6 +100,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
     Key? key,
     EdgeInsets? padding,
     ScrollPhysics? physics,
+    bool? adoptPhysics,
     RefreshCallback? onRefresh,
     RefreshIndicatorConfiguration? indicatorConfig,
     CupertinoSliverRefreshControlConfiguration? cupertinoConfig,
@@ -109,6 +116,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           key: key,
           padding: padding,
           physics: physics,
+          adaptPhysics: adoptPhysics,
           onRefresh: onRefresh,
           indicatorConfig: indicatorConfig,
           cupertinoConfig: cupertinoConfig,
@@ -128,6 +136,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
     Key? key,
     EdgeInsets? padding,
     ScrollPhysics? physics,
+    bool? adoptPhysics,
     RefreshCallback? onRefresh,
     RefreshIndicatorConfiguration? indicatorConfig,
     CupertinoSliverRefreshControlConfiguration? cupertinoConfig,
@@ -144,6 +153,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           key: key,
           padding: padding,
           physics: physics,
+          adaptPhysics: adoptPhysics,
           onRefresh: onRefresh,
           indicatorConfig: indicatorConfig,
           cupertinoConfig: cupertinoConfig,
@@ -164,6 +174,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
   AdaptiveRefreshIndicator.fill({
     Key? key,
     EdgeInsets? padding,
+    bool? adoptPhysics,
     ScrollPhysics? physics,
     RefreshCallback? onRefresh,
     bool? hasScrollBody,
@@ -177,6 +188,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           key: key,
           padding: padding,
           physics: physics,
+          adaptPhysics: adoptPhysics,
           onRefresh: onRefresh,
           indicatorConfig: indicatorConfig,
           cupertinoConfig: cupertinoConfig,
@@ -245,4 +257,10 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
   }
 
   static Future<void> _emptyRefreshCallback() => Future.value();
+
+  static ScrollPhysics? _getAdoptedPhysics(bool? useMaterial) => switch (useMaterial) {
+        (null) => null,
+        (true) => const ClampingScrollPhysics(),
+        (false) => const BouncingScrollPhysics(),
+      };
 }
