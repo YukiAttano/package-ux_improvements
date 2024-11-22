@@ -1,8 +1,7 @@
-
 import 'package:flutter/rendering.dart';
 
+/// same as [RenderStack] but allows to hit widgets outside of its own bounds
 class UnboundRenderStack extends RenderStack {
-
   bool hitTestIgnoreBound;
 
   UnboundRenderStack({
@@ -14,10 +13,8 @@ class UnboundRenderStack extends RenderStack {
     required this.hitTestIgnoreBound,
   });
 
-
   @override
   bool hitTest(BoxHitTestResult result, {required Offset position}) {
-
     if (hitTestIgnoreBound) {
       if (hitTestChildren(result, position: position) || hitTestSelf(position)) {
         result.add(BoxHitTestEntry(this, position));
