@@ -17,5 +17,7 @@ export 'src/adaptive_refresh_indicator/refresh_indicator_configuration.dart';
 export 'src/adaptive_refresh_indicator/custom_scroll_view_configuration.dart';
 export 'src/superimpose_box.dart';
 export 'src/list_views/endless_list_view.dart';
+export 'src/unbound_stack/unbound_stack.dart';
+export 'src/unbound_stack/unbound_render_stack.dart';
 
 export 'package:responsive_ux/responsive_ux.dart';
