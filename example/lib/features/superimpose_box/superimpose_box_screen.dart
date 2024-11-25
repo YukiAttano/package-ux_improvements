@@ -18,10 +18,7 @@ class SuperimposeBoxScreen extends StatelessWidget {
             Superimpose(
               overlayAlign: Alignment.centerRight,
               childAlign: Alignment.bottomRight,
-              overlay: Chip(
-                clipBehavior: Clip.none,
-                label: Text("Text"),
-              ),
+              overlay: ElevatedButton(onPressed: _empty, child:  Text("Click me")),
             ),
           ],
           child: const Card(
@@ -42,6 +39,8 @@ class SuperimposeBoxScreen extends StatelessWidget {
       ),
     );
   }
+
+  static void _empty() {}
 }
 
 /// This Widget shows, that the Stack blocks hits outside of itself
