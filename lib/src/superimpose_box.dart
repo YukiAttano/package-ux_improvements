@@ -22,8 +22,35 @@ class SuperimposeBox extends StatelessWidget {
   final Widget child;
   final EdgeInsets overlayPadding;
 
-  SuperimposeBox({super.key, this.overlays = const [], EdgeInsets? overlayPadding, required this.child})
-      : overlayPadding = overlayPadding ?? const EdgeInsets.symmetric(horizontal: 12),
+  /// This option does not clip [overlays]
+  ///
+  /// falls back to [Clip.none]
+  ///
+  /// [overlays] are laid out and than transformed according to their configuration.
+  /// As clipping is applied on the layout bounds and not on the transformed bounds,
+  /// clipping has no direct visual effect in most cases.
+  final Clip clipBehavior;
+  final StackFit fit;
+  final TextDirection? textDirection;
+
+  /// if true (the default), [overlays] are hittable and receive pointer feedback outside of [child] bounds.
+  ///
+  /// this is true by default, as a performance impact is not expected.
+  final bool ignoreBounds;
+
+  SuperimposeBox({
+    super.key,
+    this.overlays = const [],
+    EdgeInsets? overlayPadding,
+    required this.child,
+    Clip? clipBehavior,
+    StackFit? fit,
+    this.textDirection,
+    bool? ignoreBounds,
+  })  : overlayPadding = overlayPadding ?? const EdgeInsets.symmetric(horizontal: 12),
+        clipBehavior = clipBehavior ?? Clip.none,
+        fit = fit ?? StackFit.loose,
+        ignoreBounds = ignoreBounds ?? true,
         _link = LayerLink();
 
   SuperimposeBox.single({
@@ -32,11 +59,19 @@ class SuperimposeBox extends StatelessWidget {
     Alignment? childAlign,
     Widget? overlay,
     EdgeInsets? overlayPadding,
+    Clip? clipBehavior,
+    StackFit? fit,
+    TextDirection? textDirection,
+    bool? ignoreBounds,
     required Widget child,
   }) : this(
           key: key,
           overlays: [Superimpose(childAlign: childAlign, overlayAlign: overlayAlign, overlay: overlay)],
           overlayPadding: overlayPadding,
+          clipBehavior: clipBehavior,
+          fit: fit,
+          textDirection: textDirection,
+          ignoreBounds: ignoreBounds,
           child: child,
         );
 
@@ -45,7 +80,10 @@ class SuperimposeBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UnboundStack(
-      hitTestIgnoreBound: false,
+      hitTestIgnoreBound: ignoreBounds,
+      clipBehavior: clipBehavior,
+      fit: fit,
+      textDirection: textDirection,
       children: [
         CompositedTransformTarget(
           link: _link,
