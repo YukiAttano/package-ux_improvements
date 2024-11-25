@@ -1,3 +1,15 @@
+## NEXT
+
+### Added ###
+
+* Add UnboundStack (like Stack, but allows hit-testing (e.g. clicking, hovering, ...) Widgets outside of its bounds)
+* Add RenderUnboundStack (the RenderObject which enabled all the features of UnboundStack)
+* Add Example project to improve the overall documentation
+
+### Changed ###
+
+* SuperimposeBox'd overlays are now clickable
+
 ## 0.11.4
 
 ### Fixed ###

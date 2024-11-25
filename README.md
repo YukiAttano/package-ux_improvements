@@ -18,21 +18,20 @@ or allow advantages that are otherwise tedious to re-implement.
 
 ## Intro
 
-One of the features is the ScreenshotBoundary. It allows to easily take screenshots of widgets.
-As this introduces a fast and easy screenshot functionality, it will never grow to the size of the [screenshot](https://pub.dev/packages/screenshot) package.
-Instead, improvements like video capture will be laid out in a dedicated library and not bloat this package.
+I recommend to take a look at the Example project to see the most (if not all) features in action
 
 ## Features
 
 - FakeloadingWidget (introduce a min delay for non-async operations in the UI)
 - SmoothFutureBuilder (introduce a min delay for async operations in the UI)
 - Shimmer (a synchronized Shimmer effect above multiple widgets)
-- ScreenshotBoundary (take screenshots without using the screenshot package)
+- ScreenshotBoundary (take screenshots without using the [screenshot](https://pub.dev/packages/screenshot) package)
 - ImplicitAnimatedIcon (use AnimatedIcons without dealing with the AnimationController)
 - PreloadedImage (Ink splashes and decorations clipped to not-yet loaded Image)
 - AdaptiveRefreshIndicator (feels more native then RefreshIndicator.adaptive)
 - SuperimposeBox (similar to Flutters Badge but allows aligning widgets easier together)
 - EndlessListView (builds Widgets in both directions)
+- UnboundStack (like Stack, but allows hit-testing (e.g. clicking, hovering, ...) Widgets outside of its bounds)
 - Re-Exports [responsive_ux](https://pub.dev/packages/responsive_ux) 
 
 ## Getting started
