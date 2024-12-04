@@ -1,8 +1,9 @@
 import "package:flutter/cupertino.dart" hide RefreshCallback;
 import "package:flutter/material.dart";
-import "package:ux_improvements/src/adaptive_refresh_indicator/cupertino_sliver_refresh_control_configuration.dart";
-import "package:ux_improvements/src/adaptive_refresh_indicator/custom_scroll_view_configuration.dart";
-import "package:ux_improvements/src/adaptive_refresh_indicator/refresh_indicator_configuration.dart";
+
+import "cupertino_sliver_refresh_control_configuration.dart";
+import "custom_scroll_view_configuration.dart";
+import "refresh_indicator_configuration.dart";
 
 class AdaptiveRefreshIndicator extends StatelessWidget {
   final EdgeInsets padding;
@@ -15,10 +16,11 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
   /// set this to true to always use the [RefreshIndicator], false to always use the [CupertinoSliverRefreshControl] and
   /// null to use cupertino only on [TargetPlatform.iOS] and [TargetPlatform.macOS]
   final bool? useMaterialIndicator;
-  final Widget sliver;
+  final List<Widget> slivers;
 
   final bool _enabled;
 
+  /// {@template adaptive_refresh_indicator}
   /// uses the [CupertinoSliverRefreshControl] on [TargetPlatform.iOS] and [TargetPlatform.macOS] and
   /// [RefreshIndicator] on all others.
   ///
@@ -27,7 +29,8 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
   ///
   /// To use more sliver, consider adding the package:sliver_tools which has a MultiSliver widget that allows adding multiple
   /// slivers as one sliver.
-  AdaptiveRefreshIndicator({
+  /// {@endtemplate}
+  AdaptiveRefreshIndicator.slivers({
     super.key,
     EdgeInsets? padding,
     ScrollPhysics? physics,
@@ -37,7 +40,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
     CustomScrollViewConfiguration? config,
     this.useMaterialIndicator,
     bool? adaptPhysics,
-    required this.sliver,
+    required this.slivers,
   })  : padding = padding ?? EdgeInsets.zero,
         onRefresh = onRefresh ?? _emptyRefreshCallback,
         indicatorConfig = indicatorConfig ?? const RefreshIndicatorConfiguration(),
@@ -46,27 +49,52 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
         _enabled = onRefresh != null,
         physics = physics ?? ((adaptPhysics ?? true) ? _getAdoptedPhysics(useMaterialIndicator) : null);
 
-  AdaptiveRefreshIndicator.widget({
+  /// {@macro adaptive_refresh_indicator}
+  AdaptiveRefreshIndicator({
     Key? key,
     EdgeInsets? padding,
     ScrollPhysics? physics,
-    bool? adoptPhysics,
     RefreshCallback? onRefresh,
     RefreshIndicatorConfiguration? indicatorConfig,
     CupertinoSliverRefreshControlConfiguration? cupertinoConfig,
     CustomScrollViewConfiguration? config,
     bool? useMaterialIndicator,
+    bool? adaptPhysics,
+    required Widget sliver,
+  }) : this.slivers(
+          key: key,
+          padding: padding,
+          onRefresh: onRefresh,
+          indicatorConfig: indicatorConfig,
+          cupertinoConfig: cupertinoConfig,
+          config: config,
+          physics: physics,
+          useMaterialIndicator: useMaterialIndicator,
+          adaptPhysics: adaptPhysics,
+          slivers: [sliver],
+        );
+
+  AdaptiveRefreshIndicator.widget({
+    Key? key,
+    EdgeInsets? padding,
+    ScrollPhysics? physics,
+    RefreshCallback? onRefresh,
+    RefreshIndicatorConfiguration? indicatorConfig,
+    CupertinoSliverRefreshControlConfiguration? cupertinoConfig,
+    CustomScrollViewConfiguration? config,
+    bool? useMaterialIndicator,
+    bool? adoptPhysics,
     required Widget child,
   }) : this(
           key: key,
           padding: padding,
           physics: physics,
-          adaptPhysics: adoptPhysics,
           onRefresh: onRefresh,
           indicatorConfig: indicatorConfig,
           cupertinoConfig: cupertinoConfig,
           config: config,
           useMaterialIndicator: useMaterialIndicator,
+          adaptPhysics: adoptPhysics,
           sliver: SliverToBoxAdapter(child: child),
         );
 
@@ -85,12 +113,12 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           key: key,
           padding: padding,
           physics: physics,
-          adaptPhysics: adoptPhysics,
           onRefresh: onRefresh,
           indicatorConfig: indicatorConfig,
           cupertinoConfig: cupertinoConfig,
           config: config,
           useMaterialIndicator: useMaterialIndicator,
+          adaptPhysics: adoptPhysics,
           sliver: SliverList.list(
             children: children,
           ),
@@ -116,12 +144,12 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           key: key,
           padding: padding,
           physics: physics,
-          adaptPhysics: adoptPhysics,
           onRefresh: onRefresh,
           indicatorConfig: indicatorConfig,
           cupertinoConfig: cupertinoConfig,
           config: config,
           useMaterialIndicator: useMaterialIndicator,
+          adaptPhysics: adoptPhysics,
           sliver: SliverList.builder(
             itemCount: itemCount,
             findChildIndexCallback: findChildIndexCallback,
@@ -153,12 +181,12 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           key: key,
           padding: padding,
           physics: physics,
-          adaptPhysics: adoptPhysics,
           onRefresh: onRefresh,
           indicatorConfig: indicatorConfig,
           cupertinoConfig: cupertinoConfig,
           config: config,
           useMaterialIndicator: useMaterialIndicator,
+          adaptPhysics: adoptPhysics,
           sliver: SliverList.separated(
             itemCount: itemCount,
             findChildIndexCallback: findChildIndexCallback,
@@ -188,12 +216,12 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           key: key,
           padding: padding,
           physics: physics,
-          adaptPhysics: adoptPhysics,
           onRefresh: onRefresh,
           indicatorConfig: indicatorConfig,
           cupertinoConfig: cupertinoConfig,
           config: config,
           useMaterialIndicator: useMaterialIndicator,
+          adaptPhysics: adoptPhysics,
           sliver: SliverFillRemaining(
             hasScrollBody: hasScrollBody ?? true,
             fillOverscroll: fillOverscroll ?? false,
@@ -247,10 +275,12 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
               ),
             ),
           ),
-          SliverPadding(
-            padding: padding,
-            sliver: sliver,
-          ),
+          ...List.generate(slivers.length, (index) {
+            return SliverPadding(
+              padding: padding,
+              sliver: slivers[index],
+            );
+          })
         ],
       ),
     );
