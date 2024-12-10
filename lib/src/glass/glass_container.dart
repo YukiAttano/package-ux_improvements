@@ -50,7 +50,7 @@ class _Filter extends StatelessWidget {
   final double sigmaX;
   final double sigmaY;
 
-  const _Filter({super.key, required this.color, double? sigmaX, double? sigmaY})
+  const _Filter({required this.color, double? sigmaX, double? sigmaY})
       : sigmaX = sigmaX ?? 0,
         sigmaY = sigmaY ?? 0;
 
