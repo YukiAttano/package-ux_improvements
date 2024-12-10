@@ -8,7 +8,6 @@ import 'package:example/features/superimpose_box/superimpose_box_screen.dart';
 import 'package:example/routing/widgets/menu_screen.dart';
 import 'package:example/routing/widgets/nav_shell.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -91,7 +90,7 @@ enum NavTarget {
   SCREENSHOT("/screenshot", "ScreenshotBoundary",
       "You can configure the pixelRatio to increase the sharpness\n(This example only shows integer values, but doubles would also work)"),
   SHIMMER("/shimmer", "Shimmer", "Experiment with the values to achieve the effects you need"),
-  PRELOADED_IMAGE("/preloaded_image", "PrelaodedImage", "The PreloadedImage allows to show a loading Widget and size the ink splash animation to its size, compared to a normal Image"),
+  PRELOADED_IMAGE("/preloaded_image", "PreloadedImage", "The PreloadedImage allows to show a loading Widget and size the ink splash animation to its size, compared to a normal Image"),
   SUPERIMPOSE_BOX("/superimpose_box", "SuperimposeBox", "This Widget allows stacking multiple Widgets on another Widget"),
   IMPLICIT_ANIMATED_ICON("/implicit_animated_icon", "ImplicitAnimatedIcon", "Allows changing the animation without having to handle the AnimationController"),
   ADAPTIVE_REFRESH_INDICATOR("/adaptive_refresh_indicator", "AdaptiveRefreshIndicator", "The refresh that people expect on each platform"),
