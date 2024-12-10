@@ -32,6 +32,7 @@ I recommend to take a look at the Example project to see the most (if not all) f
 - SuperimposeBox (similar to Flutters Badge but allows aligning widgets easier together)
 - EndlessListView (builds Widgets in both directions)
 - UnboundStack (like Stack, but allows hit-testing (e.g. clicking, hovering, ...) Widgets outside of its bounds)
+- GlassCard / GlassContainer (Glassmorphism effect)
 - Re-Exports [responsive_ux](https://pub.dev/packages/responsive_ux) 
 
 ## Getting started
