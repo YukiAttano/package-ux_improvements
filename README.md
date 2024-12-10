@@ -43,8 +43,7 @@ dart pub add ux_improvements
 
 ## Usage
 
-As this package is mainly developed for my own use, there is no full usage documentation yet.
-(But will definitely come in the future)
+If the documentation lacks some points, open an issue and i will improve it.
 
 ## Additional information
 
