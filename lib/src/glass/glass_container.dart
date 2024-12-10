@@ -1,57 +1,69 @@
-
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:ux_improvements/src/glass/styles/glass_container_style.dart';
 
 class GlassContainer extends StatelessWidget {
-  const GlassContainer({super.key});
+  final GlassContainerStyle? style;
+  final Widget child;
+
+  const GlassContainer({super.key, this.style, required this.child});
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned.fill(child: FlutterLogo()),
-        Card(
-          color: Colors.transparent,
-          clipBehavior: Clip.hardEdge,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
+    GlassContainerStyle? s = GlassContainerStyle.of(context, style);
 
-          ),
-          elevation: 0,
-          child: Stack(
-            children: [
-              Positioned.fill(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                  child: ColoredBox(
-                    color: Colors.green.withOpacity(0.1),
-                  ),
-                ),
-              ),
-              DecoratedBox(
-                decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color:  Colors.white.withOpacity(0.1),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
-                      ),
-                    ]
-                ),
-                child: Column(
-                  children: [
-                    Text("       Text      "),
-                    Text(""),
-                    Text(""),
-                    Text(""),
-                  ],
-                ),
-              ),
-            ],
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Positioned.fill(
+          child: ClipRRect(
+            borderRadius: s.borderRadius ?? BorderRadius.zero,
+            clipBehavior: s.clipBehavior!,
+            child: _Filter(
+              sigmaY: s.sigmaY,
+              sigmaX: s.sigmaX,
+              color: s.color!.withOpacity(s.opacity!),
+            ),
           ),
         ),
+        DecoratedBox(
+          decoration: BoxDecoration(
+            border: s.border,
+            borderRadius: s.borderRadius,
+            boxShadow: [
+              BoxShadow(
+                color: s.tint!.withOpacity(s.tintOpacity!),
+                blurRadius: s.tintBlurRadius!,
+              )
+            ],
+          ),
+          child: child,
+        ),
       ],
+    );
+  }
+}
+
+class _Filter extends StatelessWidget {
+  final Color color;
+  final double sigmaX;
+  final double sigmaY;
+
+  const _Filter({super.key, required this.color, double? sigmaX, double? sigmaY})
+      : sigmaX = sigmaX ?? 0,
+        sigmaY = sigmaY ?? 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return BackdropFilter(
+      filter: ImageFilter.blur(
+        sigmaX: sigmaX,
+        sigmaY: sigmaY,
+      ),
+      child: ColoredBox(
+        color: color,
+      ),
     );
   }
 }

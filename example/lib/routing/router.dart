@@ -1,5 +1,6 @@
 import 'package:example/features/adaptive_refresh_indicator/adaptive_refresh_indicator_screen.dart';
 import 'package:example/features/endless_list_view/endless_list_view_screen.dart';
+import 'package:example/features/glass/glass_screen.dart';
 import 'package:example/features/implicit_animated_icon/implicit_animated_icon_screen.dart';
 import 'package:example/features/preloaded_image/preloaded_image_screen.dart';
 import 'package:example/features/screenshot/screenshot_screen.dart';
@@ -76,6 +77,12 @@ final router = Provider(
                 return const AdaptiveRefreshIndicatorScreen();
               },
             ),
+            GoRoute(
+              path: NavTarget.GLASS.route,
+              builder: (context, state) {
+                return const GlassScreen();
+              },
+            ),
           ],
         ),
       ],
@@ -94,6 +101,7 @@ enum NavTarget {
   SUPERIMPOSE_BOX("/superimpose_box", "SuperimposeBox", "This Widget allows stacking multiple Widgets on another Widget"),
   IMPLICIT_ANIMATED_ICON("/implicit_animated_icon", "ImplicitAnimatedIcon", "Allows changing the animation without having to handle the AnimationController"),
   ADAPTIVE_REFRESH_INDICATOR("/adaptive_refresh_indicator", "AdaptiveRefreshIndicator", "The refresh that people expect on each platform"),
+  GLASS("/glass", "Glass", "Glassmorphism"),
   ;
 
   const NavTarget(this.route, this.title, this.description);

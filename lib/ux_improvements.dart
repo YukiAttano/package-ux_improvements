@@ -19,5 +19,10 @@ export 'src/superimpose_box.dart';
 export 'src/list_views/endless_list_view.dart';
 export 'src/unbound_stack/unbound_stack.dart';
 export 'src/unbound_stack/unbound_render_stack.dart';
+export 'src/glass/glass_card.dart';
+export 'src/glass/glass_container.dart';
+export 'src/glass/styles/glass_card_style.dart';
+export 'src/glass/styles/glass_container_style.dart';
+
 
 export 'package:responsive_ux/responsive_ux.dart';
