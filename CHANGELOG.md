@@ -5,7 +5,7 @@
 * Add UnboundStack (like Stack, but allows hit-testing (e.g. clicking, hovering, ...) Widgets outside of its bounds)
 * Add RenderUnboundStack (the RenderObject which enabled all the features of UnboundStack)
 * Add AdaptiveRefreshIndicator.slivers (allows to use multiple slivers)
-* Add GlassCard (Glassmophism effect Widget with Cards)
+* Add GlassCard (Glassmorphism effect Widget with Cards)
 * Add GlassContainer (Glassmorphism effect Widget as a general basis for other Widgets)
 * Add Example project to improve the overall documentation
 
