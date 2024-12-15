@@ -7,6 +7,8 @@ import 'shimmer_area.dart';
 class Shimmer extends StatefulWidget {
   // colorBurn, softLight and darken look ultra sexy with a ColoredBox and color around 0.4 opacity.
   // But changing the used ShimmerArea gradient would allow the same effect without using a ColoredBox.
+  /// If you experience the Shader to be applied to the background and not just to the widgets in the foreground,
+  /// change the [blendMode], the Gradient or use dummy widgets and apply the [Shimmer] directly to them.
   final BlendMode blendMode;
   final Widget child;
 

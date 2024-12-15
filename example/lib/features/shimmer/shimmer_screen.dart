@@ -12,10 +12,12 @@ class ShimmerScreen extends StatefulWidget {
 }
 
 class _ShimmerScreenState extends State<ShimmerScreen> {
-  static final LinearGradient _gradient = ShimmerArea.silverShimmerGradient.copyWithColors(
+  LinearGradient _gradient = ShimmerArea.silverShimmerGradient.copyWithColors(
     // with an opacity of 1 (the default), the Widgets will be fully occupied by the Shader
     colors: ShimmerArea.sliverColors.copyWithOpacity(0.8),
   );
+
+  double _opacity = 0.8;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,10 @@ class _ShimmerScreenState extends State<ShimmerScreen> {
         gradient: _gradient,
         child: Column(
           children: [
+            _Settings(
+              opacity: _opacity,
+              onChangeOpacity: _onChangeOpacity,
+            ),
             const Shimmer(child: _Cards()),
             const Shimmer(child: _Cards()),
             Expanded(
@@ -58,6 +64,17 @@ class _ShimmerScreenState extends State<ShimmerScreen> {
         ),
       ),
     );
+  }
+
+  void _onChangeOpacity(double value) {
+    setState(() {
+      _opacity = value;
+
+      _gradient = ShimmerArea.silverShimmerGradient.copyWithColors(
+        // with an opacity of 1 (the default), the Widgets will be fully occupied by the Shader
+        colors: ShimmerArea.sliverColors.copyWithOpacity(_opacity),
+      );
+    });
   }
 }
 
@@ -114,5 +131,31 @@ extension ColorListExtension on List<Color> {
     }
 
     return colors;
+  }
+}
+
+class _Settings extends StatelessWidget {
+  final double opacity;
+  final void Function(double opacity)? onChangeOpacity;
+
+  const _Settings({
+    super.key,
+    this.opacity = 1,
+    this.onChangeOpacity,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text("Opacity (${opacity.toStringAsFixed(2)})"),
+        Flexible(
+          child: Slider(
+            value: opacity,
+            onChanged: onChangeOpacity,
+          ),
+        ),
+      ],
+    );
   }
 }

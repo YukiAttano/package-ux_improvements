@@ -19,68 +19,70 @@ class _GlassScreenState extends State<GlassScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _Settings(
-          opacity: _opacity,
-          onChangeOpacity: _onChangeOpacity,
-          elevation: _elevation,
-          onChangeElevation: _onChangeElevation,
-          sigma: _sigma,
-          onChangeSigma: _onChangeSigma,
-          color: _color,
-          onChangeColor: _onChangeColor,
-          hasBorder: _hasBorder,
-          onChangeBorder: _onChangeBorder,
-        ),
-        Text("To fully experience the Glassmorphism, try out the package yourself. The glass itself has a color and tint color to play with while the Card itself allows a third color"),
-        Expanded(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              FlutterLogo(
-                size: 200,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GlassCard(
-                    style: GlassCardStyle(
-                      shape: _hasBorder
-                          ? GlassCardStyle.defaultBorder(color: _color, useMaterial3: Theme.of(context).useMaterial3)
-                          : GlassCardStyle.defaultBorder().copyWith(side: BorderSide.none),
-                      color: _color,
-                      opacity: _opacity,
-                      elevation: _elevation,
-                      containerStyle: GlassContainerStyle(
+    return Material(
+      child: Column(
+        children: [
+          _Settings(
+            opacity: _opacity,
+            onChangeOpacity: _onChangeOpacity,
+            elevation: _elevation,
+            onChangeElevation: _onChangeElevation,
+            sigma: _sigma,
+            onChangeSigma: _onChangeSigma,
+            color: _color,
+            onChangeColor: _onChangeColor,
+            hasBorder: _hasBorder,
+            onChangeBorder: _onChangeBorder,
+          ),
+          Text("To fully experience the Glassmorphism, try out the package yourself. The glass itself has a color and tint color to play with while the Card itself allows a third color"),
+          Expanded(
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                FlutterLogo(
+                  size: 200,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GlassCard(
+                      style: GlassCardStyle(
+                        shape: _hasBorder
+                            ? GlassCardStyle.defaultBorder(color: _color, useMaterial3: Theme.of(context).useMaterial3)
+                            : GlassCardStyle.defaultBorder().copyWith(side: BorderSide.none),
+                        color: _color,
+                        opacity: _opacity,
+                        elevation: _elevation,
+                        containerStyle: GlassContainerStyle(
+                          sigmaX: _sigma,
+                          sigmaY: _sigma,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Text("This is a GlassCard"),
+                      ),
+                    ),
+                    const Divider(color: Colors.transparent),
+                    GlassContainer(
+                      style: GlassContainerStyle(
+                        color: _color,
+                        opacity: _opacity,
                         sigmaX: _sigma,
                         sigmaY: _sigma,
                       ),
+                      child: Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Text("This is a GlassContainer"),
+                      ),
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Text("This is a GlassCard"),
-                    ),
-                  ),
-                  const Divider(color: Colors.transparent),
-                  GlassContainer(
-                    style: GlassContainerStyle(
-                      color: _color,
-                      opacity: _opacity,
-                      sigmaX: _sigma,
-                      sigmaY: _sigma,
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Text("This is a GlassContainer"),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
