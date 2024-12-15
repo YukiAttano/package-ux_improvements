@@ -25,10 +25,7 @@ class GlassCardStyle extends ThemeExtension<GlassCardStyle> {
     ThemeData theme = Theme.of(context);
     ColorScheme scheme = theme.colorScheme;
 
-    ShapeBorder? shape = RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(theme.useMaterial3 ? 12 : 4)),
-      side: BorderSide(color: Colors.black.withOpacity(0.2))
-    );
+    ShapeBorder? shape = defaultBorder(useMaterial3: theme.useMaterial3);
 
     Color color = scheme.primaryContainer;
     double opacity = 0.1;
@@ -49,6 +46,16 @@ class GlassCardStyle extends ThemeExtension<GlassCardStyle> {
     s = s.merge(style);
 
     return s;
+  }
+
+  static RoundedRectangleBorder defaultBorder({Color? color, double? opacity, bool useMaterial3 = true}) {
+    color ??= Colors.black;
+    opacity ??= 0.2;
+
+    return RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(useMaterial3 ? 12 : 4)),
+        side: BorderSide(color: Colors.black.withOpacity(0.2))
+    );
   }
 
   @override
