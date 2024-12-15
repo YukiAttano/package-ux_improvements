@@ -56,5 +56,4 @@ If the documentation lacks some points, open an issue and i will improve it.
 
 I am open for contributions and ideas to improve (but not bloat) this package. Feel free to reach out.
 
-This package is under active development, does not await breaking changes (only if they are required to fix something that is really wrong).
-and will be set to v 1.0 after examples and a usage documentation is added.
+This package is under active development.
