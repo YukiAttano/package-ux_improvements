@@ -29,10 +29,10 @@ I recommend to take a look at the Example project to see the most (if not all) f
 - ImplicitAnimatedIcon (use AnimatedIcons without dealing with the AnimationController)
 - PreloadedImage (Ink splashes and decorations clipped to not-yet loaded Image)
 - AdaptiveRefreshIndicator (feels more native then RefreshIndicator.adaptive)
-- SuperimposeBox (similar to Flutters Badge but allows aligning widgets easier together)
+- SuperimposeBox (similar to Flutters Badge but allows aligning widgets easier together ![SuperimposeBox.png](example/assets/SuperimposeBox.png))
 - EndlessListView (builds Widgets in both directions)
 - UnboundStack (like Stack, but allows hit-testing (e.g. clicking, hovering, ...) Widgets outside of its bounds)
-- GlassCard / GlassContainer (Glassmorphism effect)
+- GlassCard / GlassContainer (Glassmorphism effect ![Glassmorphism.png](example/assets/Glassmorphism.png))
 - Re-Exports [responsive_ux](https://pub.dev/packages/responsive_ux) 
 
 ## Getting started
