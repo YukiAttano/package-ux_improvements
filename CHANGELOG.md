@@ -1,3 +1,11 @@
+## 0.11.6
+
+### Docs ###
+
+* Add multiple inline docs
+* Add [Example](https://memeozer.com/) Website to showcase most of the features
+
+
 ## 0.11.5
 
 ### Added ###
