@@ -23,7 +23,7 @@ class GlassContainer extends StatelessWidget {
             child: _Filter(
               sigmaY: s.sigmaY,
               sigmaX: s.sigmaX,
-              color: s.color!.withOpacity(s.opacity!),
+              color: s.color!.withValues(alpha: s.opacity!),
             ),
           ),
         ),
@@ -31,9 +31,11 @@ class GlassContainer extends StatelessWidget {
           decoration: BoxDecoration(
             border: s.border,
             borderRadius: s.borderRadius,
+            gradient: s.gradient,
+            shape: s.shape ?? BoxShape.rectangle,
             boxShadow: [
               BoxShadow(
-                color: s.tint!.withOpacity(s.tintOpacity!),
+                color: s.tint!.withValues(alpha: s.tintOpacity!),
                 blurRadius: s.tintBlurRadius!,
               )
             ],

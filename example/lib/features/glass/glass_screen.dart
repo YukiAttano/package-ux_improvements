@@ -11,7 +11,7 @@ class GlassScreen extends StatefulWidget {
 }
 
 class _GlassScreenState extends State<GlassScreen> {
-  double _opacity = 1;
+  double _opacity = 0.8;
   double _elevation = 0;
   double _sigma = 10;
   Color? _color;

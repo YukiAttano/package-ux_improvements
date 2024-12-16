@@ -14,6 +14,8 @@ class GlassContainerStyle extends ThemeExtension<GlassContainerStyle> {
   final double? sigmaX;
   final double? sigmaY;
   final Clip? clipBehavior;
+  final Gradient? gradient;
+  final BoxShape? shape;
 
   const GlassContainerStyle({
     this.color,
@@ -26,6 +28,8 @@ class GlassContainerStyle extends ThemeExtension<GlassContainerStyle> {
     this.sigmaX,
     this.sigmaY,
     this.clipBehavior,
+    this.gradient,
+    this.shape,
   });
 
   factory GlassContainerStyle.fallback(BuildContext context) {
@@ -66,7 +70,6 @@ class GlassContainerStyle extends ThemeExtension<GlassContainerStyle> {
 
   @override
   GlassContainerStyle copyWith({
-    ShapeBorder? shape,
     Color? color,
     double? opacity,
     Color? tint,
@@ -77,6 +80,8 @@ class GlassContainerStyle extends ThemeExtension<GlassContainerStyle> {
     double? sigmaX,
     double? sigmaY,
     Clip? clipBehavior,
+    Gradient? gradient,
+    BoxShape? shape,
   }) {
     return GlassContainerStyle(
       color: color ?? this.color,
@@ -89,6 +94,8 @@ class GlassContainerStyle extends ThemeExtension<GlassContainerStyle> {
       sigmaX: sigmaX ?? this.sigmaX,
       sigmaY: sigmaY ?? this.sigmaY,
       clipBehavior: clipBehavior ?? this.clipBehavior,
+      gradient: gradient ?? this.gradient,
+      shape: shape ?? this.shape,
     );
   }
 
@@ -106,6 +113,8 @@ class GlassContainerStyle extends ThemeExtension<GlassContainerStyle> {
       sigmaX: other.sigmaX,
       sigmaY: other.sigmaY,
       clipBehavior: other.clipBehavior,
+      gradient: other.gradient,
+      shape: other.shape,
     );
   }
 
@@ -124,6 +133,8 @@ class GlassContainerStyle extends ThemeExtension<GlassContainerStyle> {
       sigmaX: lerpDouble(sigmaX, other.sigmaX, t),
       sigmaY: lerpDouble(sigmaY, other.sigmaY, t),
       clipBehavior: t < 0.5 ? clipBehavior : other.clipBehavior,
+      gradient: Gradient.lerp(gradient, other.gradient, t),
+      shape: t < 0.5 ? shape : other.shape,
     );
   }
 }
