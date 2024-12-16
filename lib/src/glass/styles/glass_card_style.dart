@@ -11,6 +11,9 @@ class GlassCardStyle extends ThemeExtension<GlassCardStyle> {
   final double? elevation;
   final Clip? clipBehavior;
   final GlassContainerStyle? containerStyle;
+  final EdgeInsetsGeometry? margin;
+  final Color? shadowColor;
+
 
   const GlassCardStyle({
     this.shape,
@@ -19,6 +22,8 @@ class GlassCardStyle extends ThemeExtension<GlassCardStyle> {
     this.elevation,
     this.clipBehavior,
     this.containerStyle,
+    this.margin,
+    this.shadowColor,
   });
 
   factory GlassCardStyle.fallback(BuildContext context) {
@@ -66,6 +71,8 @@ class GlassCardStyle extends ThemeExtension<GlassCardStyle> {
     double? elevation,
     Clip? clipBehavior,
     GlassContainerStyle? containerStyle,
+    EdgeInsetsGeometry? margin,
+    Color? shadowColor,
   }) {
     return GlassCardStyle(
       shape: shape ?? this.shape,
@@ -74,6 +81,8 @@ class GlassCardStyle extends ThemeExtension<GlassCardStyle> {
       elevation: elevation ?? this.elevation,
       clipBehavior: clipBehavior ?? this.clipBehavior,
       containerStyle: containerStyle ?? this.containerStyle,
+      margin: margin ?? this.margin,
+      shadowColor: shadowColor ?? this.shadowColor,
     );
   }
 
@@ -87,6 +96,8 @@ class GlassCardStyle extends ThemeExtension<GlassCardStyle> {
       elevation: other.elevation,
       clipBehavior: other.clipBehavior,
       containerStyle: other.containerStyle,
+      margin: other.margin,
+      shadowColor: other.shadowColor,
     );
   }
 
@@ -101,6 +112,8 @@ class GlassCardStyle extends ThemeExtension<GlassCardStyle> {
       elevation: lerpDouble(elevation, other.elevation, t),
       clipBehavior: t < 0.5 ? clipBehavior : other.clipBehavior,
       containerStyle: containerStyle?.lerp(other.containerStyle, t) ?? other.containerStyle,
+      margin: EdgeInsetsGeometry.lerp(margin, other.margin, t),
+      shadowColor: Color.lerp(shadowColor, other.shadowColor, t),
     );
   }
 }

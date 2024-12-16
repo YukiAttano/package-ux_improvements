@@ -16,7 +16,9 @@ class GlassCard extends StatelessWidget {
     return Card(
       clipBehavior: s.clipBehavior,
       elevation: s.elevation,
-      color: s.color!.withOpacity(s.opacity!),
+      margin: s.margin,
+      shadowColor: s.shadowColor,
+      color: s.color!.withValues(alpha: s.opacity!),
       shape: s.shape,
       child: GlassContainer(
         style: s.containerStyle,
