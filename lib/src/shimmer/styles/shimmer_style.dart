@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class ShimmerStyle extends ThemeExtension<ShimmerStyle> {
   final Color? backgroundColor;

@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:ux_improvements/src/unbound_stack/unbound_stack.dart";
+import "unbound_stack/unbound_stack.dart";
 
 class Superimpose {
   final Alignment overlayAlign;

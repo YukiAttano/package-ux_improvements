@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'shimmer.dart';
-import 'shimmer_area.dart';
+import "package:flutter/material.dart";
+import "shimmer.dart";
+import "shimmer_area.dart";
 
 /// Creates a standalone shimmer animation for its child
 class ShimmerBox extends StatelessWidget {

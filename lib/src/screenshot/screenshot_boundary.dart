@@ -1,5 +1,5 @@
-import 'package:flutter/widgets.dart';
-import 'package:ux_improvements/src/screenshot/screenshot_boundary_controller.dart';
+import "package:flutter/widgets.dart";
+import "screenshot_boundary_controller.dart";
 
 /// The area that is recorded
 ///

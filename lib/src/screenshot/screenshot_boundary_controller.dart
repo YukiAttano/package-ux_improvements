@@ -1,9 +1,9 @@
-import 'dart:typed_data';
-import 'dart:ui' as ui show Image, ImageByteFormat;
+import "dart:typed_data";
+import "dart:ui" as ui show Image, ImageByteFormat;
 
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
-import 'package:ux_improvements/src/screenshot/screenshot_boundary_exception.dart';
+import "package:flutter/rendering.dart";
+import "package:flutter/widgets.dart";
+import "screenshot_boundary_exception.dart";
 
 class ScreenshotImage {
   final int width;

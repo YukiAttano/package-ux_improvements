@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
-import 'shimmer_area.dart';
+import "shimmer_area.dart";
 
 /// A synchronized shimmer child on the screen.
 /// Needs a [ShimmerArea] as an ancestor to be placed in the tree

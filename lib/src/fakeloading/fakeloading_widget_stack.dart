@@ -1,4 +1,4 @@
-part of 'fakeloading_widget.dart';
+part of "fakeloading_widget.dart";
 
 class _FakeloadingWidget extends FakeloadingWidget {
 

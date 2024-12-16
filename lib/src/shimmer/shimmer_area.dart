@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:ux_improvements/src/shimmer/styles/shimmer_style.dart';
+import "package:flutter/material.dart";
+import "styles/shimmer_style.dart";
 
 /// Controls a shimmer animation on the screen
 ///
@@ -96,8 +96,7 @@ class ShimmerArea extends StatefulWidget {
     stops: [0.1, 0.3, 0.4],
     begin: Alignment(-1, -0.3),
     end: Alignment(1, 0.3),
-    // ignore: avoid_redundant_argument_types
-    tileMode: TileMode.clamp,
+    //tileMode: TileMode.clamp,
   );
 
   @override

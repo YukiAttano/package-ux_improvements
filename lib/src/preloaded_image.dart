@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 /// Preloads the image file to size the layout according to the image and available space.
 ///

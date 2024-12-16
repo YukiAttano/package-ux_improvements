@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:ux_improvements/src/glass/glass_container.dart';
-import 'package:ux_improvements/src/glass/styles/glass_card_style.dart';
-import 'package:ux_improvements/src/glass/styles/glass_container_style.dart';
+import "package:flutter/material.dart";
+import "glass_container.dart";
+import "styles/glass_card_style.dart";
+import "styles/glass_container_style.dart";
 
 class GlassCard extends StatelessWidget {
   final Widget child;
@@ -18,7 +18,7 @@ class GlassCard extends StatelessWidget {
       elevation: s.elevation,
       margin: s.margin,
       shadowColor: s.shadowColor,
-      color: s.color!.withValues(alpha: s.opacity!),
+      color: s.color!.withValues(alpha: s.opacity),
       shape: s.shape,
       child: GlassContainer(
         style: s.containerStyle,

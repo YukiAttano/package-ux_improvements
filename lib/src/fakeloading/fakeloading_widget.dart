@@ -1,10 +1,10 @@
-import 'dart:async';
+import "dart:async";
 
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
-import '../../ux_improvements.dart';
+import "../../ux_improvements.dart";
 
-part 'fakeloading_widget_stack.dart';
+part "fakeloading_widget_stack.dart";
 
 class FakeloadingWidget extends StatefulWidget {
   static const Widget _defaultReplacement = CircularProgressIndicator();

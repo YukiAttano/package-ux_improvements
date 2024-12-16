@@ -1,6 +1,6 @@
 
-import 'package:flutter/gestures.dart';
-import 'package:flutter/widgets.dart';
+import "package:flutter/gestures.dart";
+import "package:flutter/widgets.dart";
 
 class CustomScrollViewConfiguration {
   /// {@macro flutter.widgets.scroll_view.scrollDirection}

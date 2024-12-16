@@ -1,7 +1,7 @@
-import 'dart:ui';
+import "dart:ui";
 
-import 'package:flutter/material.dart';
-import 'package:ux_improvements/src/glass/styles/glass_container_style.dart';
+import "package:flutter/material.dart";
+import "styles/glass_container_style.dart";
 
 class GlassContainer extends StatelessWidget {
   final GlassContainerStyle? style;
@@ -23,7 +23,7 @@ class GlassContainer extends StatelessWidget {
             child: _Filter(
               sigmaY: s.sigmaY,
               sigmaX: s.sigmaX,
-              color: s.color!.withValues(alpha: s.opacity!),
+              color: s.color!.withValues(alpha: s.opacity),
             ),
           ),
         ),
@@ -35,7 +35,7 @@ class GlassContainer extends StatelessWidget {
             shape: s.shape ?? BoxShape.rectangle,
             boxShadow: [
               BoxShadow(
-                color: s.tint!.withValues(alpha: s.tintOpacity!),
+                color: s.tint!.withValues(alpha: s.tintOpacity),
                 blurRadius: s.tintBlurRadius!,
               )
             ],

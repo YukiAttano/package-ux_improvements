@@ -1,5 +1,5 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
+import "package:flutter/foundation.dart";
+import "package:flutter/widgets.dart";
 
 /// Like [FakeloadingWidget], this [FutureBuilder] waits at least until [delay] is finished before returning
 class SmoothFutureBuilder<T> extends FutureBuilder<T> {
