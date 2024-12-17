@@ -8,6 +8,7 @@
 ### Fixed ###
 
 * Fixed using 'color' parameter in GlassCardStyle.defaultBorder()
+* Fixed using 'opacity' parameter in GlassCardStyle.defaultBorder()
 
 ## 0.11.6
 
