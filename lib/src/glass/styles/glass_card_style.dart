@@ -14,7 +14,6 @@ class GlassCardStyle extends ThemeExtension<GlassCardStyle> {
   final EdgeInsetsGeometry? margin;
   final Color? shadowColor;
 
-
   const GlassCardStyle({
     this.shape,
     this.color,
@@ -58,8 +57,8 @@ class GlassCardStyle extends ThemeExtension<GlassCardStyle> {
     opacity ??= 0.2;
 
     return RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(useMaterial3 ? 12 : 4)),
-        side: BorderSide(color: Colors.black.withOpacity(0.2))
+      borderRadius: BorderRadius.all(Radius.circular(useMaterial3 ? 12 : 4)),
+      side: BorderSide(color: color.withValues(alpha: 0.2)),
     );
   }
 

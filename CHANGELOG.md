@@ -1,9 +1,13 @@
-## 0.11.7
+##  NEXT 0.11.7
 
 ### Added ###
 
 * Add more parameter to GlassCardStyle
 * Add more parameter to GlassContainerStyle
+
+### Fixed ###
+
+* Fixed using 'color' parameter in GlassCardStyle.defaultBorder()
 
 ## 0.11.6
 
