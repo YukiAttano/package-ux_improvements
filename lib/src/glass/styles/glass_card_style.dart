@@ -58,7 +58,10 @@ class GlassCardStyle extends ThemeExtension<GlassCardStyle> {
 
     return RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(useMaterial3 ? 12 : 4)),
-      side: BorderSide(color: color.withValues(alpha: opacity)),
+      side: BorderSide(
+        color: color.withValues(alpha: opacity),
+        style: opacity == 0 ? BorderStyle.none : BorderStyle.solid,
+      ),
     );
   }
 
