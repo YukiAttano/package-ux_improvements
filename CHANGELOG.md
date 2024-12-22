@@ -1,4 +1,4 @@
-##  NEXT 0.11.7
+## 0.11.7
 
 ### Added ###
 
@@ -12,7 +12,7 @@
 
 ### Changed ###
 
-* Changed example project domain
+* Changed example project link
 
 ## 0.11.6
 
