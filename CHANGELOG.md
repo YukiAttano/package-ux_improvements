@@ -10,6 +10,10 @@
 * Fixed using 'color' parameter in GlassCardStyle.defaultBorder()
 * Fixed using 'opacity' parameter in GlassCardStyle.defaultBorder()
 
+### Changed ###
+
+* Changed example project domain
+
 ## 0.11.6
 
 ### Docs ###

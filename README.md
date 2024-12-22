@@ -18,7 +18,7 @@ or allow advantages that are otherwise tedious to re-implement.
 
 ## Intro
 
-I recommend to take a look at the [Example project](https://memeozer.com/) to see the most (if not all) features in action.
+I recommend to take a look at the [Example project](https://uximprovements.web.app/) to see the most (if not all) features in action.
 
 
 ## Features
