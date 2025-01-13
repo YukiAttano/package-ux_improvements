@@ -1,11 +1,11 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=C:\Users\2906a\Development\flutter"
-export "FLUTTER_APPLICATION_PATH=C:\Users\2906a\Development\RaclerProductions\Packages\ux_improvements"
+export "FLUTTER_ROOT=/Users/alexandersandten/Library/flutter"
+export "FLUTTER_APPLICATION_PATH=/Users/alexandersandten/Development/Flutter/package-ux_improvements"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
-export "FLUTTER_BUILD_NAME=0.9.0"
-export "FLUTTER_BUILD_NUMBER=0.9.0"
+export "FLUTTER_BUILD_NAME=0.11.7"
+export "FLUTTER_BUILD_NUMBER=0.11.7"
 export "DART_OBFUSCATION=false"
 export "TRACK_WIDGET_CREATION=true"
 export "TREE_SHAKE_ICONS=false"

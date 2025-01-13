@@ -37,7 +37,7 @@ class GlassContainer extends StatelessWidget {
               BoxShadow(
                 color: s.tint!.withValues(alpha: s.tintOpacity),
                 blurRadius: s.tintBlurRadius!,
-              )
+              ),
             ],
           ),
           child: child,
