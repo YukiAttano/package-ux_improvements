@@ -1,3 +1,9 @@
+## NEXT
+
+### Added ###
+
+* Add AdaptiveRefreshIndicator.custom for full control over this feature
+
 ## 0.11.7
 
 ### Added ###

@@ -16,11 +16,18 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
   /// set this to true to always use the [RefreshIndicator], false to always use the [CupertinoSliverRefreshControl] and
   /// null to use cupertino only on [TargetPlatform.iOS] and [TargetPlatform.macOS]
   final bool? useMaterialIndicator;
-  final List<Widget> slivers;
 
   final bool _enabled;
 
-  /// {@template adaptive_refresh_indicator}
+  /// constructs the sliver list
+  ///
+  /// `cupertinoSliverRefreshControl` is the created refresh spinner which can be placed anywhere in the returned list.
+  /// This allows to place a [SliverFloatingHeader] above it for example.
+  ///
+  /// The provided `padding` must be applied to all slivers manually which allows to avoid placing it around every sliver.
+  final List<Widget> Function(Widget cupertinoSliverRefreshControl, EdgeInsets padding) customSliversBuilder;
+
+  /// {@template ux_improvements.adaptive_refresh_indicator}
   /// uses the [CupertinoSliverRefreshControl] on [TargetPlatform.iOS] and [TargetPlatform.macOS] and
   /// [RefreshIndicator] on all others.
   ///
@@ -29,8 +36,10 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
   ///
   /// To use more sliver, consider adding the package:sliver_tools which has a MultiSliver widget that allows adding multiple
   /// slivers as one sliver.
+  ///
+  /// [adaptPhysics] will adopt to the current platform or to [useMaterialIndicator] if provided.
   /// {@endtemplate}
-  AdaptiveRefreshIndicator.slivers({
+  AdaptiveRefreshIndicator.custom({
     super.key,
     EdgeInsets? padding,
     ScrollPhysics? physics,
@@ -40,7 +49,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
     CustomScrollViewConfiguration? config,
     this.useMaterialIndicator,
     bool? adaptPhysics,
-    required this.slivers,
+    required this.customSliversBuilder,
   })  : padding = padding ?? EdgeInsets.zero,
         onRefresh = onRefresh ?? _emptyRefreshCallback,
         indicatorConfig = indicatorConfig ?? const RefreshIndicatorConfiguration(),
@@ -49,7 +58,32 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
         _enabled = onRefresh != null,
         physics = physics ?? ((adaptPhysics ?? true) ? _getAdoptedPhysics(useMaterialIndicator) : null);
 
-  /// {@macro adaptive_refresh_indicator}
+  /// {@macro ux_improvements.adaptive_refresh_indicator}
+  AdaptiveRefreshIndicator.slivers({
+    Key? key,
+    EdgeInsets? padding,
+    ScrollPhysics? physics,
+    RefreshCallback? onRefresh,
+    RefreshIndicatorConfiguration? indicatorConfig,
+    CupertinoSliverRefreshControlConfiguration? cupertinoConfig,
+    CustomScrollViewConfiguration? config,
+    bool? useMaterialIndicator,
+    bool? adaptPhysics,
+    List<Widget> slivers = const [],
+  }) : this.custom(
+          key: key,
+          padding: padding,
+          onRefresh: onRefresh,
+          indicatorConfig: indicatorConfig,
+          cupertinoConfig: cupertinoConfig,
+          config: config,
+          physics: physics,
+          useMaterialIndicator: useMaterialIndicator,
+          adaptPhysics: adaptPhysics,
+          customSliversBuilder: (cupertinoRefresh, padding) => _customSliversBuilder(cupertinoRefresh, padding, slivers),
+        );
+
+  /// {@macro ux_improvements.adaptive_refresh_indicator}
   AdaptiveRefreshIndicator({
     Key? key,
     EdgeInsets? padding,
@@ -74,6 +108,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           slivers: [sliver],
         );
 
+  /// {@macro ux_improvements.adaptive_refresh_indicator}
   AdaptiveRefreshIndicator.widget({
     Key? key,
     EdgeInsets? padding,
@@ -98,6 +133,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           sliver: SliverToBoxAdapter(child: child),
         );
 
+  /// {@macro ux_improvements.adaptive_refresh_indicator}
   AdaptiveRefreshIndicator.widgets({
     Key? key,
     EdgeInsets? padding,
@@ -124,6 +160,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           ),
         );
 
+  /// {@macro ux_improvements.adaptive_refresh_indicator}
   AdaptiveRefreshIndicator.builder({
     Key? key,
     EdgeInsets? padding,
@@ -160,6 +197,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           ),
         );
 
+  /// {@macro ux_improvements.adaptive_refresh_indicator}
   AdaptiveRefreshIndicator.separated({
     Key? key,
     EdgeInsets? padding,
@@ -199,6 +237,8 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
         );
 
   /// fills the whole space and allows to layout a single widget as if it wouldn't be in a list.
+  ///
+  /// {@macro ux_improvements.adaptive_refresh_indicator}
   AdaptiveRefreshIndicator.fill({
     Key? key,
     EdgeInsets? padding,
@@ -262,7 +302,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
         scrollBehavior: config.scrollBehavior,
         scrollDirection: config.scrollDirection,
         semanticChildCount: config.semanticChildCount,
-        slivers: [
+        slivers: customSliversBuilder(
           SliverVisibility(
             visible: _enabled && !useMaterial,
             sliver: SliverPadding(
@@ -275,15 +315,23 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
               ),
             ),
           ),
-          ...List.generate(slivers.length, (index) {
-            return SliverPadding(
-              padding: padding,
-              sliver: slivers[index],
-            );
-          })
-        ],
+          padding,
+        ),
       ),
     );
+  }
+
+  static List<Widget> _customSliversBuilder(
+      Widget cupertinoSliverRefreshControl, EdgeInsets padding, List<Widget> slivers) {
+    return [
+      cupertinoSliverRefreshControl,
+      ...List.generate(slivers.length, (index) {
+        return SliverPadding(
+          padding: padding,
+          sliver: slivers[index],
+        );
+      }),
+    ];
   }
 
   static Future<void> _emptyRefreshCallback() => Future.value();
