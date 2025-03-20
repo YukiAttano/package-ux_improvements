@@ -1,3 +1,9 @@
+## 0.11.9
+
+### Added ###
+
+* Add Fakeloading.builder for full control over this feature
+
 ## 0.11.8
 
 ### Added ###

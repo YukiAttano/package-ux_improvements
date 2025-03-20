@@ -11,9 +11,14 @@ class FakeloadingWidget extends StatefulWidget {
 
   final bool loading;
   final Duration duration;
-  final Widget replacement;
-  final Widget child;
-  final bool maintainState;
+  final Widget Function(bool loading) builder;
+
+  const FakeloadingWidget.builder({
+    super.key,
+    required this.loading,
+    Duration? duration,
+    required this.builder,
+  }) : duration = duration ?? const Duration(milliseconds: 500);
 
   /// This is useful to prevent flashing loading indicator that are the result of fast Futures.
   ///
@@ -23,16 +28,31 @@ class FakeloadingWidget extends StatefulWidget {
   ///
   /// If [loading] switches between true and false multiple times, while the first triggered [duration] was not finished, the timer does not reset.
   /// The user experiences one constant loading indicator.
-  const FakeloadingWidget({
-    super.key,
-    required this.loading,
+  FakeloadingWidget({
+    Key? key,
+    required bool loading,
     Duration? duration,
     Widget? replacement,
-    required this.child,
+    required Widget child,
     bool? maintainState,
-  })  : duration = duration ?? const Duration(milliseconds: 500),
-        replacement = replacement ?? _defaultReplacement,
-        maintainState = maintainState ?? false;
+  }) : this.builder(
+          key: key,
+          loading: loading,
+          duration: duration,
+          builder: (loading) {
+            bool maintain = maintainState ?? false;
+
+            return Visibility(
+              maintainState: maintain,
+              maintainSize: maintain,
+              maintainAnimation: maintain,
+              replacement: replacement ?? _defaultReplacement,
+              visible: !loading,
+              //!_isLoading && _isLoading == widget.loading,
+              child: child,
+            );
+          },
+        );
 
   /// preserves the space for [replacement].
   ///
@@ -116,20 +136,13 @@ class _FakeloadingWidgetState extends State<FakeloadingWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      maintainState: widget.maintainState,
-      maintainSize: widget.maintainState,
-      maintainAnimation: widget.maintainState,
-      replacement: widget.replacement,
-      visible: !_isLoading && _isLoading == widget.loading,
-      //only show child if loading animation has ended and widget.loading is also false
-      child: widget.child,
-    );
+    bool visible = !_isLoading && _isLoading == widget.loading;
+    return widget.builder(!visible);
   }
 
   void _toggleFakeloading() {
-    bool startLoading = widget.loading &&
-        !_isLoading; //if it is not loading, or loading animation already started, don't start a new loading animation
+    //if it is not loading, or loading animation already started, don't start a new loading animation
+    bool startLoading = widget.loading && !_isLoading;
 
     if (startLoading) {
       _isLoading = startLoading;
