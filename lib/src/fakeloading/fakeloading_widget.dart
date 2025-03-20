@@ -23,11 +23,16 @@ class FakeloadingWidget extends StatefulWidget {
   ///
   /// If [loading] switches between true and false multiple times, while the first triggered [duration] was not finished, the timer does not reset.
   /// The user experiences one constant loading indicator.
-  const FakeloadingWidget({Key? key, required this.loading, Duration? duration, Widget? replacement, required this.child, bool? maintainState})
-      : duration = duration ?? const Duration(milliseconds: 500),
+  const FakeloadingWidget({
+    super.key,
+    required this.loading,
+    Duration? duration,
+    Widget? replacement,
+    required this.child,
+    bool? maintainState,
+  })  : duration = duration ?? const Duration(milliseconds: 500),
         replacement = replacement ?? _defaultReplacement,
-        maintainState = maintainState ?? false,
-        super(key: key);
+        maintainState = maintainState ?? false;
 
   /// preserves the space for [replacement].
   ///
@@ -78,7 +83,6 @@ class FakeloadingWidget extends StatefulWidget {
           ),
         );
 
-
   /// {@macro ux_improvements.fakeloading.fakeloading_widget_stack}
   factory FakeloadingWidget.stack({
     Key? key,
@@ -124,7 +128,8 @@ class _FakeloadingWidgetState extends State<FakeloadingWidget> {
   }
 
   void _toggleFakeloading() {
-    bool startLoading = widget.loading && !_isLoading; //if it is not loading, or loading animation already started, don't start a new loading animation
+    bool startLoading = widget.loading &&
+        !_isLoading; //if it is not loading, or loading animation already started, don't start a new loading animation
 
     if (startLoading) {
       _isLoading = startLoading;
