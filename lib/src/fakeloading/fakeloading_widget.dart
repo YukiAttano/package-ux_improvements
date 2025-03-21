@@ -108,8 +108,7 @@ class FakeloadingWidget extends StatefulWidget {
     Key? key,
     required bool loading,
     Duration? duration,
-    bool? maintainState,
-    Widget? replacement,
+    Widget? Function(bool loading)? replacement,
     required Widget child,
   }) = _FakeloadingWidget.stack;
 

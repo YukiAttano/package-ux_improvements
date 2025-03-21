@@ -1,3 +1,9 @@
+## 0.12.0
+
+### Changed ###
+
+* Changed Fakeloading.stack to use a builder for its replacement
+
 ## 0.11.9
 
 ### Added ###

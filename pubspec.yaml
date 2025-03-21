@@ -1,6 +1,6 @@
 name: ux_improvements
 description: "Improvements to your overall UI/UX"
-version: 0.11.9
+version: 0.12.0
 repository: https://github.com/YukiAttano/package-ux_improvements
 topics:
   - widget
