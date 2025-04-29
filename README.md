@@ -34,6 +34,8 @@ I recommend to take a look at the [Example project](https://uximprovements.memeo
 - EndlessListView (builds Widgets in both directions)
 - UnboundStack (like Stack, but allows hit-testing (e.g. clicking, hovering, ...) Widgets outside of its bounds)
 - GlassCard / GlassContainer (Glassmorphism effect)
+- WarnBeforeUnload (WebOnly - Warns the user before unloading or refreshing the page takes effect)
+- OverflowText (Overflow aware text, allows to shrink text widgets that can expand to show more text)
 - Re-Exports [responsive_ux](https://pub.dev/packages/responsive_ux) 
 
 ## Getting started

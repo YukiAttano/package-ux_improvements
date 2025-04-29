@@ -1,3 +1,10 @@
+## 0.12.1
+
+### Added ###
+
+* WarnBeforeUnload to warn a user before unloading (or refreshing) the website 
+* OverflowText to build text widgets that can expand and shrink in lines
+
 ## 0.12.0
 
 ### Changed ###

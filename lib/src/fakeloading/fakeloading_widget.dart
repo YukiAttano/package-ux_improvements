@@ -56,7 +56,7 @@ class FakeloadingWidget extends StatefulWidget {
 
   /// preserves the space for [replacement].
   ///
-  /// If all you need is a loading indicator with a minimum duration for better UX that has no [child], use this constructor
+  /// If all you need is a loading indicator with a minimum duration for better UX that has no child, use this constructor
   /// to preserve the space the indicator needs.
   FakeloadingWidget.reserve({
     Key? key,

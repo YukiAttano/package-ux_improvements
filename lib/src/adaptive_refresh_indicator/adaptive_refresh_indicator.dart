@@ -80,7 +80,8 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           physics: physics,
           useMaterialIndicator: useMaterialIndicator,
           adaptPhysics: adaptPhysics,
-          customSliversBuilder: (cupertinoRefresh, padding) => _customSliversBuilder(cupertinoRefresh, padding, slivers),
+          customSliversBuilder: (cupertinoRefresh, padding) =>
+              _customSliversBuilder(cupertinoRefresh, padding, slivers),
         );
 
   /// {@macro ux_improvements.adaptive_refresh_indicator}
@@ -322,7 +323,10 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
   }
 
   static List<Widget> _customSliversBuilder(
-      Widget cupertinoSliverRefreshControl, EdgeInsets padding, List<Widget> slivers) {
+    Widget cupertinoSliverRefreshControl,
+    EdgeInsets padding,
+    List<Widget> slivers,
+  ) {
     return [
       cupertinoSliverRefreshControl,
       ...List.generate(slivers.length, (index) {

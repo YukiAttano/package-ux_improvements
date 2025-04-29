@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "styles/shimmer_style.dart";
+import "../../ux_improvements.dart";
 
 /// Controls a shimmer animation on the screen
 ///
