@@ -9,7 +9,7 @@ class OverflowTextScreen extends StatelessWidget {
     return const Center(
       child: Column(
         children: [
-          Text("The OverflowText allows you to build a Text Widget based a line limit rather than a given size"),
+          Text("The OverflowText allows you to build a Text Widget based on a line limit rather than a given size"),
           Text(
               "This example shows a widget that expands the text to its maximum. Click on the Expanded Text to let it shrink again"),
           const SizedBox(height: 20),
