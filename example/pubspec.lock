@@ -172,10 +172,10 @@ packages:
     dependency: transitive
     description:
       name: responsive_ux
-      sha256: c0ca762984052d79ca81eeec8a746dda061ef4769b12df10267c0cff8e21fea7
+      sha256: "43134952a05a179e11f0c3b16b53ac826fe7088eb69eed9deb9366cd6ae2b1d1"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.0"
+    version: "1.0.1"
   riverpod:
     dependency: transitive
     description:

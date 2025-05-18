@@ -1,3 +1,13 @@
+## NEXT 0.13.0
+
+### Changed ###
+
+**Breaking:** updated to responsive_ux 1.0.1
+
+### Removed ###
+
+**Breaking:** removed unused parameter from GlassContainerStyle.fallback()
+
 ## 0.12.2
 
 ### Added ###

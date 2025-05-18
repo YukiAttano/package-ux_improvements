@@ -17,7 +17,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  responsive_ux: ^0.3.0
+  responsive_ux: ^1.0.1
 
   web: any
 
