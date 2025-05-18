@@ -46,10 +46,14 @@ dart pub add ux_improvements
 
 ## Example Images
 
+SuperimposeBox:
 ![SuperimposeBox.png](example/assets/SuperimposeBox.png)
 
+Glassmorphism:
 ![Glassmorphism.png](example/assets/Glassmorphism.png)
 
+AdaptiveRefreshIndicator:
+![AdaptiveRefreshIndicator.gif](example/assets/AdaptiveRefreshIndicator.gif)
 ## Usage
 
 If the documentation lacks some points, open an issue and i will improve it.
