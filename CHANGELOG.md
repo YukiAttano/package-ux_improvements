@@ -3,6 +3,8 @@
 ### Added ###
 
 * PreloadedImage now allows to place a child in front of it
+* Example of WarnBeforeUnload
+* Example of OverflowText
 
 ### Fixed ###
 

@@ -24,6 +24,7 @@ class PreloadedImageScreen extends StatelessWidget {
           ),
           Flexible(
             child: PreloadedImage(
+              borderRadius: BorderRadius.circular(12),
               onPressed: () {
                 _showExplanation(context, "Ink animation is over the image, and it IS clipped to the image size");
               },

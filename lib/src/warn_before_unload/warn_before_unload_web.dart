@@ -17,6 +17,11 @@ class WarnBeforeUnload extends StatefulWidget {
   ///
   /// - The dialog will only be displayed if the user interacted with the website after it was loaded.
   /// - The content of the dialog is not configurable.
+  ///
+  /// Multiple instances must be unmounted in the same order as they were mounted
+  ///
+  /// Because a top level javascript function must be overriden to let this work, consider putting this widget
+  /// high in the hierarchy and set [warn] based on declarative logic (e.g. use an inherited widget)
   const WarnBeforeUnload({
     super.key,
     required this.child,

@@ -2,10 +2,12 @@ import 'package:example/features/adaptive_refresh_indicator/adaptive_refresh_ind
 import 'package:example/features/endless_list_view/endless_list_view_screen.dart';
 import 'package:example/features/glass/glass_screen.dart';
 import 'package:example/features/implicit_animated_icon/implicit_animated_icon_screen.dart';
+import 'package:example/features/overflow_text/overflow_text_screen.dart';
 import 'package:example/features/preloaded_image/preloaded_image_screen.dart';
 import 'package:example/features/screenshot/screenshot_screen.dart';
 import 'package:example/features/shimmer/shimmer_screen.dart';
 import 'package:example/features/superimpose_box/superimpose_box_screen.dart';
+import 'package:example/features/warn_before_unload/warn_before_unload_screen.dart';
 import 'package:example/routing/widgets/menu_screen.dart';
 import 'package:example/routing/widgets/nav_shell.dart';
 import 'package:flutter/material.dart';
@@ -83,6 +85,18 @@ final router = Provider(
                 return const GlassScreen();
               },
             ),
+            GoRoute(
+              path: NavTarget.WARN_BEFORE_UNLOAD.route,
+              builder: (context, state) {
+                return const WarnBeforeUnloadScreen();
+              },
+            ),
+            GoRoute(
+              path: NavTarget.OVERFLOW_TEXT.route,
+              builder: (context, state) {
+                return const OverflowTextScreen();
+              },
+            ),
           ],
         ),
       ],
@@ -102,6 +116,8 @@ enum NavTarget {
   IMPLICIT_ANIMATED_ICON("/implicit_animated_icon", "ImplicitAnimatedIcon", "Allows changing the animation without having to handle the AnimationController"),
   ADAPTIVE_REFRESH_INDICATOR("/adaptive_refresh_indicator", "AdaptiveRefreshIndicator", "The refresh that people expect on each platform; But does not work in Web"),
   GLASS("/glass", "Glass", "Glassmorphism"),
+  WARN_BEFORE_UNLOAD("/warn_before_unload", "WarnBeforeUnload", "(Web only) warn before a website gets unloaded (/reloaded)"),
+  OVERFLOW_TEXT("/overflow_text", "OverflowText", "Allows to build a Text Widget based on a line limit"),
   ;
 
   const NavTarget(this.route, this.title, this.description);

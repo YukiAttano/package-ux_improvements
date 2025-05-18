@@ -13,6 +13,8 @@ class MenuScreen extends StatelessWidget {
     NavTarget.IMPLICIT_ANIMATED_ICON,
     NavTarget.ADAPTIVE_REFRESH_INDICATOR,
     NavTarget.GLASS,
+    NavTarget.WARN_BEFORE_UNLOAD,
+    NavTarget.OVERFLOW_TEXT,
   ];
 
   @override
