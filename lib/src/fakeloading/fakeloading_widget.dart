@@ -6,31 +6,19 @@ import "../../ux_improvements.dart";
 
 part "fakeloading_widget_stack.dart";
 
-class FakeloadingWidget
-    extends StatefulWidget {
-  static const Widget
-      _defaultReplacement =
-      CircularProgressIndicator();
+class FakeloadingWidget extends StatefulWidget {
+  static const Widget _defaultReplacement = CircularProgressIndicator();
 
-  final bool
-      loading;
-  final Duration
-      duration;
-  final Widget Function(
-          bool
-              loading)
-      builder;
+  final bool loading;
+  final Duration duration;
+  final Widget Function(bool loading) builder;
 
   const FakeloadingWidget.builder({
     super.key,
     required this.loading,
-    Duration?
-        duration,
+    Duration? duration,
     required this.builder,
-  }) : duration = duration ??
-            const Duration(
-                milliseconds:
-                    500);
+  }) : duration = duration ?? const Duration(milliseconds: 500);
 
   /// This is useful to prevent flashing loading indicator that are the result of fast Futures.
   ///
@@ -42,43 +30,26 @@ class FakeloadingWidget
   /// The user experiences one constant loading indicator.
   FakeloadingWidget({
     Key? key,
-    required bool
-        loading,
-    Duration?
-        duration,
-    Widget?
-        replacement,
-    required Widget
-        child,
-    bool?
-        maintainState,
+    required bool loading,
+    Duration? duration,
+    Widget? replacement,
+    required Widget child,
+    bool? maintainState,
   }) : this.builder(
           key: key,
-          loading:
-              loading,
-          duration:
-              duration,
-          builder:
-              (loading) {
-            bool
-                maintain =
-                maintainState ??
-                    false;
+          loading: loading,
+          duration: duration,
+          builder: (loading) {
+            bool maintain = maintainState ?? false;
 
             return Visibility(
-              maintainState:
-                  maintain,
-              maintainSize:
-                  maintain,
-              maintainAnimation:
-                  maintain,
-              replacement:
-                  replacement ?? _defaultReplacement,
-              visible:
-                  !loading,
+              maintainState: maintain,
+              maintainSize: maintain,
+              maintainAnimation: maintain,
+              replacement: replacement ?? _defaultReplacement,
+              visible: !loading,
               //!_isLoading && _isLoading == widget.loading,
-              child:
-                  child,
+              child: child,
             );
           },
         );
@@ -89,30 +60,19 @@ class FakeloadingWidget
   /// to preserve the space the indicator needs.
   FakeloadingWidget.reserve({
     Key? key,
-    required bool
-        loading,
-    Duration?
-        duration,
-    Widget?
-        replacement,
-    bool?
-        maintainState,
+    required bool loading,
+    Duration? duration,
+    Widget? replacement,
+    bool? maintainState,
   }) : this(
           key: key,
-          loading:
-              loading,
-          duration:
-              duration,
-          maintainState:
-              maintainState,
-          replacement:
-              replacement,
-          child: Visibility
-              .maintain(
-            visible:
-                false,
-            child: replacement ??
-                _defaultReplacement,
+          loading: loading,
+          duration: duration,
+          maintainState: maintainState,
+          replacement: replacement,
+          child: Visibility.maintain(
+            visible: false,
+            child: replacement ?? _defaultReplacement,
           ),
         );
 
@@ -121,125 +81,74 @@ class FakeloadingWidget
   /// Relative expensive, as the Shimmer effect is generated in background and just gets discarded.
   FakeloadingWidget.shimmer({
     Key? key,
-    required bool
-        loading,
-    Duration?
-        duration,
-    bool?
-        maintainState,
-    BlendMode blendMode =
-        BlendMode
-            .src,
-    required Widget
-        child,
+    required bool loading,
+    Duration? duration,
+    bool? maintainState,
+    BlendMode blendMode = BlendMode.src,
+    required Widget child,
   }) : this(
           key: key,
-          loading:
-              loading,
-          duration:
-              duration,
-          maintainState:
-              maintainState,
-          replacement:
-              Shimmer(
-            key: const Key(
-                "Shimmer child"),
-            blendMode:
-                blendMode,
-            child:
-                child,
+          loading: loading,
+          duration: duration,
+          maintainState: maintainState,
+          replacement: Shimmer(
+            key: const Key("Shimmer child"),
+            blendMode: blendMode,
+            child: child,
           ),
-          child:
-              Shimmer(
-            key: const Key(
-                "Shimmer child"),
-            blendMode:
-                BlendMode.dst,
-            child:
-                child,
+          child: Shimmer(
+            key: const Key("Shimmer child"),
+            blendMode: BlendMode.dst,
+            child: child,
           ),
         );
 
   /// {@macro ux_improvements.fakeloading.fakeloading_widget_stack}
   factory FakeloadingWidget.stack({
     Key? key,
-    required bool
-        loading,
-    Duration?
-        duration,
-    Widget? Function(
-            bool
-                loading)?
-        replacement,
-    required Widget
-        child,
-  }) =
-      _FakeloadingWidget
-      .stack;
+    required bool loading,
+    Duration? duration,
+    Widget? Function(bool loading)? replacement,
+    required Widget child,
+  }) = _FakeloadingWidget.stack;
 
   @override
-  State<FakeloadingWidget>
-      createState() =>
-          _FakeloadingWidgetState();
+  State<FakeloadingWidget> createState() => _FakeloadingWidgetState();
 }
 
-class _FakeloadingWidgetState
-    extends State<
-        FakeloadingWidget> {
-  bool _isLoading =
-      false;
+class _FakeloadingWidgetState extends State<FakeloadingWidget> {
+  bool _isLoading = false;
 
   @override
   void initState() {
-    super
-        .initState();
+    super.initState();
 
     _toggleFakeloading();
   }
 
   @override
-  void didUpdateWidget(
-      covariant FakeloadingWidget
-          oldWidget) {
-    super.didUpdateWidget(
-        oldWidget);
+  void didUpdateWidget(covariant FakeloadingWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
 
     _toggleFakeloading();
   }
 
   @override
-  Widget build(
-      BuildContext
-          context) {
-    bool visible =
-        !_isLoading &&
-            _isLoading ==
-                widget.loading;
-    return widget
-        .builder(
-            !visible);
+  Widget build(BuildContext context) {
+    bool visible = !_isLoading && _isLoading == widget.loading;
+    return widget.builder(!visible);
   }
 
-  void
-      _toggleFakeloading() {
+  void _toggleFakeloading() {
     //if it is not loading, or loading animation already started, don't start a new loading animation
-    bool
-        startLoading =
-        widget.loading &&
-            !_isLoading;
+    bool startLoading = widget.loading && !_isLoading;
 
     if (startLoading) {
-      _isLoading =
-          startLoading;
-      Future.delayed(
-          widget
-              .duration,
-          () {
+      _isLoading = startLoading;
+      Future.delayed(widget.duration, () {
         if (mounted) {
-          setState(
-              () {
-            _isLoading =
-                false;
+          setState(() {
+            _isLoading = false;
           });
         }
       });

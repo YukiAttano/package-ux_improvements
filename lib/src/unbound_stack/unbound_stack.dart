@@ -3,13 +3,11 @@ import "package:flutter/widgets.dart";
 import "unbound_render_stack.dart";
 
 /// The same as [Stack] but will allow to hit widgets outside of its own bounds
-class UnboundStack
-    extends Stack {
+class UnboundStack extends Stack {
   /// if true (the default) will allow to hit widgets that are out of the stack bounds
   ///
   /// if false, will act the same as [Stack]
-  final bool
-      hitTestIgnoreBound;
+  final bool hitTestIgnoreBound;
 
   const UnboundStack({
     super.key,
@@ -18,61 +16,35 @@ class UnboundStack
     super.fit,
     super.clipBehavior,
     super.children,
-    this.hitTestIgnoreBound =
-        true,
+    this.hitTestIgnoreBound = true,
   });
 
   @override
-  UnboundRenderStack
-      createRenderObject(
-          BuildContext
-              context) {
-    assert(
-        _debugCheckHasDirectionality(
-            context));
+  UnboundRenderStack createRenderObject(BuildContext context) {
+    assert(_debugCheckHasDirectionality(context));
     return UnboundRenderStack(
-      alignment:
-          alignment,
-      textDirection:
-          textDirection ??
-              Directionality.maybeOf(
-                  context),
+      alignment: alignment,
+      textDirection: textDirection ?? Directionality.maybeOf(context),
       fit: fit,
-      clipBehavior:
-          clipBehavior,
-      hitTestIgnoreBound:
-          hitTestIgnoreBound,
+      clipBehavior: clipBehavior,
+      hitTestIgnoreBound: hitTestIgnoreBound,
     );
   }
 
   @override
   void updateRenderObject(
-      BuildContext
-          context,
-      UnboundRenderStack
-          renderObject) {
-    super.updateRenderObject(
-        context,
-        renderObject);
-    renderObject
-            .hitTestIgnoreBound =
-        hitTestIgnoreBound;
+      BuildContext context, UnboundRenderStack renderObject) {
+    super.updateRenderObject(context, renderObject);
+    renderObject.hitTestIgnoreBound = hitTestIgnoreBound;
   }
 
-  bool _debugCheckHasDirectionality(
-      BuildContext
-          context) {
-    if (alignment
-            is AlignmentDirectional &&
-        textDirection ==
-            null) {
+  bool _debugCheckHasDirectionality(BuildContext context) {
+    if (alignment is AlignmentDirectional && textDirection == null) {
       assert(
         debugCheckHasDirectionality(
           context,
-          why:
-              "to resolve the 'alignment' argument",
-          hint: alignment ==
-                  AlignmentDirectional.topStart
+          why: "to resolve the 'alignment' argument",
+          hint: alignment == AlignmentDirectional.topStart
               ? "The default value for 'alignment' is AlignmentDirectional.topStart, which requires a text direction."
               : null,
           alternative:
@@ -85,15 +57,9 @@ class UnboundStack
   }
 
   @override
-  void debugFillProperties(
-      DiagnosticPropertiesBuilder
-          properties) {
-    super.debugFillProperties(
-        properties);
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
     properties.add(
-        DiagnosticsProperty<
-                bool>(
-            "hitTestIgnoreBound",
-            hitTestIgnoreBound));
+        DiagnosticsProperty<bool>("hitTestIgnoreBound", hitTestIgnoreBound));
   }
 }

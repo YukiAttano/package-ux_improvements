@@ -12,5 +12,5 @@ repos:
       name: dart-format
       entry: bash -c 'dart format -l 80 .'
       language: system
-      types: [python]
+      types: [dart]
       pass_filenames: false
