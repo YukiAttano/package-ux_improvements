@@ -10,7 +10,15 @@ repos:
   hooks:
     - id: dart-format
       name: dart-format
-      entry: bash -c 'dart format -l 80 .'
+      entry: bash -c 'dart format -l 120 .'
+      language: system
+      types: [dart]
+      pass_filenames: false
+- repo: local
+  hooks:
+    - id: dart-format
+      name: dart-format
+      entry: bash -c 'dart fix --code=require_trailing_commas,unnecessary_import --apply'
       language: system
       types: [dart]
       pass_filenames: false

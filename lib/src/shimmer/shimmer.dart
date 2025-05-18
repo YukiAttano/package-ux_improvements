@@ -13,8 +13,11 @@ class Shimmer extends StatefulWidget {
   final Widget child;
 
   /// use [BlendMode.dst] to cancel the effect
-  const Shimmer(
-      {super.key, this.blendMode = BlendMode.srcATop, required this.child});
+  const Shimmer({
+    super.key,
+    this.blendMode = BlendMode.srcATop,
+    required this.child,
+  });
 
   @override
   State<Shimmer> createState() => _ShimmerState();
@@ -55,9 +58,7 @@ class _ShimmerState extends State<Shimmer> {
 
     RenderBox? shimmerBox = context.findRenderObject() as RenderBox?;
 
-    Offset offsetWithinShimmer = shimmerBox != null
-        ? shimmer.getDescendantOffset(descendant: shimmerBox)
-        : Offset.zero;
+    Offset offsetWithinShimmer = shimmerBox != null ? shimmer.getDescendantOffset(descendant: shimmerBox) : Offset.zero;
 
     return ShaderMask(
       blendMode: widget.blendMode,

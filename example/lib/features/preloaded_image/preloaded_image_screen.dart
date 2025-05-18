@@ -15,8 +15,7 @@ class PreloadedImageScreen extends StatelessWidget {
           Flexible(
             child: InkWell(
               onTap: () {
-                _showExplanation(context,
-                    "Ink animation is over the image, but it is NOT clipped to the image size");
+                _showExplanation(context, "Ink animation is over the image, but it is NOT clipped to the image size");
               },
               child: Ink.image(
                 image: const NetworkImage(_flutterLogoUrl),
@@ -27,8 +26,7 @@ class PreloadedImageScreen extends StatelessWidget {
             child: PreloadedImage(
               borderRadius: BorderRadius.circular(12),
               onPressed: () {
-                _showExplanation(context,
-                    "Ink animation is over the image, and it IS clipped to the image size");
+                _showExplanation(context, "Ink animation is over the image, and it IS clipped to the image size");
               },
               image: const DecorationImage(
                 image: NetworkImage(_flutterLogoUrl),
@@ -42,7 +40,6 @@ class PreloadedImageScreen extends StatelessWidget {
 
   void _showExplanation(BuildContext context, String message) {
     ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 }

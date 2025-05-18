@@ -21,6 +21,7 @@ class UnboundStack extends Stack {
 
   @override
   UnboundRenderStack createRenderObject(BuildContext context) {
+    // ignore: prefer_asserts_with_message as message is given in the called function
     assert(_debugCheckHasDirectionality(context));
     return UnboundRenderStack(
       alignment: alignment,
@@ -33,7 +34,9 @@ class UnboundStack extends Stack {
 
   @override
   void updateRenderObject(
-      BuildContext context, UnboundRenderStack renderObject) {
+    BuildContext context,
+    UnboundRenderStack renderObject,
+  ) {
     super.updateRenderObject(context, renderObject);
     renderObject.hitTestIgnoreBound = hitTestIgnoreBound;
   }
@@ -60,6 +63,7 @@ class UnboundStack extends Stack {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-        DiagnosticsProperty<bool>("hitTestIgnoreBound", hitTestIgnoreBound));
+      DiagnosticsProperty<bool>("hitTestIgnoreBound", hitTestIgnoreBound),
+    );
   }
 }

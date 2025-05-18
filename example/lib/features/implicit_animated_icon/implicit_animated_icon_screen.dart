@@ -5,12 +5,10 @@ class ImplicitAnimatedIconScreen extends StatefulWidget {
   const ImplicitAnimatedIconScreen({super.key});
 
   @override
-  State<ImplicitAnimatedIconScreen> createState() =>
-      _ImplicitAnimatedIconScreenState();
+  State<ImplicitAnimatedIconScreen> createState() => _ImplicitAnimatedIconScreenState();
 }
 
-class _ImplicitAnimatedIconScreenState
-    extends State<ImplicitAnimatedIconScreen> {
+class _ImplicitAnimatedIconScreenState extends State<ImplicitAnimatedIconScreen> {
   bool _isStarted = false;
 
   Duration _duration = Duration(seconds: 2);

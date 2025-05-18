@@ -49,11 +49,8 @@ class _GlassScreenState extends State<GlassScreen> {
                     GlassCard(
                       style: GlassCardStyle(
                         shape: _hasBorder
-                            ? GlassCardStyle.defaultBorder(
-                                color: _color,
-                                useMaterial3: Theme.of(context).useMaterial3)
-                            : GlassCardStyle.defaultBorder()
-                                .copyWith(side: BorderSide.none),
+                            ? GlassCardStyle.defaultBorder(color: _color, useMaterial3: Theme.of(context).useMaterial3)
+                            : GlassCardStyle.defaultBorder().copyWith(side: BorderSide.none),
                         color: _color,
                         opacity: _opacity,
                         elevation: _elevation,
@@ -201,8 +198,7 @@ class _Settings extends StatelessWidget {
               ),
               Visibility(
                 visible: color != null,
-                child: SelectableText(
-                    "${color?.red} ${color?.green} ${color?.blue}"),
+                child: SelectableText("${color?.red} ${color?.green} ${color?.blue}"),
               ),
             ],
           ),
@@ -215,7 +211,6 @@ class _Settings extends StatelessWidget {
     assert(onChangeColor != null, "provide onChangeColor");
     Random r = Random();
 
-    onChangeColor!(
-        Color.fromARGB(255, r.nextInt(255), r.nextInt(255), r.nextInt(255)));
+    onChangeColor!(Color.fromARGB(255, r.nextInt(255), r.nextInt(255), r.nextInt(255)));
   }
 }

@@ -12,11 +12,9 @@ class WarnBeforeUnloadScreen extends StatelessWidget {
           children: [
             Text(
                 "Reload the page, it will warn you before reloading (Web only).\nAs per documentation, the text and the box are not configurable."),
-            SelectableText(
-                "https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event"),
+            SelectableText("https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event"),
             const SizedBox(height: 20),
-            Text(
-                "The widget can be placed anywhere in the tree and will warn the user as long as it is mounted."),
+            Text("The widget can be placed anywhere in the tree and will warn the user as long as it is mounted."),
             Text(
                 "This feature requires to overwrite a top level function (/a global function) in javascript, multiple instances will overwrite each other."),
             Text(""),

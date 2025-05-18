@@ -32,7 +32,7 @@ class GlassContainerStyle extends ThemeExtension<GlassContainerStyle> {
     this.shape,
   });
 
-  factory GlassContainerStyle.fallback(BuildContext context) {
+  factory GlassContainerStyle.fallback() {
     Color color = Colors.white;
     double opacity = 0.1;
 
@@ -60,9 +60,11 @@ class GlassContainerStyle extends ThemeExtension<GlassContainerStyle> {
     );
   }
 
-  factory GlassContainerStyle.of(BuildContext context,
-      [GlassContainerStyle? style]) {
-    GlassContainerStyle s = GlassContainerStyle.fallback(context);
+  factory GlassContainerStyle.of(
+    BuildContext context, [
+    GlassContainerStyle? style,
+  ]) {
+    GlassContainerStyle s = GlassContainerStyle.fallback();
     s = s.merge(Theme.of(context).extension<GlassContainerStyle>());
     s = s.merge(style);
 
@@ -121,7 +123,9 @@ class GlassContainerStyle extends ThemeExtension<GlassContainerStyle> {
 
   @override
   GlassContainerStyle lerp(
-      covariant ThemeExtension<GlassContainerStyle>? other, double t) {
+    covariant ThemeExtension<GlassContainerStyle>? other,
+    double t,
+  ) {
     if (other is! GlassContainerStyle) return this;
 
     return GlassContainerStyle(

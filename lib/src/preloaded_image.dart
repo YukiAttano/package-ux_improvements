@@ -96,12 +96,10 @@ class _PreloadedImageState extends State<PreloadedImage> {
 
   late Widget _child;
 
-  late final ImageStreamListener _listener =
-      ImageStreamListener((image, synchronousCall) {
+  late final ImageStreamListener _listener = ImageStreamListener((image, synchronousCall) {
     if (context.mounted) {
       setState(() {
-        _size =
-            Size(image.image.width.toDouble(), image.image.height.toDouble());
+        _size = Size(image.image.width.toDouble(), image.image.height.toDouble());
         _buildChild();
       });
     }
@@ -119,8 +117,7 @@ class _PreloadedImageState extends State<PreloadedImage> {
   void didUpdateWidget(covariant PreloadedImage oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.image != widget.image ||
-        oldWidget.configuration != widget.configuration) {
+    if (oldWidget.image != widget.image || oldWidget.configuration != widget.configuration) {
       _requestImage();
     }
 
@@ -156,8 +153,7 @@ class _PreloadedImageState extends State<PreloadedImage> {
   Widget _buildLoadedImageChild() {
     return LayoutBuilder(
       builder: (context, constraints) {
-        FittedSizes sizes =
-            applyBoxFit(widget.boxFit, _size!, constraints.biggest);
+        FittedSizes sizes = applyBoxFit(widget.boxFit, _size!, constraints.biggest);
 
         return InkWell(
           borderRadius: widget.borderRadius,

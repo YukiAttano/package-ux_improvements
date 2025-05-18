@@ -78,8 +78,7 @@ class ShimmerArea extends StatefulWidget {
     Widget? child,
   }) {
     ShimmerStyle defaultStyle = ShimmerStyle.defaultStyle(context);
-    defaultStyle =
-        defaultStyle.merge(Theme.of(context).extension<ShimmerStyle>());
+    defaultStyle = defaultStyle.merge(Theme.of(context).extension<ShimmerStyle>());
     defaultStyle = defaultStyle.merge(style);
 
     return ShimmerArea.fromColors(
@@ -94,7 +93,7 @@ class ShimmerArea extends StatefulWidget {
   static const sliverColors = [
     Color(0xFFEBEBF4),
     Color(0xFFF4F4F4),
-    Color(0xFFEBEBF4)
+    Color(0xFFEBEBF4),
   ];
   static const silverShimmerGradient = LinearGradient(
     colors: sliverColors,
@@ -112,29 +111,27 @@ class ShimmerArea extends StatefulWidget {
   }
 }
 
-class ShimmerAreaState extends State<ShimmerArea>
-    with TickerProviderStateMixin {
+class ShimmerAreaState extends State<ShimmerArea> with TickerProviderStateMixin {
   late AnimationController _shimmerController;
 
-  late ValueNotifier<Animation<double>> shimmerChanges =
-      ValueNotifier(_shimmerController.view);
+  late ValueNotifier<Animation<double>> shimmerChanges = ValueNotifier(_shimmerController.view);
 
   LinearGradient get gradient => LinearGradient(
         colors: widget.gradient.colors,
         stops: widget.gradient.stops,
         begin: widget.gradient.begin,
         end: widget.gradient.end,
-        transform:
-            _SlidingGradientTransform(slidePercent: _shimmerController.value),
+        transform: _SlidingGradientTransform(slidePercent: _shimmerController.value),
       );
 
-  bool get isSized =>
-      (context.findRenderObject() as RenderBox?)?.hasSize ?? false;
+  bool get isSized => (context.findRenderObject() as RenderBox?)?.hasSize ?? false;
 
   Size get size => (context.findRenderObject()! as RenderBox).size;
 
-  Offset getDescendantOffset(
-      {required RenderBox descendant, Offset offset = Offset.zero}) {
+  Offset getDescendantOffset({
+    required RenderBox descendant,
+    Offset offset = Offset.zero,
+  }) {
     RenderBox shimmerBox = context.findRenderObject()! as RenderBox;
     return descendant.localToGlobal(offset, ancestor: shimmerBox);
   }

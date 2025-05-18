@@ -76,23 +76,24 @@ class EndlessListView extends CustomScrollView {
         key: const Key("negative"),
         itemCount: negativeCount,
         itemBuilder: (context, index) => itemBuilder(context, -(index + n)),
-        findChildIndexCallback: findChildIndexCallback != null
-            ? (key) => _findChildIndexCallback(key, findChildIndexCallback, n)
-            : null,
+        findChildIndexCallback:
+            findChildIndexCallback != null ? (key) => _findChildIndexCallback(key, findChildIndexCallback, n) : null,
       ),
       SliverList.builder(
         key: const Key("positive"),
         itemCount: positiveCount,
         itemBuilder: (context, index) => itemBuilder(context, index + p),
-        findChildIndexCallback: findChildIndexCallback != null
-            ? (key) => _findChildIndexCallback(key, findChildIndexCallback, p)
-            : null,
+        findChildIndexCallback:
+            findChildIndexCallback != null ? (key) => _findChildIndexCallback(key, findChildIndexCallback, p) : null,
       ),
     ];
   }
 
   static int? _findChildIndexCallback(
-      Key key, ChildIndexGetter getter, int offset) {
+    Key key,
+    ChildIndexGetter getter,
+    int offset,
+  ) {
     int? index = getter(key);
     return index != null ? -(index + offset) : null;
   }

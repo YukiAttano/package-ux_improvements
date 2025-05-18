@@ -9,8 +9,7 @@ class OverflowTextScreen extends StatelessWidget {
     return const Center(
       child: Column(
         children: [
-          Text(
-              "The OverflowText allows you to build a Text Widget based on a line limit rather than a given size"),
+          Text("The OverflowText allows you to build a Text Widget based on a line limit rather than a given size"),
           Text(
               "This example shows a widget that expands the text to its maximum. Click on the Expanded Text to let it shrink again"),
           const SizedBox(height: 20),
@@ -53,8 +52,7 @@ class _ExpandableTextState extends State<_ExpandableText> {
   late int? _maxLines = widget.maxLines;
 
   bool get _isExpanded =>
-      widget.maxLinesExpanded != null &&
-      (_maxLines == null || _maxLines! >= widget.maxLinesExpanded!);
+      widget.maxLinesExpanded != null && (_maxLines == null || _maxLines! >= widget.maxLinesExpanded!);
 
   @override
   Widget build(BuildContext context) {

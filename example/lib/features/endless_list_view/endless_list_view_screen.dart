@@ -48,12 +48,7 @@ class _Settings extends StatelessWidget {
   final void Function(int? number)? onChangePos;
   final void Function(int? number)? onChangeNeg;
 
-  const _Settings(
-      {super.key,
-      this.posStart,
-      this.negStart,
-      this.onChangePos,
-      this.onChangeNeg});
+  const _Settings({super.key, this.posStart, this.negStart, this.onChangePos, this.onChangeNeg});
 
   @override
   Widget build(BuildContext context) {

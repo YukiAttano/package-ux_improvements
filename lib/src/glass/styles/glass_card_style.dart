@@ -52,8 +52,11 @@ class GlassCardStyle extends ThemeExtension<GlassCardStyle> {
     return s;
   }
 
-  static RoundedRectangleBorder defaultBorder(
-      {Color? color, double? opacity, bool useMaterial3 = true}) {
+  static RoundedRectangleBorder defaultBorder({
+    Color? color,
+    double? opacity,
+    bool useMaterial3 = true,
+  }) {
     color ??= Colors.black;
     opacity ??= 0.2;
 
@@ -106,7 +109,9 @@ class GlassCardStyle extends ThemeExtension<GlassCardStyle> {
 
   @override
   GlassCardStyle lerp(
-      covariant ThemeExtension<GlassCardStyle>? other, double t) {
+    covariant ThemeExtension<GlassCardStyle>? other,
+    double t,
+  ) {
     if (other is! GlassCardStyle) return this;
 
     return GlassCardStyle(
@@ -115,8 +120,7 @@ class GlassCardStyle extends ThemeExtension<GlassCardStyle> {
       opacity: lerpDouble(opacity, other.opacity, t),
       elevation: lerpDouble(elevation, other.elevation, t),
       clipBehavior: t < 0.5 ? clipBehavior : other.clipBehavior,
-      containerStyle:
-          containerStyle?.lerp(other.containerStyle, t) ?? other.containerStyle,
+      containerStyle: containerStyle?.lerp(other.containerStyle, t) ?? other.containerStyle,
       margin: EdgeInsetsGeometry.lerp(margin, other.margin, t),
       shadowColor: Color.lerp(shadowColor, other.shadowColor, t),
     );

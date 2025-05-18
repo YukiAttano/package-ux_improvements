@@ -5,8 +5,7 @@ class NumberField extends StatefulWidget {
   final void Function(int? number)? onChanged;
   final String? label;
 
-  const NumberField(
-      {super.key, this.currentNumber, this.onChanged, this.label});
+  const NumberField({super.key, this.currentNumber, this.onChanged, this.label});
 
   @override
   State<NumberField> createState() => _NumberFieldState();

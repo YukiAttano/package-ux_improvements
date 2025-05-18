@@ -1,6 +1,8 @@
 import "package:flutter/foundation.dart";
 import "package:flutter/widgets.dart";
 
+import "../ux_improvements.dart";
+
 class SmoothFutureBuilder<T> extends FutureBuilder<T> {
   /// Like [FakeloadingWidget], this [FutureBuilder] waits at least until [delay] is finished before returning
   SmoothFutureBuilder({
@@ -12,8 +14,9 @@ class SmoothFutureBuilder<T> extends FutureBuilder<T> {
   }) : super(
           future: future is SynchronousFuture
               ? future
-              : Future.wait([future, Future<void>.delayed(delay)],
-                      eagerError: true)
-                  .then((value) => value.first as T),
+              : Future.wait(
+                  [future, Future<void>.delayed(delay)],
+                  eagerError: true,
+                ).then((value) => value.first as T),
         );
 }

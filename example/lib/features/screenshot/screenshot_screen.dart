@@ -12,8 +12,7 @@ class ScreenshotScreen extends StatefulWidget {
 }
 
 class _ScreenshotScreenState extends State<ScreenshotScreen> {
-  final ScreenshotBoundaryController _controller =
-      ScreenshotBoundaryController();
+  final ScreenshotBoundaryController _controller = ScreenshotBoundaryController();
 
   ScreenshotImage? _image;
 
@@ -75,11 +74,7 @@ class _Settings extends StatelessWidget {
   final void Function(int? pixelRatio)? onPixelRatioChanged;
   final void Function()? onScreenshot;
 
-  const _Settings(
-      {super.key,
-      this.pixelRatio,
-      this.onPixelRatioChanged,
-      this.onScreenshot});
+  const _Settings({super.key, this.pixelRatio, this.onPixelRatioChanged, this.onScreenshot});
 
   @override
   Widget build(BuildContext context) {
@@ -126,10 +121,8 @@ class _AnimatedLogo extends StatefulWidget {
   State<_AnimatedLogo> createState() => _AnimatedLogoState();
 }
 
-class _AnimatedLogoState extends State<_AnimatedLogo>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller =
-      AnimationController(vsync: this, duration: const Duration(seconds: 5));
+class _AnimatedLogoState extends State<_AnimatedLogo> with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(vsync: this, duration: const Duration(seconds: 5));
 
   @override
   void initState() {

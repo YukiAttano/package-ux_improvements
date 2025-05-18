@@ -21,8 +21,7 @@ class _FakeloadingWidget extends FakeloadingWidget {
           builder: (loading) {
             return _Stack(
               index: loading ? 0 : 1,
-              replacement: replacement?.call(loading) ??
-                  FakeloadingWidget._defaultReplacement,
+              replacement: replacement?.call(loading) ?? FakeloadingWidget._defaultReplacement,
               child: child,
             );
           },
@@ -34,8 +33,11 @@ class _Stack extends StatelessWidget {
   final Widget replacement;
   final Widget child;
 
-  const _Stack(
-      {this.index = 0, required this.replacement, required this.child});
+  const _Stack({
+    this.index = 0,
+    required this.replacement,
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {

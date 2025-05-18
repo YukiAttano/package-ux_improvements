@@ -5,12 +5,10 @@ class AdaptiveRefreshIndicatorScreen extends StatefulWidget {
   const AdaptiveRefreshIndicatorScreen({super.key});
 
   @override
-  State<AdaptiveRefreshIndicatorScreen> createState() =>
-      _AdaptiveRefreshIndicatorScreenState();
+  State<AdaptiveRefreshIndicatorScreen> createState() => _AdaptiveRefreshIndicatorScreenState();
 }
 
-class _AdaptiveRefreshIndicatorScreenState
-    extends State<AdaptiveRefreshIndicatorScreen> {
+class _AdaptiveRefreshIndicatorScreenState extends State<AdaptiveRefreshIndicatorScreen> {
   bool? _useMaterial;
 
   @override
@@ -50,8 +48,7 @@ class _Settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const ButtonStyle unselectedStyle =
-        ButtonStyle(elevation: WidgetStatePropertyAll(4));
+    const ButtonStyle unselectedStyle = ButtonStyle(elevation: WidgetStatePropertyAll(4));
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

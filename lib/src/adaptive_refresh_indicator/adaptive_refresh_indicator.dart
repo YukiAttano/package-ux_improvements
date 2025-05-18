@@ -26,8 +26,9 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
   ///
   /// The provided `padding` must be applied to all slivers manually which allows to avoid placing it around every sliver.
   final List<Widget> Function(
-          Widget cupertinoSliverRefreshControl, EdgeInsets padding)
-      customSliversBuilder;
+    Widget cupertinoSliverRefreshControl,
+    EdgeInsets padding,
+  ) customSliversBuilder;
 
   /// {@template ux_improvements.adaptive_refresh_indicator}
   /// uses the [CupertinoSliverRefreshControl] on [TargetPlatform.iOS] and [TargetPlatform.macOS] and
@@ -54,16 +55,11 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
     required this.customSliversBuilder,
   })  : padding = padding ?? EdgeInsets.zero,
         onRefresh = onRefresh ?? _emptyRefreshCallback,
-        indicatorConfig =
-            indicatorConfig ?? const RefreshIndicatorConfiguration(),
-        cupertinoConfig = cupertinoConfig ??
-            const CupertinoSliverRefreshControlConfiguration(),
+        indicatorConfig = indicatorConfig ?? const RefreshIndicatorConfiguration(),
+        cupertinoConfig = cupertinoConfig ?? const CupertinoSliverRefreshControlConfiguration(),
         config = config ?? const CustomScrollViewConfiguration(),
         _enabled = onRefresh != null,
-        physics = physics ??
-            ((adaptPhysics ?? true)
-                ? _getAdoptedPhysics(useMaterialIndicator)
-                : null);
+        physics = physics ?? ((adaptPhysics ?? true) ? _getAdoptedPhysics(useMaterialIndicator) : null);
 
   /// {@macro ux_improvements.adaptive_refresh_indicator}
   AdaptiveRefreshIndicator.slivers({
@@ -280,8 +276,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TargetPlatform platform = Theme.of(context).platform;
-    bool useMaterial = useMaterialIndicator ??
-        platform != TargetPlatform.iOS && platform != TargetPlatform.macOS;
+    bool useMaterial = useMaterialIndicator ?? platform != TargetPlatform.iOS && platform != TargetPlatform.macOS;
 
     return RefreshIndicator(
       displacement: indicatorConfig.displacement,
@@ -317,8 +312,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
             sliver: SliverPadding(
               padding: padding,
               sliver: CupertinoSliverRefreshControl(
-                refreshTriggerPullDistance:
-                    cupertinoConfig.refreshTriggerPullDistance,
+                refreshTriggerPullDistance: cupertinoConfig.refreshTriggerPullDistance,
                 refreshIndicatorExtent: cupertinoConfig.refreshIndicatorExtent,
                 builder: cupertinoConfig.builder,
                 onRefresh: onRefresh,
@@ -349,8 +343,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
 
   static Future<void> _emptyRefreshCallback() => Future.value();
 
-  static ScrollPhysics? _getAdoptedPhysics(bool? useMaterial) =>
-      switch (useMaterial) {
+  static ScrollPhysics? _getAdoptedPhysics(bool? useMaterial) => switch (useMaterial) {
         (null) => null,
         (true) => const ClampingScrollPhysics(),
         (false) => const BouncingScrollPhysics(),
