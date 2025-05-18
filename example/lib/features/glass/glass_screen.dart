@@ -34,7 +34,8 @@ class _GlassScreenState extends State<GlassScreen> {
             hasBorder: _hasBorder,
             onChangeBorder: _onChangeBorder,
           ),
-          Text("To fully experience the Glassmorphism, try out the package yourself. The glass itself has a color and tint color to play with while the Card itself allows a third color"),
+          Text(
+              "To fully experience the Glassmorphism, try out the package yourself. The glass itself has a color and tint color to play with while the Card itself allows a third color"),
           Expanded(
             child: Stack(
               alignment: Alignment.center,

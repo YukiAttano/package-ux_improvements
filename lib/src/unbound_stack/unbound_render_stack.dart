@@ -16,8 +16,7 @@ class UnboundRenderStack extends RenderStack {
   @override
   bool hitTest(BoxHitTestResult result, {required Offset position}) {
     if (hitTestIgnoreBound) {
-      if (hitTestChildren(result, position: position) ||
-          hitTestSelf(position)) {
+      if (hitTestChildren(result, position: position) || hitTestSelf(position)) {
         result.add(BoxHitTestEntry(this, position));
         return true;
       }

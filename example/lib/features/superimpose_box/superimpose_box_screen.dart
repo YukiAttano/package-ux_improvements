@@ -17,7 +17,7 @@ class SuperimposeBoxScreen extends StatelessWidget {
           Superimpose(
             overlayAlign: Alignment.centerRight,
             childAlign: Alignment.bottomRight,
-            overlay: ElevatedButton(onPressed: _empty, child:  Text("Click me")),
+            overlay: ElevatedButton(onPressed: _empty, child: Text("Click me")),
           ),
         ],
         child: const Card(

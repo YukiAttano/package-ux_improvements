@@ -43,7 +43,6 @@ class _EndlessListViewScreenState extends State<EndlessListViewScreen> {
 }
 
 class _Settings extends StatelessWidget {
-
   final int? posStart;
   final int? negStart;
   final void Function(int? number)? onChangePos;
@@ -76,4 +75,3 @@ class _Settings extends StatelessWidget {
     );
   }
 }
-

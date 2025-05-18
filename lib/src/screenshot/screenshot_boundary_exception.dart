@@ -4,10 +4,8 @@ abstract class ScreenshotBoundaryException implements Exception {
   const ScreenshotBoundaryException(this.message);
 }
 
-class ScreenshotBoundaryNoAncestorException
-    extends ScreenshotBoundaryException {
-  const ScreenshotBoundaryNoAncestorException()
-      : super("No ScreenshotBoundary widget connected to the Controller");
+class ScreenshotBoundaryNoAncestorException extends ScreenshotBoundaryException {
+  const ScreenshotBoundaryNoAncestorException() : super("No ScreenshotBoundary widget connected to the Controller");
 }
 
 class ScreenshotBoundaryNoImageException extends ScreenshotBoundaryException {

@@ -47,8 +47,7 @@ class SuperimposeBox extends StatelessWidget {
     StackFit? fit,
     this.textDirection,
     bool? ignoreBounds,
-  })  : overlayPadding =
-            overlayPadding ?? const EdgeInsets.symmetric(horizontal: 12),
+  })  : overlayPadding = overlayPadding ?? const EdgeInsets.symmetric(horizontal: 12),
         clipBehavior = clipBehavior ?? Clip.none,
         fit = fit ?? StackFit.loose,
         ignoreBounds = ignoreBounds ?? true,
@@ -67,12 +66,7 @@ class SuperimposeBox extends StatelessWidget {
     required Widget child,
   }) : this(
           key: key,
-          overlays: [
-            Superimpose(
-                childAlign: childAlign,
-                overlayAlign: overlayAlign,
-                overlay: overlay)
-          ],
+          overlays: [Superimpose(childAlign: childAlign, overlayAlign: overlayAlign, overlay: overlay)],
           overlayPadding: overlayPadding,
           clipBehavior: clipBehavior,
           fit: fit,

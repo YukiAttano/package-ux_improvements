@@ -110,13 +110,19 @@ enum NavTarget {
       "Change the positive/negative start values to see how the list behaves."),
   SCREENSHOT("/screenshot", "ScreenshotBoundary",
       "You can configure the pixelRatio to increase the sharpness\n(This example only shows integer values, but doubles would also work)"),
-  SHIMMER("/shimmer", "Shimmer", "The Shimmer works best with custom widgets that replace your widgets, but the default settings allow for a quick implementation in any project"),
-  PRELOADED_IMAGE("/preloaded_image", "PreloadedImage", "The PreloadedImage allows to show a loading Widget and size the ink splash animation to its size, compared to a normal Image"),
-  SUPERIMPOSE_BOX("/superimpose_box", "SuperimposeBox", "This Widget allows stacking multiple Widgets on another Widget"),
-  IMPLICIT_ANIMATED_ICON("/implicit_animated_icon", "ImplicitAnimatedIcon", "Allows changing the animation without having to handle the AnimationController"),
-  ADAPTIVE_REFRESH_INDICATOR("/adaptive_refresh_indicator", "AdaptiveRefreshIndicator", "The refresh that people expect on each platform; But does not work in Web"),
+  SHIMMER("/shimmer", "Shimmer",
+      "The Shimmer works best with custom widgets that replace your widgets, but the default settings allow for a quick implementation in any project"),
+  PRELOADED_IMAGE("/preloaded_image", "PreloadedImage",
+      "The PreloadedImage allows to show a loading Widget and size the ink splash animation to its size, compared to a normal Image"),
+  SUPERIMPOSE_BOX(
+      "/superimpose_box", "SuperimposeBox", "This Widget allows stacking multiple Widgets on another Widget"),
+  IMPLICIT_ANIMATED_ICON("/implicit_animated_icon", "ImplicitAnimatedIcon",
+      "Allows changing the animation without having to handle the AnimationController"),
+  ADAPTIVE_REFRESH_INDICATOR("/adaptive_refresh_indicator", "AdaptiveRefreshIndicator",
+      "The refresh that people expect on each platform; But does not work in Web"),
   GLASS("/glass", "Glass", "Glassmorphism"),
-  WARN_BEFORE_UNLOAD("/warn_before_unload", "WarnBeforeUnload", "(Web only) warn before a website gets unloaded (/reloaded)"),
+  WARN_BEFORE_UNLOAD(
+      "/warn_before_unload", "WarnBeforeUnload", "(Web only) warn before a website gets unloaded (/reloaded)"),
   OVERFLOW_TEXT("/overflow_text", "OverflowText", "Allows to build a Text Widget based on a line limit"),
   ;
 

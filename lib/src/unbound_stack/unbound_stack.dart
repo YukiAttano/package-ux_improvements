@@ -32,8 +32,7 @@ class UnboundStack extends Stack {
   }
 
   @override
-  void updateRenderObject(
-      BuildContext context, UnboundRenderStack renderObject) {
+  void updateRenderObject(BuildContext context, UnboundRenderStack renderObject) {
     super.updateRenderObject(context, renderObject);
     renderObject.hitTestIgnoreBound = hitTestIgnoreBound;
   }
@@ -59,7 +58,6 @@ class UnboundStack extends Stack {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(
-        DiagnosticsProperty<bool>("hitTestIgnoreBound", hitTestIgnoreBound));
+    properties.add(DiagnosticsProperty<bool>("hitTestIgnoreBound", hitTestIgnoreBound));
   }
 }

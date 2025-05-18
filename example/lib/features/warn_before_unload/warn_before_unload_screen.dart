@@ -15,9 +15,9 @@ class WarnBeforeUnloadScreen extends StatelessWidget {
             SelectableText("https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event"),
             const SizedBox(height: 20),
             Text("The widget can be placed anywhere in the tree and will warn the user as long as it is mounted."),
-            Text("This feature requires to overwrite a top level function (/a global function) in javascript, multiple instances will overwrite each other."),
+            Text(
+                "This feature requires to overwrite a top level function (/a global function) in javascript, multiple instances will overwrite each other."),
             Text(""),
-
           ],
         ),
       ),
