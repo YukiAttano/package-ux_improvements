@@ -1,6 +1,7 @@
 part of "fakeloading_widget.dart";
 
-class _FakeloadingWidget extends FakeloadingWidget {
+class _FakeloadingWidget
+    extends FakeloadingWidget {
   /// {@template ux_improvements.fakeloading.fakeloading_widget_stack}
   /// holds [replacement] and [child] loaded at the same time
   ///
@@ -15,28 +16,46 @@ class _FakeloadingWidget extends FakeloadingWidget {
     super.key,
     required super.loading,
     super.duration,
-    Widget? Function(bool loading)? replacement,
-    required Widget child,
+    Widget? Function(
+            bool
+                loading)?
+        replacement,
+    required Widget
+        child,
   }) : super.builder(
-          builder: (loading) {
+          builder:
+              (loading) {
             return _Stack(
-              index: loading ? 0 : 1,
-              replacement: replacement?.call(loading) ?? FakeloadingWidget._defaultReplacement,
-              child: child,
+              index: loading
+                  ? 0
+                  : 1,
+              replacement:
+                  replacement?.call(loading) ?? FakeloadingWidget._defaultReplacement,
+              child:
+                  child,
             );
           },
         );
 }
 
-class _Stack extends StatelessWidget {
+class _Stack
+    extends StatelessWidget {
   final int index;
-  final Widget replacement;
-  final Widget child;
+  final Widget
+      replacement;
+  final Widget
+      child;
 
-  const _Stack({this.index = 0, required this.replacement, required this.child});
+  const _Stack(
+      {this.index =
+          0,
+      required this.replacement,
+      required this.child});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+      BuildContext
+          context) {
     return IndexedStack(
       index: index,
       children: [
