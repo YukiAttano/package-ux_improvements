@@ -50,7 +50,8 @@ class OverflowText extends StatelessWidget {
       textScaler: textScaler,
     );
 
-    painter.layout(minWidth: constraints.minWidth, maxWidth: constraints.maxWidth);
+    painter.layout(
+        minWidth: constraints.minWidth, maxWidth: constraints.maxWidth);
 
     return painter.didExceedMaxLines;
   }

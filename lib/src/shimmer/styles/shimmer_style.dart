@@ -35,7 +35,8 @@ class ShimmerStyle extends ThemeExtension<ShimmerStyle> {
   }
 
   @override
-  ThemeExtension<ShimmerStyle> lerp(ThemeExtension<ShimmerStyle>? other, double t) {
+  ThemeExtension<ShimmerStyle> lerp(
+      ThemeExtension<ShimmerStyle>? other, double t) {
     if (other is! ShimmerStyle) {
       return this;
     }

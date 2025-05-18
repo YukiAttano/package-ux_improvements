@@ -8,7 +8,8 @@ class ShimmerBox extends StatelessWidget {
   final Duration? duration;
   final Widget child;
 
-  const ShimmerBox({super.key, this.gradient, this.duration, required this.child});
+  const ShimmerBox(
+      {super.key, this.gradient, this.duration, required this.child});
 
   @override
   Widget build(BuildContext context) {

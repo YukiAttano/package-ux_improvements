@@ -1,7 +1,8 @@
 name: ux_improvements
-description: "Improvements to your overall UI/UX"
+description: "Improvements to your overall UI/UX through various Widgets."
 version: 0.12.2
 repository: https://github.com/YukiAttano/package-ux_improvements
+issue_tracker: https://github.com/YukiAttano/package-ux_improvements/issues
 topics:
   - widget
   - image

@@ -5,5 +5,6 @@ import "screenshot_boundary_controller.dart";
 ///
 /// For a more advanced version check the "screenshot" package
 class ScreenshotBoundary extends RepaintBoundary {
-  ScreenshotBoundary({ScreenshotBoundaryController? controller, super.child}) : super(key: controller?.key);
+  ScreenshotBoundary({ScreenshotBoundaryController? controller, super.child})
+      : super(key: controller?.key);
 }

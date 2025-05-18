@@ -25,7 +25,8 @@ class ImplicitAnimatedIcon extends StatefulWidget {
   State<ImplicitAnimatedIcon> createState() => _ImplicitAnimatedIconState();
 }
 
-class _ImplicitAnimatedIconState extends State<ImplicitAnimatedIcon> with SingleTickerProviderStateMixin {
+class _ImplicitAnimatedIconState extends State<ImplicitAnimatedIcon>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
 
   @override

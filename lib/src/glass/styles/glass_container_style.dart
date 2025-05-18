@@ -60,7 +60,8 @@ class GlassContainerStyle extends ThemeExtension<GlassContainerStyle> {
     );
   }
 
-  factory GlassContainerStyle.of(BuildContext context, [GlassContainerStyle? style]) {
+  factory GlassContainerStyle.of(BuildContext context,
+      [GlassContainerStyle? style]) {
     GlassContainerStyle s = GlassContainerStyle.fallback(context);
     s = s.merge(Theme.of(context).extension<GlassContainerStyle>());
     s = s.merge(style);
@@ -119,7 +120,8 @@ class GlassContainerStyle extends ThemeExtension<GlassContainerStyle> {
   }
 
   @override
-  GlassContainerStyle lerp(covariant ThemeExtension<GlassContainerStyle>? other, double t) {
+  GlassContainerStyle lerp(
+      covariant ThemeExtension<GlassContainerStyle>? other, double t) {
     if (other is! GlassContainerStyle) return this;
 
     return GlassContainerStyle(
