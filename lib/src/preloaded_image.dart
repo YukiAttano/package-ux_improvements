@@ -21,13 +21,19 @@ class PreloadedImage extends StatefulWidget {
   /// [BoxDecoration.borderRadius] and [BoxDecoration.image] are ignored
   final BoxDecoration decoration;
 
-  /// The fit for the ink widget in its parent.
+  /// The fit for the ink widget in his parent.
   ///
   /// defaults to [BoxFit.contain] which allows to size the ink animation to its [decoration]
   ///
   /// if set to [BoxFit.fill], it will expand the ink animation area but not the [decoration]
-  /// configure [BoxDecoration.fit] to directly control how the image is sized inside its ink container.
+  /// configure [DecorationImage.fit] to directly control how the image is sized inside its ink container.
   final BoxFit boxFit;
+
+  /// only effects [child]
+  final EdgeInsets? padding;
+
+  /// positioned above the image
+  final Widget? child;
 
   final void Function()? onPressed;
 
@@ -42,7 +48,10 @@ class PreloadedImage extends StatefulWidget {
     BoxDecoration? decoration,
     BoxFit? boxFit,
     this.onPressed,
-  })  : configuration = configuration ?? ImageConfiguration.empty,
+    this.padding,
+    this.child,
+  })
+      : configuration = configuration ?? ImageConfiguration.empty,
         decoration = decoration ?? const BoxDecoration(),
         boxFit = boxFit ?? BoxFit.contain;
 
@@ -56,16 +65,20 @@ class PreloadedImage extends StatefulWidget {
     BoxFit? boxFit,
     Widget? loading,
     void Function()? onPressed,
+    EdgeInsets? padding,
+    Widget? child,
   }) : this.builder(
-          key: key,
-          image: image,
-          configuration: configuration,
-          builder: (image) => _loadingBuilder(image, loading ?? _loading),
-          borderRadius: borderRadius,
-          decoration: decoration,
-          boxFit: boxFit,
-          onPressed: onPressed,
-        );
+    key: key,
+    image: image,
+    configuration: configuration,
+    builder: (image) => _loadingBuilder(image, loading ?? _loading),
+    borderRadius: borderRadius,
+    decoration: decoration,
+    boxFit: boxFit,
+    onPressed: onPressed,
+    padding: padding,
+    child: child,
+  );
 
   static const _loading = Center(child: CircularProgressIndicator());
 
@@ -105,12 +118,11 @@ class _PreloadedImageState extends State<PreloadedImage> {
   void didUpdateWidget(covariant PreloadedImage oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.decoration.image != widget.decoration.image) {
+    if (oldWidget.image != widget.image || oldWidget.configuration != widget.configuration) {
       _requestImage();
     }
 
     if (oldWidget.builder != widget.builder ||
-        oldWidget.configuration != widget.configuration ||
         oldWidget.decoration != widget.decoration ||
         oldWidget.boxFit != widget.boxFit ||
         oldWidget.borderRadius != widget.borderRadius) {
@@ -126,6 +138,7 @@ class _PreloadedImageState extends State<PreloadedImage> {
   void _requestImage() {
     ImageStream stream = widget.image.image.resolve(widget.configuration);
 
+    stream.removeListener(_listener);
     stream.addListener(_listener);
 
     _stream = stream;
@@ -141,7 +154,7 @@ class _PreloadedImageState extends State<PreloadedImage> {
   Widget _buildLoadedImageChild() {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final sizes = applyBoxFit(widget.boxFit, _size!, constraints.biggest);
+        FittedSizes sizes = applyBoxFit(widget.boxFit, _size!, constraints.biggest);
 
         return InkWell(
           borderRadius: widget.borderRadius,
@@ -149,6 +162,7 @@ class _PreloadedImageState extends State<PreloadedImage> {
           child: Ink(
             width: sizes.destination.width,
             height: sizes.destination.height,
+            padding: widget.padding,
             decoration: BoxDecoration(
               color: widget.decoration.color,
               gradient: widget.decoration.gradient,
@@ -159,6 +173,7 @@ class _PreloadedImageState extends State<PreloadedImage> {
               borderRadius: widget.borderRadius,
               image: widget.image,
             ),
+            child: widget.child,
           ),
         );
       },
