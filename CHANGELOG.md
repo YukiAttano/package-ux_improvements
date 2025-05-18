@@ -1,3 +1,13 @@
+## NEXT
+
+### Added ###
+
+* PreloadedImage now allows to place a child in front of it
+
+### Fixed ###
+
+* PreloadedImage now reacts to image changes and rebuilds correctly
+
 ## 0.12.1
 
 ### Added ###
