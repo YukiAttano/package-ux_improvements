@@ -1,9 +1,11 @@
 import "package:flutter/material.dart";
 
+import "raw_preloaded_image.dart";
+
 /// Preloads the image file to size the layout according to the image and available space.
 ///
 /// This allows an ink animation to be exactly on the image and not spreading over it.
-class PreloadedImage extends StatefulWidget {
+class PreloadedImage extends StatelessWidget {
   /// builder used to allow implementations of animations
   ///
   /// if [image] is null, the image is not loaded yet.
@@ -38,7 +40,10 @@ class PreloadedImage extends StatefulWidget {
   final void Function()? onPressed;
 
   /// allows the full control of the image widget
+  ///
   /// all parameter are only effective on the loaded image.
+  ///
+  /// For more customization, see [RawPreloadedImage]
   const PreloadedImage.builder({
     super.key,
     required this.builder,
@@ -86,102 +91,37 @@ class PreloadedImage extends StatefulWidget {
   }
 
   @override
-  State<PreloadedImage> createState() => _PreloadedImageState();
-}
-
-class _PreloadedImageState extends State<PreloadedImage> {
-  ImageStream? _stream;
-
-  Size? _size;
-
-  late Widget _child;
-
-  late final ImageStreamListener _listener = ImageStreamListener((image, synchronousCall) {
-    if (context.mounted) {
-      setState(() {
-        _size = Size(image.image.width.toDouble(), image.image.height.toDouble());
-        _buildChild();
-      });
-    }
-  });
-
-  @override
-  void initState() {
-    super.initState();
-
-    _buildChild();
-    _requestImage();
-  }
-
-  @override
-  void didUpdateWidget(covariant PreloadedImage oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    if (oldWidget.image != widget.image || oldWidget.configuration != widget.configuration) {
-      _requestImage();
-    }
-
-    if (oldWidget.builder != widget.builder ||
-        oldWidget.decoration != widget.decoration ||
-        oldWidget.boxFit != widget.boxFit ||
-        oldWidget.borderRadius != widget.borderRadius) {
-      _buildChild();
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return _child;
-  }
+    return RawPreloadedImage(
+      image: image.image,
+      boxFit: boxFit,
+      configuration: configuration,
+      builder: (sizes, constraints) {
+        if (sizes == null) return builder(null);
 
-  void _requestImage() {
-    ImageStream stream = widget.image.image.resolve(widget.configuration);
-
-    stream.removeListener(_listener);
-    stream.addListener(_listener);
-
-    _stream = stream;
-  }
-
-  void _buildChild() {
-    _child = widget.builder(_size == null ? null : _buildLoadedImageChild());
-  }
-
-  /// the loaded image as a widget.
-  ///
-  /// must only be accessed, if [_size] is not null.
-  Widget _buildLoadedImageChild() {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        FittedSizes sizes = applyBoxFit(widget.boxFit, _size!, constraints.biggest);
-
-        return InkWell(
-          borderRadius: widget.borderRadius,
-          onTap: widget.onPressed,
-          child: Ink(
-            width: sizes.destination.width,
-            height: sizes.destination.height,
-            padding: widget.padding,
-            decoration: BoxDecoration(
-              color: widget.decoration.color,
-              gradient: widget.decoration.gradient,
-              shape: widget.decoration.shape,
-              border: widget.decoration.border,
-              boxShadow: widget.decoration.boxShadow,
-              backgroundBlendMode: widget.decoration.backgroundBlendMode,
-              borderRadius: widget.borderRadius,
-              image: widget.image,
+        return builder(
+          InkWell(
+            borderRadius: borderRadius,
+            onTap: onPressed,
+            child: Ink(
+              width: sizes.destination.width,
+              height: sizes.destination.height,
+              padding: padding,
+              decoration: BoxDecoration(
+                color: decoration.color,
+                gradient: decoration.gradient,
+                shape: decoration.shape,
+                border: decoration.border,
+                boxShadow: decoration.boxShadow,
+                backgroundBlendMode: decoration.backgroundBlendMode,
+                borderRadius: borderRadius,
+                image: image,
+              ),
+              child: child,
             ),
-            child: widget.child,
           ),
         );
       },
     );
-  }
-
-  @override
-  void dispose() {
-    _stream?.removeListener(_listener);
-    super.dispose();
   }
 }

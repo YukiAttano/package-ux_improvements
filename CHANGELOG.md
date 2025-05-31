@@ -1,4 +1,8 @@
-## NEXT 0.13.0
+## 0.13.0
+
+### Added ###
+
+* Add RawPreloadedImage as bare bone for PreloadedImage to allow fine grained customization 
 
 ### Changed ###
 
