@@ -6,11 +6,11 @@
 
 ### Changed ###
 
-**Breaking:** updated to responsive_ux 1.0.1
+* **Breaking:** updated to responsive_ux 1.0.1
 
 ### Removed ###
 
-**Breaking:** removed unused parameter from GlassContainerStyle.fallback()
+* **Breaking:** removed unused parameter from GlassContainerStyle.fallback()
 
 ## 0.12.2
 
@@ -117,7 +117,7 @@
 ### Changed ###
 
 * Fixed updating PreloadedImage after it got disposed
-**Breaking:** updated to responsive_ux 0.3.0
+* **Breaking:** updated to responsive_ux 0.3.0
 
 ## 0.10.1
 
@@ -130,7 +130,7 @@
 
 ### Changed ###
 
-**Breaking:** updated to responsive_ux 0.2.0
+* **Breaking:** updated to responsive_ux 0.2.0
 
 ## 0.9.0
 
