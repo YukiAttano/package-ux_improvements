@@ -54,7 +54,7 @@ class EndlessListView extends CustomScrollView {
   /// negativeStart = 5
   /// positiveStart = 6;
   /// positiveCount = 50;
-  /// Will build a list from 6 - 50 and from 5 to -infinity
+  /// Will build a list from 6 - 56 and from 5 to -infinity
   /// ```
   ///
   /// The list always starts at [positiveStart] as the centered Widget.
