@@ -1,3 +1,9 @@
+## NEXT
+
+### Fixed ###
+
+* OverflowText has calculated without TextScaler and correct TextStyle, if none were explicitly set
+
 ## 0.13.0
 
 ### Added ###

@@ -8,7 +8,7 @@ class OverflowText extends StatelessWidget {
 
   final TextAlign textAlign;
   final TextDirection? textDirection;
-  final TextScaler textScaler;
+  final TextScaler? textScaler;
   final String? ellipsis;
   final Locale? locale;
   final StrutStyle? strutStyle;
@@ -26,17 +26,28 @@ class OverflowText extends StatelessWidget {
     this.overflow,
     TextAlign? textAlign,
     this.textDirection,
-    TextScaler? textScaler,
+    this.textScaler,
     this.ellipsis,
     this.locale,
     this.strutStyle,
     TextWidthBasis? textWidthBasis,
     this.textHeightBehavior,
   })  : textAlign = textAlign ?? TextAlign.start,
-        textScaler = textScaler ?? TextScaler.noScaling,
         textWidthBasis = textWidthBasis ?? TextWidthBasis.parent;
 
-  bool _hasOverflow(BoxConstraints constraints, TextDirection direction) {
+  bool _hasOverflow({
+    required BoxConstraints constraints,
+    TextStyle? style,
+    TextDirection? direction,
+    TextScaler? textScaler,
+    Locale? locale,
+  }) {
+    style = this.style ?? style;
+    // ignore: parameter_assignments .
+    textScaler = this.textScaler ?? textScaler ?? TextScaler.noScaling;
+    // ignore: parameter_assignments .
+    locale = this.locale ?? locale;
+
     TextPainter painter = TextPainter(
       textDirection: direction,
       textAlign: textAlign,
@@ -55,16 +66,29 @@ class OverflowText extends StatelessWidget {
       maxWidth: constraints.maxWidth,
     );
 
-    return painter.didExceedMaxLines;
+    bool didExceed = painter.didExceedMaxLines;
+
+    painter.dispose();
+
+    return didExceed;
   }
 
   @override
   Widget build(BuildContext context) {
-    TextDirection direction = Directionality.of(context);
+    TextDirection? direction = Directionality.maybeOf(context);
+    TextScaler textScaler = MediaQuery.textScalerOf(context);
+    Locale? locale = Localizations.maybeLocaleOf(context);
+    DefaultTextStyle style = DefaultTextStyle.of(context);
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        bool hasOverflow = _hasOverflow(constraints, direction);
+        bool hasOverflow = _hasOverflow(
+          constraints: constraints,
+          style: style.style,
+          direction: direction,
+          textScaler: textScaler,
+          locale: locale,
+        );
 
         return builder(hasOverflow);
       },
