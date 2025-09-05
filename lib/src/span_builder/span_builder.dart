@@ -3,10 +3,37 @@ import "package:flutter/material.dart";
 typedef SpanBuilderCallback = InlineSpan Function(RegExpMatch match);
 typedef SpanNoMatchBuilderCallback = InlineSpan Function(String text);
 
+/// Builds [spans] based on [text]
+///
+/// For example:
+/// [text] contains hyper-links that would make sense to be highlighted and to be clickable.
+///
+/// ```dart
+/// SpanBuilder(
+///   text: "hey come and see my package on https://pub.dev/packages/ux_improvements",
+///   regexes: [regexHttps],
+///   spanBuilder: (match) => _buildUrl(
+///     match.input.substring(match.start, match.end),
+///   ),
+/// ),
+///
+/// static InlineSpan _buildUrl(String link) {
+///    return WidgetSpan(
+///      alignment: PlaceholderAlignment.middle,
+///      child: TextButton(
+///        onPressed: () async => _launch(link),
+///        child: Text(link),
+///      ),
+///    );
+///  }
+/// ```
+///
+/// The generated [spans] can be used in a [RichText] widget.
 class SpanBuilder {
   final String text;
 
-  List<InlineSpan> children = [];
+  final List<InlineSpan> _spans = [];
+  List<InlineSpan> get spans => _spans;
 
   final List<RegExp> regexes;
 
@@ -32,13 +59,13 @@ class SpanBuilder {
     matches.sort((a, b) => a.start.compareTo(b.start));
 
     if (matches.isEmpty) {
-      children.add(TextSpan(text: text));
+      _spans.add(TextSpan(text: text));
     } else {
       RegExpMatch match = matches.first;
       RegExpMatch? nextMatch;
 
       if (match.start > 0) {
-        children.add(TextSpan(text: text.substring(0, match.start)));
+        _spans.add(TextSpan(text: text.substring(0, match.start)));
       }
 
       int maxZaehler = matches.length;
@@ -47,15 +74,15 @@ class SpanBuilder {
         match = matches[zaehler];
         if (zaehler + 1 < maxZaehler) nextMatch = matches[zaehler + 1];
 
-        children.add(spanBuilder(match));
+        _spans.add(spanBuilder(match));
         if (nextMatch != null && match.end < nextMatch.start) {
-          children.add(noMatchBuilder(text.substring(match.end, nextMatch.start)));
+          _spans.add(noMatchBuilder(text.substring(match.end, nextMatch.start)));
         }
       }
 
       int maxLength = text.length;
       if (match.end < maxLength) {
-        children.add(TextSpan(text: text.substring(match.end, maxLength)));
+        _spans.add(TextSpan(text: text.substring(match.end, maxLength)));
       }
     }
   }
