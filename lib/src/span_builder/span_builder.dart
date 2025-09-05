@@ -29,11 +29,21 @@ typedef SpanNoMatchBuilderCallback = InlineSpan Function(String text);
 /// ```
 ///
 /// The generated [spans] can be used in a [RichText] widget.
+/// ```dart
+/// Text.rich(
+///   SpanBuilder(...).span
+/// )
+/// ```
+///
+/// To avoid recomputations, consider caching [SpanBuilder] in [State] classes
 class SpanBuilder {
   final String text;
 
   final List<InlineSpan> _spans = [];
-  List<InlineSpan> get spans => _spans;
+  List<InlineSpan> get spans => List.unmodifiable(_spans);
+
+  /// because [RichText.text] is one child and not a list of children, [span] is a convenient wrapper
+  InlineSpan get span => TextSpan(children: spans);
 
   final List<RegExp> regexes;
 
