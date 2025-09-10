@@ -1,4 +1,8 @@
-## NEXT
+## 0.13.1
+
+### Added ###
+
+* SpanBuilder to split texts based on regexes and replace them with custom widgets
 
 ### Fixed ###
 

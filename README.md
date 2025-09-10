@@ -19,7 +19,7 @@ or allow advantages that are otherwise tedious to re-implement.
 ## Intro
 
 I recommend to take a look at the [Example project](https://uximprovements.memeozer.com/) to see the most (if not all) features in action.
-
+(SpanBuilder example coming with next releases)
 
 ## Features
 
@@ -36,7 +36,10 @@ I recommend to take a look at the [Example project](https://uximprovements.memeo
 - GlassCard / GlassContainer (Glassmorphism effect)
 - WarnBeforeUnload (WebOnly - Warns the user before unloading or refreshing the page takes effect)
 - OverflowText (Overflow aware text, allows to shrink text widgets that can expand to show more text)
-- Re-Exports [responsive_ux](https://pub.dev/packages/responsive_ux) 
+- SpanBuilder (Replace String parts through regexes with custom widgets)
+- Re-Exports [responsive_ux](https://pub.dev/packages/responsive_ux)
+
+(responsive_ux won't be re-exported in release 1.0.0, consider adding it explicitly)
 
 ## Getting started
 
