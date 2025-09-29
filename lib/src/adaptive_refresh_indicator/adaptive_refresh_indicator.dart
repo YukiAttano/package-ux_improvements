@@ -4,6 +4,7 @@ import "package:flutter/material.dart";
 import "cupertino_sliver_refresh_control_configuration.dart";
 import "custom_scroll_view_configuration.dart";
 import "refresh_indicator_configuration.dart";
+import "sliver_persistent_padding_delegate.dart";
 
 class AdaptiveRefreshIndicator extends StatelessWidget {
   final EdgeInsets padding;
@@ -333,7 +334,11 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
     EdgeInsets childPadding = EdgeInsets.only(left: padding.left, right: padding.right);
 
     return [
-      SliverPadding(padding: padding),
+      SliverPersistentHeader(
+        delegate: SliverPersistentPaddingDelegate(
+          padding: EdgeInsets.fromLTRB(padding.left, padding.top, padding.right, 0),
+        ),
+      ),
       cupertinoSliverRefreshControl,
       ...List.generate(slivers.length, (index) {
         return SliverPadding(
@@ -341,7 +346,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           sliver: slivers[index],
         );
       }),
-      SliverPadding(padding: padding),
+      SliverPadding(padding: EdgeInsets.fromLTRB(padding.left, 0, padding.right, padding.bottom)),
     ];
   }
 
