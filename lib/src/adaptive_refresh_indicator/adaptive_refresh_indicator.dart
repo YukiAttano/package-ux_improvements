@@ -310,7 +310,7 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
           SliverVisibility(
             visible: _enabled && !useMaterial,
             sliver: SliverPadding(
-              padding: padding,
+              padding: EdgeInsets.only(left: padding.left, right: padding.right),
               sliver: CupertinoSliverRefreshControl(
                 refreshTriggerPullDistance: cupertinoConfig.refreshTriggerPullDistance,
                 refreshIndicatorExtent: cupertinoConfig.refreshIndicatorExtent,
@@ -330,14 +330,18 @@ class AdaptiveRefreshIndicator extends StatelessWidget {
     EdgeInsets padding,
     List<Widget> slivers,
   ) {
+    EdgeInsets childPadding = EdgeInsets.only(left: padding.left, right: padding.right);
+
     return [
+      SliverPadding(padding: padding),
       cupertinoSliverRefreshControl,
       ...List.generate(slivers.length, (index) {
         return SliverPadding(
-          padding: padding,
+          padding: childPadding,
           sliver: slivers[index],
         );
       }),
+      SliverPadding(padding: padding),
     ];
   }
 

@@ -1,3 +1,9 @@
+## 0.13.2
+
+### Fixed ###
+
+* Padding in AdaptiveRefreshIndicator now works like ListView.padding instead of wrapping every child
+
 ## 0.13.1
 
 ### Added ###
