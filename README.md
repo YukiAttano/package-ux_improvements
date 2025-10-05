@@ -20,6 +20,7 @@ or allow advantages that are otherwise tedious to re-implement.
 
 I recommend to take a look at the [Example project](https://uximprovements.memeozer.com/) to see the most (if not all) features in action.
 (SpanBuilder example coming with next releases)
+(ChainedTextScaler and AdaptiveTextScale example coming with next releases)
 
 ## Features
 
@@ -37,6 +38,8 @@ I recommend to take a look at the [Example project](https://uximprovements.memeo
 - WarnBeforeUnload (WebOnly - Warns the user before unloading or refreshing the page takes effect)
 - OverflowText (Overflow aware text, allows to shrink text widgets that can expand to show more text)
 - SpanBuilder (Replace String parts through regexes with custom widgets)
+- ChainedTextScaler (Chains two text scaler together)
+- AdaptiveTextScale (Overrides MediaQuerys text scaler and optionally adopts the source scaler from an ancestor ChainedTextScaler)
 - Re-Exports [responsive_ux](https://pub.dev/packages/responsive_ux)
 
 (responsive_ux won't be re-exported in release 1.0.0, consider adding it explicitly)

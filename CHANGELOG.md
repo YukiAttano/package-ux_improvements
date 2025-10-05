@@ -1,3 +1,10 @@
+## 0.13.3
+
+### Added ###
+
+* ChainedTextScaler for chaining two text scaler (for example to inherit the SystemTextScaler and additionally applying a linear text scale)
+* AdaptiveTextScale for overriding text scales in the subtree with correctly applying an AdaptiveTextScaler
+
 ## 0.13.2
 
 ### Fixed ###
