@@ -5,8 +5,9 @@ repository: https://github.com/YukiAttano/package-ux_improvements
 issue_tracker: https://github.com/YukiAttano/package-ux_improvements/issues
 topics:
   - widget
-  - image
   - ui
+  - ux
+  - image
   - flutter
 
 environment:

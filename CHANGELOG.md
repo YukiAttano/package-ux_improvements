@@ -1,3 +1,9 @@
+## NEXT
+
+### Added ###
+
+* TriggerLoadListener for automatically triggering pagination callbacks
+
 ## 0.13.3
 
 ### Added ###
