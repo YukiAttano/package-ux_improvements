@@ -4,10 +4,13 @@ import "package:flutter/material.dart";
 ///
 /// 1. (Trigger) Triggers [onLoadRequested] if the elements following the list consume less space than the list is able to show.
 /// 2. (Reset) The user must scroll the visible size of the list multiplied with [resetMultiplier] away from the bottom of the list.
-/// 3. (Fallback Trigger) If rule 1 can't trigger because the list is too small, a request is made if the user overscrolls the list.
+/// 3. (Fallback Trigger) If rule 1 can't trigger because the list is too small, a request is made if the user overscrolls(1) the list.
 /// 4. (Fallback Reset) If rule 2 can't trigger because the list is too small, the logic is reset if the user scrolls to the top of the list.
 ///
-/// Does not supported bidirectional lists yet
+/// (1) As the notification does not know the primary direction of the list, small lists will trigger a pagination call
+/// whether the user scrolled to top or bottom.
+///
+/// Note for bidirectional Lists: It is not possible to know whether we are in a negative or positive range.
 class TriggerLoadListener extends StatefulWidget {
   static const double _defaultResetMultiplier = 1.5;
 
@@ -46,6 +49,9 @@ class TriggerLoadListener extends StatefulWidget {
 
 class _TriggerLoadListenerState extends State<TriggerLoadListener> {
   bool hasRequested = false;
+
+  /// whether the user has scrolled to the top or beyond
+  bool wasAtTop = true;
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +101,7 @@ class _TriggerLoadListenerState extends State<TriggerLoadListener> {
   /// As a fallback for too short lists, a reset is triggered if the user scrolls to the begin of the list
   bool _onUpdateNotification(ScrollUpdateNotification notification) {
     if (!hasRequested) {
+      // Fallback mechanic for small lists, see _onOverscrollNotification
       bool isNearEnd = notification.metrics.extentAfter < notification.metrics.extentInside;
 
       if (isNearEnd) {
@@ -106,9 +113,11 @@ class _TriggerLoadListenerState extends State<TriggerLoadListener> {
       bool isFarFromEnd = notification.metrics.extentAfter > notification.metrics.extentInside * widget.resetMultiplier;
       bool hasReachedTop = notification.metrics.extentBefore <= 0;
 
-      if (isFarFromEnd || hasReachedTop) {
+      if (isFarFromEnd || (hasReachedTop && !wasAtTop)) {
         hasRequested = false;
       }
+
+      wasAtTop = hasReachedTop;
     }
 
     return false;
