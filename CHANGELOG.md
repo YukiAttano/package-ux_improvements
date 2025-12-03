@@ -1,3 +1,9 @@
+## 0.13.5
+
+### Added ###
+
+* RawPreloadedImage and PreloadedImage now support errorBuilder and chunkBuilder callbacks
+
 ## 0.13.4
 
 ### Added ###

@@ -6,16 +6,20 @@ import "raw_preloaded_image.dart";
 ///
 /// This allows an ink animation to be exactly on the image and not spreading over it.
 class PreloadedImage extends StatelessWidget {
+  /// [DecorationImage.image] is the resolved image.
+  /// after the resolving, [image] is placed in [decoration].
+  /// The separation of the image is done for convenience.
+  final DecorationImage image;
+
   /// builder used to allow implementations of animations
   ///
   /// if [image] is null, the image is not loaded yet.
   /// if [image] is not null, it represents the full widget to display the image with all defined settings.
   final Widget Function(Widget? image) builder;
 
-  /// [DecorationImage.image] is the resolved image.
-  /// after the resolving, [image] is placed in [decoration].
-  /// The separation of the image is done for convenience.
-  final DecorationImage image;
+  final ImageErrorWidgetBuilder? errorBuilder;
+
+  final Widget Function(ImageChunkEvent event)? chunkBuilder;
 
   final ImageConfiguration configuration;
   final BorderRadius? borderRadius;
@@ -46,9 +50,11 @@ class PreloadedImage extends StatelessWidget {
   /// For more customization, see [RawPreloadedImage]
   const PreloadedImage.builder({
     super.key,
-    required this.builder,
     required this.image,
     ImageConfiguration? configuration,
+    required this.builder,
+    this.errorBuilder,
+    this.chunkBuilder,
     this.borderRadius,
     BoxDecoration? decoration,
     BoxFit? boxFit,
@@ -63,6 +69,8 @@ class PreloadedImage extends StatelessWidget {
   PreloadedImage({
     Key? key,
     required DecorationImage image,
+    ImageErrorWidgetBuilder? errorBuilder,
+    Widget Function(ImageChunkEvent event)? chunkBuilder,
     ImageConfiguration? configuration,
     BorderRadius? borderRadius,
     BoxDecoration? decoration,
@@ -76,6 +84,8 @@ class PreloadedImage extends StatelessWidget {
           image: image,
           configuration: configuration,
           builder: (image) => _loadingBuilder(image, loading ?? _loading),
+          errorBuilder: errorBuilder,
+          chunkBuilder: chunkBuilder,
           borderRadius: borderRadius,
           decoration: decoration,
           boxFit: boxFit,
@@ -94,8 +104,8 @@ class PreloadedImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return RawPreloadedImage(
       image: image.image,
-      boxFit: boxFit,
       configuration: configuration,
+      boxFit: boxFit,
       builder: (sizes, constraints) {
         if (sizes == null) return builder(null);
 
@@ -122,6 +132,8 @@ class PreloadedImage extends StatelessWidget {
           ),
         );
       },
+      errorBuilder: errorBuilder,
+      chunkBuilder: chunkBuilder,
     );
   }
 }

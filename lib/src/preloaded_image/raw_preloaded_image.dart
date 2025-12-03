@@ -2,17 +2,28 @@ import "package:flutter/material.dart";
 
 import "preloaded_image.dart";
 
+enum _ImageState {
+  LOADING,
+  LOADED,
+  ERROR,
+  CHUNK;
+}
+
 /// [sizes] and [constraints] is null if the image is not loaded
 typedef RawPreloadedImageBuilder = Widget Function(FittedSizes? sizes, BoxConstraints? constraints);
 
 class RawPreloadedImage extends StatefulWidget {
+  final ImageProvider image;
+
+  final ImageConfiguration configuration;
+
   /// called with all parameter set to null if the image is not loaded
   /// and only with values if the image was loaded
   final RawPreloadedImageBuilder builder;
 
-  final ImageProvider image;
+  final ImageErrorWidgetBuilder? errorBuilder;
 
-  final ImageConfiguration configuration;
+  final Widget Function(ImageChunkEvent event)? chunkBuilder;
 
   /// controls how the reported size should be fit in its parent, defaults to [BoxFit.contain]
   ///
@@ -28,8 +39,10 @@ class RawPreloadedImage extends StatefulWidget {
   const RawPreloadedImage({
     super.key,
     required this.image,
-    required this.builder,
     ImageConfiguration? configuration,
+    required this.builder,
+    this.errorBuilder,
+    this.chunkBuilder,
     BoxFit? boxFit,
   })  : configuration = configuration ?? ImageConfiguration.empty,
         boxFit = boxFit ?? BoxFit.contain;
@@ -45,14 +58,26 @@ class _RawPreloadedImageState extends State<RawPreloadedImage> {
 
   late Widget _child;
 
-  late final ImageStreamListener _listener = ImageStreamListener((image, synchronousCall) {
-    if (context.mounted) {
-      setState(() {
-        _size = Size(image.image.width.toDouble(), image.image.height.toDouble());
-        _buildChild();
-      });
-    }
-  });
+  _ImageState _imageState = _ImageState.LOADING;
+
+  late final ImageStreamListener _listener = ImageStreamListener(
+    _onBuildChild,
+    onError: widget.errorBuilder != null ? _onBuildError : null,
+    onChunk: widget.chunkBuilder != null ? _onBuildChunk : null,
+  );
+
+  late final ImageStreamListener _stateListener = ImageStreamListener(
+    (_, __) => _onStateChange(_ImageState.LOADED),
+    onError: (_, __) => _onStateChange(_ImageState.ERROR),
+    onChunk: (_) => _onStateChange(_ImageState.CHUNK),
+  );
+
+  /// keep track of the current image state to call the correct builder on changes
+  // ignore: use_setters_to_change_properties .
+  void _onStateChange(_ImageState state) {
+    // don't use setState here to avoid rebuilds
+    _imageState = state;
+  }
 
   @override
   void initState() {
@@ -71,7 +96,17 @@ class _RawPreloadedImageState extends State<RawPreloadedImage> {
     }
 
     if (oldWidget.builder != widget.builder || oldWidget.boxFit != widget.boxFit) {
-      _buildChild();
+      switch (_imageState) {
+        case _ImageState.LOADING:
+        case _ImageState.LOADED:
+          _buildChild();
+        case _ImageState.ERROR:
+        case _ImageState.CHUNK:
+      }
+    }
+
+    if (oldWidget.errorBuilder != widget.errorBuilder || oldWidget.chunkBuilder != widget.chunkBuilder) {
+      _requestImage();
     }
   }
 
@@ -84,13 +119,12 @@ class _RawPreloadedImageState extends State<RawPreloadedImage> {
     ImageStream stream = widget.image.resolve(widget.configuration);
 
     stream.removeListener(_listener);
+    stream.removeListener(_stateListener);
+
+    stream.addListener(_stateListener);
     stream.addListener(_listener);
 
     _stream = stream;
-  }
-
-  void _buildChild() {
-    _child = _size == null ? widget.builder(null, null) : _buildLoadedImageChild();
   }
 
   /// the loaded image as a widget.
@@ -106,8 +140,40 @@ class _RawPreloadedImageState extends State<RawPreloadedImage> {
     );
   }
 
+  void _buildChild() {
+    _child = _size == null ? widget.builder(null, null) : _buildLoadedImageChild();
+  }
+
+  void _onBuildChild(ImageInfo image, bool synchronousCall) {
+    if (context.mounted) {
+      setState(() {
+        _size = Size(image.image.width.toDouble(), image.image.height.toDouble());
+        _buildChild();
+      });
+    }
+  }
+
+  void _onBuildError(Object error, StackTrace? stackTrace) {
+    assert(widget.errorBuilder != null, "errorBuilder must be provided");
+    if (context.mounted) {
+      setState(() {
+        _child = widget.errorBuilder!(context, error, stackTrace);
+      });
+    }
+  }
+
+  void _onBuildChunk(ImageChunkEvent event) {
+    assert(widget.chunkBuilder != null, "chunkBuilder must be provided");
+    if (context.mounted) {
+      setState(() {
+        _child = widget.chunkBuilder!(event);
+      });
+    }
+  }
+
   @override
   void dispose() {
+    _stream?.removeListener(_stateListener);
     _stream?.removeListener(_listener);
     super.dispose();
   }
