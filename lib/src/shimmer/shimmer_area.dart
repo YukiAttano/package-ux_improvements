@@ -155,7 +155,7 @@ class ShimmerAreaState extends State<ShimmerArea> with TickerProviderStateMixin 
 
   void _initController() {
     _shimmerController = AnimationController.unbounded(vsync: this)
-      ..repeat(min: -0.5, max: 1.5, period: widget.duration);
+      ..repeat(min: -0.5, max: 1.5, period: widget.duration).ignore();
 
     shimmerChanges.value = _shimmerController.view;
   }

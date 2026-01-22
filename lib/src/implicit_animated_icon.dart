@@ -50,9 +50,9 @@ class _ImplicitAnimatedIconState extends State<ImplicitAnimatedIcon> with Single
 
     if (widget.isStarted != started) {
       if (widget.isStarted) {
-        _controller.forward();
+        _controller.forward().ignore();
       } else {
-        _controller.reverse();
+        _controller.reverse().ignore();
       }
     }
   }

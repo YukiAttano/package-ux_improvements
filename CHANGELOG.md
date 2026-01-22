@@ -1,3 +1,13 @@
+## 0.13.6
+
+### Added ###
+
+* BuildContext extension .textHeight() to get the applied text height anywhere in the tree (useful to scale icons to the same size as texts in the same row)
+
+### Changed ###
+
+* lint rules changed to improved_analysis
+
 ## 0.13.5
 
 ### Added ###
