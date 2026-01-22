@@ -12,7 +12,9 @@ and the Flutter guide for
 -->
 
 This package bundles small Widgets that are generally useful in different Projects.
+
 Bloating this package with a ton of Widgets is not the goal of this package.
+
 All Widgets in this library are either considered useful (if not mandatory) to be used in any project 
 or allow advantages that are otherwise tedious to re-implement.
 
@@ -41,6 +43,7 @@ I recommend to take a look at the [Example project](https://uximprovements.memeo
 - SpanBuilder (Replace String parts through regexes with custom widgets)
 - ChainedTextScaler (Chains two text scaler together)
 - AdaptiveTextScale (Overrides MediaQueries text scaler and optionally adopts the source scaler from an ancestor ChainedTextScaler)
+- BuildContext.textHeight() extension (returns the text height that would be applied at the current location in the widget tree)
 - Re-Exports [responsive_ux](https://pub.dev/packages/responsive_ux)
 
 (responsive_ux won't be re-exported in release 1.0.0, consider adding it explicitly)

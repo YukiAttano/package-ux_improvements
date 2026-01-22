@@ -6,6 +6,7 @@ export "src/adaptive_refresh_indicator/custom_scroll_view_configuration.dart";
 export "src/adaptive_refresh_indicator/refresh_indicator_configuration.dart";
 export "src/adaptive_text_scaler/adaptive_text_scale.dart";
 export "src/adaptive_text_scaler/chained_text_scaler.dart";
+export "src/extensions/build_context_extension.dart";
 export "src/fakeloading/fakeloading_widget.dart";
 export "src/glass/glass_card.dart";
 export "src/glass/glass_container.dart";

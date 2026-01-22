@@ -1,3 +1,9 @@
+## 0.13.7
+
+### Added ###
+
+* actually export the BuildContext.textHeight() extension
+
 ## 0.13.6
 
 ### Added ###
