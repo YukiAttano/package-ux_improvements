@@ -20,7 +20,7 @@ extension BuildContextExtension on BuildContext {
 
     double fS = fontSize ?? style.fontSize ?? textTheme.bodyMedium?.fontSize ?? 1;
 
-    if (applyTextHeight) fS *= style.height ?? 1;
+    if (applyTextHeight) fS *= style.height ?? kTextHeightNone;
 
     fS = scaler.scale(fS);
 
