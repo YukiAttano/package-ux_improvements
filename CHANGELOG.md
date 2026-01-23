@@ -1,3 +1,9 @@
+## 0.13.8
+
+### Changed ###
+
+* BuildContext.textHeight() uses kTextHeightNone as fallback for 'height' instead of 1
+
 ## 0.13.7
 
 ### Added ###
