@@ -10,7 +10,7 @@ class CupertinoSliverRefreshControlConfiguration {
   static const double _defaultRefreshTriggerPullDistance = 100;
   static const double _defaultRefreshIndicatorExtent = 60;
 
-  /// see [CupertinoSliverRefreshControlConfiguration] for all descriptions.
+  /// see [CupertinoSliverRefreshControl] for all descriptions.
   ///
   /// defaults adopted from there.
   const CupertinoSliverRefreshControlConfiguration({
