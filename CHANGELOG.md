@@ -1,5 +1,10 @@
 ## 0.13.8
 
+### Added ###
+
+* Cloak for occupying the size of its child while hiding them and preventing hero animations
+
+
 ### Changed ###
 
 * BuildContext.textHeight() uses kTextHeightNone as fallback for 'height' instead of 1
