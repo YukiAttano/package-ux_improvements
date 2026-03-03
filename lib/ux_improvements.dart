@@ -9,6 +9,7 @@ export "src/adaptive_text_scaler/chained_text_scaler.dart";
 export "src/cloak/cloak.dart";
 export "src/extensions/build_context_extension.dart";
 export "src/fakeloading/fakeloading_widget.dart";
+export "src/glass/glass.dart";
 export "src/glass/glass_card.dart";
 export "src/glass/glass_container.dart";
 export "src/glass/styles/glass_card_style.dart";

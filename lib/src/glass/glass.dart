@@ -2,6 +2,7 @@ import "package:flutter/widgets.dart";
 
 import "glass_filter.dart";
 
+/// Naked glass effect
 class Glass extends StatelessWidget {
   final BackdropKey? groupKey;
   final bool? enabled;

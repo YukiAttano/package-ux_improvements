@@ -1,3 +1,11 @@
+## 0.13.10
+
+### Added ###
+
+* Glass widget without any further decoration
+* BackdropKey and 'enabled' property to all glass widgets
+* BlendMode property to GlassContainerStyle
+
 ## 0.13.9
 
 ### Changed ###
