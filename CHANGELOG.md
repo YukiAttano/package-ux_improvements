@@ -1,5 +1,11 @@
 ## 0.13.8
 
+### Changed ###
+
+* Improve image caching and resolving in RawPreloadedImage
+
+## 0.13.8
+
 ### Added ###
 
 * Cloak for occupying the size of its child while hiding them and preventing hero animations

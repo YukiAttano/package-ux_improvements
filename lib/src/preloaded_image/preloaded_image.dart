@@ -21,7 +21,7 @@ class PreloadedImage extends StatelessWidget {
 
   final Widget Function(ImageChunkEvent event)? chunkBuilder;
 
-  final ImageConfiguration configuration;
+  final ImageConfiguration? configuration;
   final BorderRadius? borderRadius;
 
   /// [BoxDecoration.borderRadius] and [BoxDecoration.image] are ignored
@@ -51,7 +51,7 @@ class PreloadedImage extends StatelessWidget {
   const PreloadedImage.builder({
     super.key,
     required this.image,
-    ImageConfiguration? configuration,
+    this.configuration,
     required this.builder,
     this.errorBuilder,
     this.chunkBuilder,
@@ -61,8 +61,7 @@ class PreloadedImage extends StatelessWidget {
     this.onPressed,
     this.padding,
     this.child,
-  })  : configuration = configuration ?? ImageConfiguration.empty,
-        decoration = decoration ?? const BoxDecoration(),
+  })  : decoration = decoration ?? const BoxDecoration(),
         boxFit = boxFit ?? BoxFit.contain;
 
   /// replaces the image with a [loading] widget until it is fully loaded
