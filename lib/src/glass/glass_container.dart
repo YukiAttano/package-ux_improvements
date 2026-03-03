@@ -1,6 +1,8 @@
 import "dart:ui";
 
 import "package:flutter/material.dart";
+import "glass.dart";
+import "glass_filter.dart";
 import "styles/glass_container_style.dart";
 
 class GlassContainer extends StatelessWidget {
@@ -13,75 +15,45 @@ class GlassContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GlassContainerStyle? s = GlassContainerStyle.of(context, style);
+    GlassContainerStyle s = GlassContainerStyle.of(context, style);
 
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Positioned.fill(
-          child: ClipRRect(
-            borderRadius: s.borderRadius ?? BorderRadius.zero,
-            clipBehavior: s.clipBehavior!,
-            child: _Filter(
-              groupKey: groupKey,
-              enabled: enabled,
-              sigmaY: s.sigmaY,
-              sigmaX: s.sigmaX,
-              child: ColoredBox(
-                color: s.color!.withValues(alpha: s.opacity),
-              ),
-            ),
-          ),
-        ),
-        DecoratedBox(
-          decoration: BoxDecoration(
-            border: s.border,
-            borderRadius: s.borderRadius,
-            gradient: s.gradient,
-            shape: s.shape ?? BoxShape.rectangle,
-            boxShadow: [
-              BoxShadow(
-                color: s.tint!.withValues(alpha: s.tintOpacity),
-                blurRadius: s.tintBlurRadius!,
-              ),
-            ],
-          ),
-          child: child,
-        ),
-      ],
+    return Glass(
+      groupKey: groupKey,
+      enabled: enabled,
+      sigmaY: s.sigmaY,
+      sigmaX: s.sigmaX,
+      blendMode: s.blendMode,
+      borderRadius: s.borderRadius,
+      clipBehavior: s.clipBehavior,
+      child: ColoredBox(
+        color: s.color!.withValues(alpha: s.opacity),
+        child: _DecoratedChild(style: s, child: child),
+      ),
     );
   }
 }
 
-class _Filter extends StatelessWidget {
-  final BackdropKey? groupKey;
-  final bool enabled;
-  final BlendMode blendMode;
-  final double sigmaX;
-  final double sigmaY;
-  final Widget? child;
+class _DecoratedChild extends StatelessWidget {
+  final GlassContainerStyle style;
+  final Widget child;
 
-  const _Filter({
-    this.groupKey,
-    bool? enabled,
-    BlendMode? blendMode,
-    double? sigmaX,
-    double? sigmaY,
-    this.child,
-  })  : enabled = enabled ?? true,
-        blendMode = blendMode ?? BlendMode.srcOver,
-        sigmaX = sigmaX ?? 0,
-        sigmaY = sigmaY ?? 0;
+  const _DecoratedChild({required this.style, required this.child});
 
   @override
   Widget build(BuildContext context) {
-    return BackdropFilter(
-      backdropGroupKey: groupKey,
-      enabled: enabled,
-      blendMode: blendMode,
-      filter: ImageFilter.blur(
-        sigmaX: sigmaX,
-        sigmaY: sigmaY,
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        border: style.border,
+        borderRadius: style.borderRadius,
+        gradient: style.gradient,
+        shape: style.shape ?? BoxShape.rectangle,
+        color: style.color?.withValues(alpha: style.opacity),
+        boxShadow: [
+          BoxShadow(
+            color: style.tint!.withValues(alpha: style.tintOpacity),
+            blurRadius: style.tintBlurRadius!,
+          ),
+        ],
       ),
       child: child,
     );

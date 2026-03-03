@@ -4,10 +4,13 @@ import "glass_container.dart";
 import "styles/glass_card_style.dart";
 
 class GlassCard extends StatelessWidget {
-  final Widget child;
   final GlassCardStyle? style;
+  final BackdropKey? groupKey;
+  final bool? enabled;
 
-  const GlassCard({super.key, this.style, required this.child});
+  final Widget child;
+
+  const GlassCard({super.key, this.style, this.groupKey, this.enabled, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +25,8 @@ class GlassCard extends StatelessWidget {
       shape: s.shape,
       child: GlassContainer(
         style: s.containerStyle,
+        groupKey: groupKey,
+        enabled: enabled,
         child: child,
       ),
     );

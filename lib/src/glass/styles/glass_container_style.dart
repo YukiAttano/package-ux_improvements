@@ -5,7 +5,7 @@ import "package:flutter/material.dart";
 class GlassContainerStyle extends ThemeExtension<GlassContainerStyle> {
   final Color? color;
   final double? opacity;
-
+  final BlendMode? blendMode;
   final Color? tint;
   final double? tintOpacity;
   final double? tintBlurRadius;
@@ -20,6 +20,7 @@ class GlassContainerStyle extends ThemeExtension<GlassContainerStyle> {
   const GlassContainerStyle({
     this.color,
     this.opacity,
+    this.blendMode,
     this.tint,
     this.tintOpacity,
     this.tintBlurRadius,
@@ -75,6 +76,7 @@ class GlassContainerStyle extends ThemeExtension<GlassContainerStyle> {
   GlassContainerStyle copyWith({
     Color? color,
     double? opacity,
+    BlendMode? blendMode,
     Color? tint,
     double? tintOpacity,
     double? tintBlurRadius,
@@ -89,6 +91,7 @@ class GlassContainerStyle extends ThemeExtension<GlassContainerStyle> {
     return GlassContainerStyle(
       color: color ?? this.color,
       opacity: opacity ?? this.opacity,
+      blendMode: blendMode ?? this.blendMode,
       tint: tint ?? this.tint,
       tintOpacity: tintOpacity ?? this.tintOpacity,
       tintBlurRadius: tintBlurRadius ?? this.tintBlurRadius,
@@ -108,6 +111,7 @@ class GlassContainerStyle extends ThemeExtension<GlassContainerStyle> {
     return copyWith(
       color: other.color,
       opacity: other.opacity,
+      blendMode: other.blendMode,
       tint: other.tint,
       tintOpacity: other.tintOpacity,
       tintBlurRadius: other.tintBlurRadius,
@@ -131,6 +135,7 @@ class GlassContainerStyle extends ThemeExtension<GlassContainerStyle> {
     return GlassContainerStyle(
       color: Color.lerp(color, other.color, t),
       opacity: lerpDouble(opacity, other.opacity, t),
+      blendMode: t < 0.5 ? blendMode : other.blendMode,
       tint: Color.lerp(tint, other.tint, t),
       tintOpacity: lerpDouble(tintOpacity, other.tintOpacity, t),
       tintBlurRadius: lerpDouble(tintBlurRadius, other.tintBlurRadius, t),
