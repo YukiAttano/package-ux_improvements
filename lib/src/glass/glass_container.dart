@@ -5,9 +5,11 @@ import "styles/glass_container_style.dart";
 
 class GlassContainer extends StatelessWidget {
   final GlassContainerStyle? style;
+  final BackdropKey? groupKey;
+  final bool? enabled;
   final Widget child;
 
-  const GlassContainer({super.key, this.style, required this.child});
+  const GlassContainer({super.key, this.style, this.groupKey, this.enabled, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +23,13 @@ class GlassContainer extends StatelessWidget {
             borderRadius: s.borderRadius ?? BorderRadius.zero,
             clipBehavior: s.clipBehavior!,
             child: _Filter(
+              groupKey: groupKey,
+              enabled: enabled,
               sigmaY: s.sigmaY,
               sigmaX: s.sigmaX,
-              color: s.color!.withValues(alpha: s.opacity),
+              child: ColoredBox(
+                color: s.color!.withValues(alpha: s.opacity),
+              ),
             ),
           ),
         ),
@@ -48,24 +54,36 @@ class GlassContainer extends StatelessWidget {
 }
 
 class _Filter extends StatelessWidget {
-  final Color color;
+  final BackdropKey? groupKey;
+  final bool enabled;
+  final BlendMode blendMode;
   final double sigmaX;
   final double sigmaY;
+  final Widget? child;
 
-  const _Filter({required this.color, double? sigmaX, double? sigmaY})
-      : sigmaX = sigmaX ?? 0,
+  const _Filter({
+    this.groupKey,
+    bool? enabled,
+    BlendMode? blendMode,
+    double? sigmaX,
+    double? sigmaY,
+    this.child,
+  })  : enabled = enabled ?? true,
+        blendMode = blendMode ?? BlendMode.srcOver,
+        sigmaX = sigmaX ?? 0,
         sigmaY = sigmaY ?? 0;
 
   @override
   Widget build(BuildContext context) {
     return BackdropFilter(
+      backdropGroupKey: groupKey,
+      enabled: enabled,
+      blendMode: blendMode,
       filter: ImageFilter.blur(
         sigmaX: sigmaX,
         sigmaY: sigmaY,
       ),
-      child: ColoredBox(
-        color: color,
-      ),
+      child: child,
     );
   }
 }
