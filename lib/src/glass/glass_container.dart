@@ -1,8 +1,6 @@
-import "dart:ui";
-
 import "package:flutter/material.dart";
+
 import "glass.dart";
-import "glass_filter.dart";
 import "styles/glass_container_style.dart";
 
 class GlassContainer extends StatelessWidget {
