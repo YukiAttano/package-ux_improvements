@@ -24,41 +24,41 @@ class Shimmer extends StatefulWidget {
 }
 
 class _ShimmerState extends State<Shimmer> {
-  Listenable? _shimmerChanges;
+  ShimmerAreaState? _area;
 
   @override
   void initState() {
     super.initState();
 
-    _initListener();
-
-    ShimmerArea.of(context)?.shimmerChanges.addListener(_initListener);
+    ShimmerArea.of(context)?.addShimmerListener(_onShimmerUpdate);
   }
 
-  void _initListener() {
-    if (_shimmerChanges != null) {
-      _shimmerChanges!.removeListener(_onShimmerChange);
-    }
-    _shimmerChanges = ShimmerArea.of(context)?.shimmerChanges.value;
-    if (_shimmerChanges != null) {
-      _shimmerChanges!.addListener(_onShimmerChange);
-    }
+  void _onShimmerUpdate(Animation<double> animation) {
+    setState(() {
+      // update state
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    _area = ShimmerArea.of(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    ShimmerAreaState shimmer = ShimmerArea.of(context)!;
-    if (!shimmer.isSized) {
-      // The ancestor Shimmer widget isn’t laid
-      // out yet. Return an empty box.
-      return const SizedBox.shrink();
+    var area = _area;
+
+    if (area == null || !area.isSized) {
+      return widget.child;
     }
-    Size shimmerSize = shimmer.size;
-    Gradient gradient = shimmer.gradient;
+    Size shimmerSize = area.size;
+    Gradient gradient = area.gradient;
 
     RenderBox? shimmerBox = context.findRenderObject() as RenderBox?;
 
-    Offset offsetWithinShimmer = shimmerBox != null ? shimmer.getDescendantOffset(descendant: shimmerBox) : Offset.zero;
+    Offset offsetWithinShimmer = shimmerBox != null ? area.getDescendantOffset(descendant: shimmerBox) : Offset.zero;
 
     return ShaderMask(
       blendMode: widget.blendMode,
@@ -78,13 +78,7 @@ class _ShimmerState extends State<Shimmer> {
 
   @override
   void dispose() {
-    _shimmerChanges?.removeListener(_onShimmerChange);
+    _area?.removeShimmerListener(_onShimmerUpdate);
     super.dispose();
-  }
-
-  void _onShimmerChange() {
-    setState(() {
-      // update the shimmer painting.
-    });
   }
 }

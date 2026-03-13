@@ -1,3 +1,6 @@
+import "dart:async";
+
+import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "../../ux_improvements.dart";
 
@@ -39,7 +42,7 @@ import "../../ux_improvements.dart";
 /// ```
 class ShimmerArea extends StatefulWidget {
   final LinearGradient gradient;
-  final Duration? duration;
+  final Duration duration;
   final Widget child;
 
   const ShimmerArea({
@@ -72,9 +75,9 @@ class ShimmerArea extends StatefulWidget {
 
   factory ShimmerArea.fromTheme({
     Key? key,
+    required BuildContext context,
     ShimmerStyle? style,
     Duration? duration,
-    required BuildContext context,
     Widget? child,
   }) {
     ShimmerStyle defaultStyle = ShimmerStyle.defaultStyle(context);
@@ -111,10 +114,12 @@ class ShimmerArea extends StatefulWidget {
   }
 }
 
+typedef ShimmerListener = void Function(Animation<double> animation);
+
 class ShimmerAreaState extends State<ShimmerArea> with TickerProviderStateMixin {
   late AnimationController _shimmerController;
 
-  late ValueNotifier<Animation<double>> shimmerChanges = ValueNotifier(_shimmerController.view);
+  final List<ShimmerListener> _shimmerListener = [];
 
   LinearGradient get gradient => LinearGradient(
         colors: widget.gradient.colors,
@@ -128,10 +133,7 @@ class ShimmerAreaState extends State<ShimmerArea> with TickerProviderStateMixin 
 
   Size get size => (context.findRenderObject()! as RenderBox).size;
 
-  Offset getDescendantOffset({
-    required RenderBox descendant,
-    Offset offset = Offset.zero,
-  }) {
+  Offset getDescendantOffset({required RenderBox descendant, Offset offset = Offset.zero}) {
     RenderBox shimmerBox = context.findRenderObject()! as RenderBox;
     return descendant.localToGlobal(offset, ancestor: shimmerBox);
   }
@@ -143,21 +145,48 @@ class ShimmerAreaState extends State<ShimmerArea> with TickerProviderStateMixin 
     _initController();
   }
 
+  void _notifyShimmerListener() {
+    for (var listener in _shimmerListener) {
+      listener(_shimmerController.view);
+    }
+  }
+
+  void addShimmerListener(ShimmerListener listener) {
+    _shimmerListener.add(listener);
+    unawaited(_evaluateController());
+  }
+
+  void removeShimmerListener(ShimmerListener listener) {
+    _shimmerListener.remove(listener);
+    unawaited(_evaluateController());
+  }
+
   @override
   void didUpdateWidget(covariant ShimmerArea oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.duration != widget.duration) {
+      _shimmerController.removeListener(_notifyShimmerListener);
       _shimmerController.dispose();
       _initController();
     }
   }
 
   void _initController() {
-    _shimmerController = AnimationController.unbounded(vsync: this)
-      ..repeat(min: -0.5, max: 1.5, period: widget.duration).ignore();
+    _shimmerController = AnimationController.unbounded(vsync: this);
 
-    shimmerChanges.value = _shimmerController.view;
+    _shimmerController.addListener(_notifyShimmerListener);
+
+    unawaited(_evaluateController());
+  }
+
+  Future<void> _evaluateController() {
+    if (_shimmerListener.isNotEmpty) {
+      return _shimmerController.repeat(min: -0.5, max: 1.5, period: widget.duration);
+    } else {
+      _shimmerController.reset();
+      return SynchronousFuture(null);
+    }
   }
 
   @override
@@ -167,7 +196,6 @@ class ShimmerAreaState extends State<ShimmerArea> with TickerProviderStateMixin 
 
   @override
   void dispose() {
-    shimmerChanges.dispose();
     _shimmerController.dispose();
     super.dispose();
   }

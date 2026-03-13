@@ -1,3 +1,10 @@
+## 0.14.0
+
+### Changed ###
+
+* ShimmerArea will stop running after all listener have been unsubscribed
+* ShimmerArea now uses `ShimmerArea.addShimmerListener` instead of `ShimmerArea.shimmerChanges` animation for subscription
+
 ## 0.13.10
 
 ### Added ###
