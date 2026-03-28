@@ -69,7 +69,7 @@ class SpanBuilder {
     matches.sort((a, b) => a.start.compareTo(b.start));
 
     if (matches.isEmpty) {
-      _spans.add(TextSpan(text: text));
+      _spans.add(noMatchBuilder(text));
     } else {
       RegExpMatch match = matches.first;
       RegExpMatch? nextMatch;

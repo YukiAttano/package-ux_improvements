@@ -1,3 +1,9 @@
+## 0.14.1
+
+## Fixed ##
+
+* SpanBuiler.noMatchBuilder will be used now
+
 ## 0.14.0
 
 ### Changed ###
