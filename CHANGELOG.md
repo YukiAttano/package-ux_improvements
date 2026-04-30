@@ -1,3 +1,9 @@
+## 0.14.2
+
+## Fixed ##
+
+* AdaptiveTextScale does no longer use a key for its subtree to avoid rebuilds
+
 ## 0.14.1
 
 ## Fixed ##

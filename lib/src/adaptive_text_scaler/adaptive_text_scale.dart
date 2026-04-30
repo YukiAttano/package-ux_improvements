@@ -55,8 +55,6 @@ class AdaptiveTextScale extends StatelessWidget {
     ChainedTextScaler chainScaler = ChainedTextScaler(sourceScaler: source, chainScaler: scaler);
 
     return MediaQuery(
-      // key is required to react to changes in the chainScaler, e.g. if Accessibility changes.
-      key: ObjectKey(chainScaler),
       data: data.copyWith(textScaler: chainScaler),
       child: child,
     );
