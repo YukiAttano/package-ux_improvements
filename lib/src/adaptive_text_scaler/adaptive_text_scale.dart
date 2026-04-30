@@ -34,7 +34,7 @@ class AdaptiveTextScale extends StatelessWidget {
   ///
   /// This allows to stack multiple [AdaptiveTextScale] widgets and only applying the last [scaler].
   ///
-  /// If [MediaQueryData.textScaler] carries not a [ChainedTextScaler] or [merge] is false, the [MediaQueryData.textScaler] is chained.
+  /// If [MediaQueryData.textScaler] does not carry a [ChainedTextScaler] or [merge] is false, the [MediaQueryData.textScaler] is chained.
   final bool merge;
 
   final Widget child;
