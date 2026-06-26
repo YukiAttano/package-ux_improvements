@@ -3,7 +3,7 @@
 ## Added ##
 
 * BuildContextExtension.setupTextPainter() to get a reusable Textpainter (For people who have an actual need to measure text sizes)
-* StringExtension.measure() which uses a Textpainter and updates it when necessary.
+* StringExtension.measure() which uses a Textpainter and updates it when necessary
 
 ## 0.14.2
 
