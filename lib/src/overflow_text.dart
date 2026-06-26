@@ -42,6 +42,7 @@ class OverflowText extends StatelessWidget {
     TextScaler? textScaler,
     Locale? locale,
   }) {
+    // ignore: parameter_assignments .
     style = this.style ?? style;
     // ignore: parameter_assignments .
     textScaler = this.textScaler ?? textScaler ?? TextScaler.noScaling;
